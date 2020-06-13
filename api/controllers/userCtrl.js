@@ -135,6 +135,24 @@ exports.getUserDomain = function(req, res) {
   });
 };
 
+exports.getUserByID = function(req, res) {
+  users.findOne({_id:req.body.id}, function(err, user) {
+    if(user == null){
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid username.'
+      });
+    }else{
+      res.json({
+         status: 1,
+         data: user,
+         error:'User fetched successfully!'
+      });
+    }
+  });
+};
+
 // //******************** Forgot_password_function ************************
 exports.forgot_password = function(req, res) {
     users.findOne({email: req.body.email}, function(err, user) {
