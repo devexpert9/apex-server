@@ -26,6 +26,10 @@ var userData = require('../controllers/userCtrl');
    app.route('/getUserByID')
      .post(userData.getUserByID);
 
+var userData = require('../controllers/userCtrl');
+   app.route('/update_user')
+     .post(userData.update_user);
+
 var userlists = require('../controllers/userCtrl');
    app.route('/listuser')
      .post(userlists.userlist);

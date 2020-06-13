@@ -288,20 +288,25 @@ exports.deleteuser = function(req, res) {
     });
 };
 
-exports.update_user = function(req, res) {
-  users.update({_id: req.body._id},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'contact':req.body.contact, 'image':req.body.image, 'password': req.body.password } }, {new: true}, function(err, user) {
-    if(user == null){
+exports.update_user = function(req, res)
+{
+  users.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'username': req.body.username, 'email':req.body.email, 'password': req.body.password } }, {new: true}, function(err, user)
+  {
+    if(user == null)
+    {
       res.send({
         error: err,
         status: 0,
         msg:"Try Again"
       });
-    }else{
+    }
+    else
+    {
       res.json({
         error: null,
         status: 1,
         data:user,
-        msg:"Profile updated successfully!"
+        msg:"Agent updated successfully!"
       });
     }
   });
