@@ -25,4 +25,19 @@ var userSchema = new Schema({
     }
 });
 
+
+var inquirySchema = new Schema({
+   
+    domain : {
+      type: String
+    },
+    data : {
+      type: Object
+    }
+    created_on: {
+      type: Date
+    }
+});
+
 module.exports = mongoose.model('users', userSchema);
+module.exports = mongoose.model('inquiries', inquirySchema);

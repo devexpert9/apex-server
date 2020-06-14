@@ -82,6 +82,12 @@ var superAdmin = require('../controllers/superadminCtrl');
    app.route('/super_admin_login')
      .post(superAdmin.login_superadmin);
 
-    
+var userData = require('../controllers/inquiryCtrl');
+   app.route('/contactRequest')
+     .post(userData.add_contactRequest);
+
+var userData = require('../controllers/inquiryCtrl');
+   app.route('/contactData')
+     .post(userData.getPageData);  
 };
 
