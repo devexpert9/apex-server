@@ -36,10 +36,11 @@ exports.getPageData = function(req, res)
   inquiries.find({}, function(err, doc) {
     var data = [],
         counter = 0;
-    
+      console.log(doc)
       function getDomainData(){
         if(counter < doc.length){
           users.findOne({_id: doc[counter].domain}, function(err, user){
+            console.log(user)
             var dict = {
               domain: user.username,
               agent: user.name,
