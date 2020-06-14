@@ -259,31 +259,24 @@ exports.userlist = function(req, res) {
 };
 
 //******************** Otp_verification_function ************************
-exports.deleteuser = function(req, res) {
-       users.remove({_id:req.body.userid}, function(err, user) {
-      if(user == null){
-        res.send({
+exports.deleteuser = function(req, res)
+{
+    users.remove({_id:req.body.userid}, function(err, user) {
+      if(user == null)
+      {
+        res.json({
           error: err,
           status: 0,
           msg:"Try Again"
         });
-      }else{
-         newsfeed.remove({user_id:req.body.userid}, function(err, feed) {
-      if(feed == null){
-        res.send({
-          error: err,
-          status: 0,
-          msg:"Try Again"
-        });
-      }else{
+      }
+      else
+      {
         res.json({
           error: null,
           status: 1,
           msg:"Deleted Successfully"
-        });
-      }
-    });
-    
+        });    
       }
     });
 };
