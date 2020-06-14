@@ -41,7 +41,8 @@ exports.getPageData = function(req, res)
         if(counter < doc.length){
           users.findOne({_id: doc[counter].domain}, function(err, user){
             console.log(user)
-            var dict = {
+            if(user != null){
+              var dict = {
               domain: user.username,
               agent: user.name,
               agent_email: agent.email,
@@ -49,7 +50,11 @@ exports.getPageData = function(req, res)
               inquiry_data: doc[counter].data
             };
             data.push(dict);
+            //getDomainData();
+            }
+            counter = counter+ 1;
             getDomainData();
+            
           });
         }else{
           res.json({
