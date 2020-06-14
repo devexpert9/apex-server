@@ -45,7 +45,7 @@ exports.getPageData = function(req, res)
               var dict = {
               domain: user.username,
               agent: user.name,
-              agent_email: agent.email,
+              agent_email: user.email,
               // agent_contact: agent.phone,
               inquiry_data: doc[counter].data
             };
