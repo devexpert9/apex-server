@@ -34,6 +34,10 @@ var userlists = require('../controllers/userCtrl');
    app.route('/listuser')
      .post(userlists.userlist);
 
+var userlists = require('../controllers/userCtrl');
+   app.route('/deleteuser')
+     .post(userlists.deleteuser);
+
 var cms = require('../controllers/cmspageCtrl');
    app.route('/add_cmspage')
      .post(cms.add_cmspage);
