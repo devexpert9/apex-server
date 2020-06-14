@@ -33,7 +33,7 @@ var inquirySchema = new Schema({
     },
     data : {
       type: Object
-    }
+    },
     created_on: {
       type: Date
     }
