@@ -47,7 +47,8 @@ exports.getPageData = function(req, res)
               agent: user.name,
               agent_email: user.email,
               // agent_contact: agent.phone,
-              inquiry_data: doc[counter].data
+              inquiry_data: doc[counter].data,
+              date: doc[counter].created_on
             };
             data.push(dict);
             //getDomainData();
