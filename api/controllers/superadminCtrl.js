@@ -57,6 +57,35 @@ exports.create_user_admin = function(req, res) {
   });
 };
 
+//**************** Update_admin_profile_function ******************
+exports.update_admin_profile = function(req, res) {
+    superadmin.update({_id:req.body.id},
+        { $set: 
+          { 
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email:req.body.email,
+            contact:req.body.contact,
+            image:req.body.image,
+          }}, {new: true}, function(err, user) {
+          if(user.nModified != 1){
+            res.send({
+              error: err,
+              status: 0,
+              msg:"Try Again"
+            });
+          }else{
+              superadmin.findOne({_id:req.body.id}, function(err, singleuser) {
+              res.json({
+              status: 1,
+              data:singleuser,
+              msg:"Profile updated successfully!"
+            });
+              })
+           }
+        });
+};
+
 exports.login_superadmin = function(req, res) {
   superadmin.findOne({username: req.body.email, password: req.body.password}, function(err, user) { 
     console.log(user)
@@ -168,33 +197,7 @@ exports.otp_verification = function(req, res) {
   });
 };
 
-//**************** Update_admin_profile_function ******************
-exports.update_admin_profile = function(req, res) {
-    superadmin.update({_id:req.body.id},
-        { $set: 
-          { firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            email:req.body.email,
-            contact:req.body.contact,
-            image:req.body.image,
-          }}, {new: true}, function(err, user) {
-          if(user.nModified != 1){
-            res.send({
-              error: err,
-              status: 0,
-              msg:"Try Again"
-            });
-          }else{
-              superadmin.findOne({_id:req.body.id}, function(err, singleuser) {
-              res.json({
-              status: 1,
-              data:singleuser,
-              msg:"Profile updated successfully!"
-            });
-              })
-           }
-        });
-};
+
 //******************** Upload adminimage function ************************
 exports.upload_admin_image = function(req, res) {
   upload(req,res,function(err){
