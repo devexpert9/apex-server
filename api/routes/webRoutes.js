@@ -6,6 +6,10 @@ var userAdmin = require('../controllers/adminCtrl');
    app.route('/addUseradmin')
      .post(userAdmin.create_user_admin);
 
+var userAdmin = require('../controllers/adminCtrl');
+   app.route('/get_info_about_agent')
+     .post(userAdmin.get_info_about_agent);
+
 var adduser = require('../controllers/userCtrl');
    app.route('/addUser')
      .post(adduser.addUser);

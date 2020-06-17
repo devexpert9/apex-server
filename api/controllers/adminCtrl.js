@@ -56,7 +56,24 @@ exports.create_user_admin = function(req, res) {
   });
 };
 
-
+exports.get_info_about_agent = function(req, res) {
+  admin.findOne({_id: req.body._id}, function(err, user)
+  { 
+    console.log(user)
+    if(user == null){
+      res.send({
+        data: null,
+        status: 0,
+        error:'Invaid logged in details.'
+      });
+    }else{
+      res.send({
+        status: 1,
+        data: user,
+        error:'You are logged in successfully.'
+      });
+    }  
+  });
 
 exports.login_admin = function(req, res) {
   admin.findOne({username: req.body.email, password: req.body.password}, function(err, user) { 
