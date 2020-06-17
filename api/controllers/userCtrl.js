@@ -20,6 +20,26 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage }).single('image');
 
+exports.getInfoAboutAgent = function(req, res) {
+  users.findOne({_id: req.body._id}, function(err, user)
+  { 
+    console.log(user)
+    if(user == null){
+      res.send({
+        data: null,
+        status: 0,
+        error:'Invaid logged in details.'
+      });
+    }else{
+      res.send({
+        status: 1,
+        data: user,
+        error:'You are logged in successfully.'
+      });
+    }  
+  });
+}
+
 exports.update_admin_password = function(req, res) {
   console.log(req.body);
    users.findOne({email: req.body.email}, function(err, doc) {
