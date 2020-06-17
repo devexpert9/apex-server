@@ -74,6 +74,7 @@ exports.getInfoAboutAgent = function(req, res) {
       });
     }  
   });
+}
 
 exports.login_admin = function(req, res) {
   admin.findOne({username: req.body.email, password: req.body.password}, function(err, user) { 
