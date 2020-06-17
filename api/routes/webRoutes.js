@@ -8,7 +8,7 @@ var userAdmin = require('../controllers/adminCtrl');
 
 var userAdmin = require('../controllers/adminCtrl');
    app.route('/get_info_about_agent')
-     .post(userAdmin.get_info_about_agent);
+     .post(userAdmin.getInfoAboutAgent);
 
 var adduser = require('../controllers/userCtrl');
    app.route('/addUser')

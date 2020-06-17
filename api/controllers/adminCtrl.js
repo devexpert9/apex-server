@@ -56,7 +56,7 @@ exports.create_user_admin = function(req, res) {
   });
 };
 
-exports.get_info_about_agent = function(req, res) {
+exports.getInfoAboutAgent = function(req, res) {
   admin.findOne({_id: req.body._id}, function(err, user)
   { 
     console.log(user)
