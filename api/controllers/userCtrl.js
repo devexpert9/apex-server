@@ -85,8 +85,10 @@ exports.update_admin_password = function(req, res) {
 };
 // const bcrypt = require('bcrypt');
 //****************  create_user_function ****************************
-exports.addUser = function(req, res) {
-  users.findOne({email: req.body.email}, function(err, user) {
+exports.addUser = function(req, res)
+{
+  users.findOne({email: req.body.email}, function(err, user)
+  {
     if(user == null){
       var new_user = new users({
         username: req.body.username,
@@ -96,7 +98,20 @@ exports.addUser = function(req, res) {
         image: null
       });
 
-      new_user.save(function(err, users) {
+      new_user.save(function(err, users)
+      {
+        // SEND EMAIL TO AGENT ----------------------------------
+          const sgMail = require('@sendgrid/mail');
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+          const msg = {
+            to: req.body.email,
+            from: 'info@apex.com',
+            subject: 'Agent Registered',
+            text: 'Apex',
+            html: '<body style="width:500px;margin:20px auto 0;font-family: arial;padding:0;font-size:13px;"><div style="background:#f9fcfd;padding:20px;border:1px solid #ddd;"><center style="background:#000"><img src="http://3.16.216.113/superadmin/assets/media/logos/logo-8.png"width="180"></center><p style="text-align: left;font-size: 17px;margin: 15px 0px;#222">Hi'+req.body.name+'</p><p style="font-family: arial;font-size: 14px;#222"> You have recently added as a agent with us. Below are your details:<br> Email: <a>'+req.body.email+'<a><br> Password: <a>'+req.body.password+'<a></p></div></body>',
+          };
+          sgMail.send(msg);
+        //-------------------------------------------------------
         res.send({
           data: users,
           status: 1,
