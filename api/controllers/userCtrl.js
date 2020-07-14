@@ -125,7 +125,7 @@ exports.addUser = function(req, res)
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
 
-            var sg = require('sendgrid')('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');
+            var sg = require('sendgrid')('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');
             var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
@@ -135,7 +135,7 @@ exports.addUser = function(req, res)
               if (error) {
                 res.json({
                     msg: 'Something went wrong.Please try later.',
-                    status: 0,
+                    status: 0
                     data: error
                 });
                 // console.log('Error response received');
