@@ -125,7 +125,7 @@ exports.addUser = function(req, res)
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
 
-            var sg = require('sendgrid')('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');
+            var sg = require('sendgrid')('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');
             var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
