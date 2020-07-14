@@ -104,7 +104,7 @@ exports.addUser = function(req, res)
         // SEND EMAIL TO AGENT ----------------------------------
           var string = 'Apex'
           var fs = require('fs'); // npm install fs
-          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agent.html', 'utf8');
+          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentadd.html', 'utf8');
           let dynamic_data = ''
           readStream.on('data', function(chunk) {
               dynamic_data += chunk;
@@ -124,6 +124,7 @@ exports.addUser = function(req, res)
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
+
             var sg = require('sendgrid')('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');
             var request = sg.emptyRequest({
                 method: 'POST',
@@ -142,17 +143,17 @@ exports.addUser = function(req, res)
                 res.json({
                     msg: 'Mail has been sent successfully',
                     status: 1,
-                    data:null
+                    data:users
                 });
               }
             })
           }) 
         //-------------------------------------------------------
-        res.send({
-          data: users,
-          status: 1,
-          error: 'User registered successfully!'
-        });
+        // res.send({
+        //   data: users,
+        //   status: 1,
+        //   error: 'User registered successfully!'
+        // });
       });
     }else{
       res.send({
