@@ -109,7 +109,7 @@ exports.addUser = function(req, res)
           readStream.on('data', function(chunk) {
               dynamic_data += chunk;
           }).on('end', function() {
-            var helper = require('@sendgrid/mail');
+            var helper = require('sendgrid').mail;
             var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
             var toEmail   = new helper.Email(req.body.email);
             //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
@@ -125,7 +125,7 @@ exports.addUser = function(req, res)
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
 
-            var sg = require('@sendgrid/mail')('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');
+            var sg = require('sendgrid')('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');
             var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
