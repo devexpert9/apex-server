@@ -135,8 +135,8 @@ exports.addUser = function(req, res)
               if (error) {
                 res.json({
                     msg: 'Something went wrong.Please try later.',
-                    status: 0
-                   
+                    status: 0,
+                    data: error
                 });
                 // console.log('Error response received');
               }else{
