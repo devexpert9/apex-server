@@ -89,7 +89,8 @@ exports.addUser = function(req, res)
 {
   users.findOne({email: req.body.email}, function(err, user)
   {
-    if(user == null){
+    if(user == null)
+    {
       var new_user = new users({
         username: req.body.username,
         name: req.body.name,
@@ -101,16 +102,51 @@ exports.addUser = function(req, res)
       new_user.save(function(err, users)
       {
         // SEND EMAIL TO AGENT ----------------------------------
-          const sgMail = require('@sendgrid/mail');
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-          const msg = {
-            to: req.body.email,
-            from: 'info@apex.com',
-            subject: 'Agent Registered',
-            text: 'Apex',
-            html: '<body style="width:500px;margin:20px auto 0;font-family: arial;padding:0;font-size:13px;"><div style="background:#f9fcfd;padding:20px;border:1px solid #ddd;"><center style="background:#000"><img src="http://3.16.216.113/superadmin/assets/media/logos/logo-8.png"width="180"></center><p style="text-align: left;font-size: 17px;margin: 15px 0px;#222">Hi'+req.body.name+'</p><p style="font-family: arial;font-size: 14px;#222"> You have recently added as a agent with us. Below are your details:<br> Email: <a>'+req.body.email+'<a><br> Password: <a>'+req.body.password+'<a></p></div></body>',
-          };
-          sgMail.send(msg);
+          var string = 'Apex'
+          var fs = require('fs'); // npm install fs
+          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agent.html', 'utf8');
+          let dynamic_data = ''
+          readStream.on('data', function(chunk) {
+              dynamic_data += chunk;
+          }).on('end', function() {
+            var helper = require('sendgrid').mail;
+            var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
+            var toEmail   = new helper.Email(req.body.email);
+            //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
+            var subject = 'Apex Agent Account Login Details';
+
+            // dynamic_data = dynamic_data.replace("#STRING#",  string);
+            dynamic_data = dynamic_data.replace("#NAME#", req.body.name) ;
+            dynamic_data = dynamic_data.replace("#EMAIL#", req.body.email) ;
+            dynamic_data = dynamic_data.replace("#PASSWORD#", req.body.password);
+            // dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
+            var content = new helper.Content('text/html', dynamic_data);
+
+            var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+            // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
+            var sg = require('sendgrid')('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');
+            var request = sg.emptyRequest({
+                method: 'POST',
+                path: '/v3/mail/send',
+                body: mail.toJSON()
+            });
+            sg.API(request, function (error, response) {
+              if (error) {
+                res.json({
+                    msg: 'Something went wrong.Please try later.',
+                    status: 0
+                   
+                });
+                // console.log('Error response received');
+              }else{
+                res.json({
+                    msg: 'Mail has been sent successfully',
+                    status: 1,
+                    data:null
+                });
+              }
+            })
+          }) 
         //-------------------------------------------------------
         res.send({
           data: users,
