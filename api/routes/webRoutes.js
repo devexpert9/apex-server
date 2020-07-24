@@ -14,6 +14,10 @@ var adduser = require('../controllers/userCtrl');
    app.route('/addUser')
      .post(adduser.addUser);
 
+var adduser = require('../controllers/userCtrl');
+   app.route('/checkEmailExist')
+     .post(adduser.checkEmailExist);
+
 var adminPwd = require('../controllers/userCtrl');
    app.route('/update_admin_password')
      .post(adminPwd.update_admin_password);

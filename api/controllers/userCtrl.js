@@ -167,6 +167,27 @@ exports.addUser = function(req, res)
 
 
 
+//**************** checkEmailExist ******************
+exports.checkEmailExist = function(req, res) {
+  users.findOne({email:req.body.email}, function(err, user) {
+    if(user == null)
+    {
+      res.send({
+        status: 0,
+        data: null,
+        error:'Email Not Exist.'
+      });
+    }else{
+      res.send({
+        status: 1,
+        data: null,
+        error:'Email Exist.'
+      });
+    }
+  });
+};
+
+
 //**************** User_login_function ******************
 exports.login = function(req, res) {
   users.findOne({email:req.body.email, password:req.body.password}, function(err, user) {
