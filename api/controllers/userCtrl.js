@@ -102,7 +102,7 @@ exports.addUser = function(req, res)
       new_user.save(function(err, users)
       {
         // SEND EMAIL TO AGENT ----------------------------------
-          var string = 'Apex'
+          /* var string = 'Apex'
           var fs = require('fs'); // npm install fs
           var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentadd.html', 'utf8');
           let dynamic_data = ''
@@ -147,13 +147,13 @@ exports.addUser = function(req, res)
                 });
               }
             })
-          }) 
+          }) */
         //-------------------------------------------------------
-        // res.send({
-        //   data: users,
-        //   status: 1,
-        //   error: 'User registered successfully!'
-        // });
+        res.send({
+          data: users,
+          status: 1,
+          error: 'User registered successfully!'
+        });
       });
     }else{
       res.send({
