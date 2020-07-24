@@ -91,70 +91,85 @@ exports.addUser = function(req, res)
   {
     if(user == null)
     {
-      var new_user = new users({
-        username: req.body.username,
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        image: null
-      });
-
-      new_user.save(function(err, users)
+      users.findOne({username: req.body.username}, function(err, username)
       {
-        // SEND EMAIL TO AGENT ----------------------------------
-          /* var string = 'Apex'
-          var fs = require('fs'); // npm install fs
-          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentadd.html', 'utf8');
-          let dynamic_data = ''
-          readStream.on('data', function(chunk) {
-              dynamic_data += chunk;
-          }).on('end', function() {
-            var helper = require('sendgrid').mail;
-            var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
-            var toEmail   = new helper.Email(req.body.email);
-            //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
-            var subject = 'Apex Agent Account Login Details';
+        if(username == null)
+        {
+          var new_user = new users({
+            username: req.body.username,
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            image: null
+          });
 
-            // dynamic_data = dynamic_data.replace("#STRING#",  string);
-            dynamic_data = dynamic_data.replace("#NAME#", req.body.name) ;
-            dynamic_data = dynamic_data.replace("#EMAIL#", req.body.email) ;
-            dynamic_data = dynamic_data.replace("#PASSWORD#", req.body.password);
-            // dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
-            var content = new helper.Content('text/html', dynamic_data);
+          new_user.save(function(err, users)
+          {
+            // SEND EMAIL TO AGENT ----------------------------------
+              /* var string = 'Apex'
+              var fs = require('fs'); // npm install fs
+              var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentadd.html', 'utf8');
+              let dynamic_data = ''
+              readStream.on('data', function(chunk) {
+                  dynamic_data += chunk;
+              }).on('end', function() {
+                var helper = require('sendgrid').mail;
+                var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
+                var toEmail   = new helper.Email(req.body.email);
+                //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
+                var subject = 'Apex Agent Account Login Details';
 
-            var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-            // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
+                // dynamic_data = dynamic_data.replace("#STRING#",  string);
+                dynamic_data = dynamic_data.replace("#NAME#", req.body.name) ;
+                dynamic_data = dynamic_data.replace("#EMAIL#", req.body.email) ;
+                dynamic_data = dynamic_data.replace("#PASSWORD#", req.body.password);
+                // dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
+                var content = new helper.Content('text/html', dynamic_data);
 
-            var sg = require('sendgrid')('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');
-            var request = sg.emptyRequest({
-                method: 'POST',
-                path: '/v3/mail/send',
-                body: mail.toJSON()
+                var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+                // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
+
+                var sg = require('sendgrid')('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');
+                var request = sg.emptyRequest({
+                    method: 'POST',
+                    path: '/v3/mail/send',
+                    body: mail.toJSON()
+                });
+                sg.API(request, function (error, response) {
+                  if (error) {
+                    res.json({
+                        msg: 'Something went wrong.Please try later.',
+                        status: 0,
+                        data: error
+                    });
+                    // console.log('Error response received');
+                  }else{
+                    res.json({
+                        msg: 'Mail has been sent successfully',
+                        status: 1,
+                        data:users
+                    });
+                  }
+                })
+              }) */
+            //-------------------------------------------------------
+            res.send({
+              data: users,
+              status: 1,
+              error: 'User registered successfully!'
             });
-            sg.API(request, function (error, response) {
-              if (error) {
-                res.json({
-                    msg: 'Something went wrong.Please try later.',
-                    status: 0,
-                    data: error
-                });
-                // console.log('Error response received');
-              }else{
-                res.json({
-                    msg: 'Mail has been sent successfully',
-                    status: 1,
-                    data:users
-                });
-              }
-            })
-          }) */
-        //-------------------------------------------------------
-        res.send({
-          data: users,
-          status: 1,
-          error: 'User registered successfully!'
-        });
+          });
+        }
+        else{
+          res.send({
+            status: 0,
+            data: null,
+            error: 'Username already exist in our system!'
+          });
+        }
       });
+
+      
     }else{
       res.send({
         status: 0,
