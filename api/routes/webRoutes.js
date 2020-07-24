@@ -37,6 +37,10 @@ var userData = require('../controllers/userCtrl');
 var userData = require('../controllers/userCtrl');
    app.route('/update_user')
      .post(userData.update_user);
+     
+var userData = require('../controllers/userCtrl');
+   app.route('/update_userLess')
+     .post(userData.update_userLess);
 
 var userlists = require('../controllers/userCtrl');
    app.route('/listuser')

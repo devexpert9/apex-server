@@ -398,6 +398,30 @@ exports.update_user = function(req, res)
   });
 };
 
+exports.update_userLess = function(req, res)
+{
+  users.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'email':req.body.email} }, {new: true}, function(err, user)
+  {
+    if(user == null)
+    {
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }
+    else
+    {
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Agent updated successfully!"
+      });
+    }
+  });
+};
+
 //******************** Update user image function ************************
 exports.update_user_image = function(req, res) {
   upload(req,res,function(err){
