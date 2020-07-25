@@ -256,7 +256,7 @@ exports.checkEmailExist = function(req, res) {
 
 //**************** User_login_function ******************
 exports.login = function(req, res) {
-  users.findOne({email:req.body.email, password:req.body.password}, function(err, user) {
+  users.findOne({$or: [ {email: req.body.email, password: req.body.password}, {username: req.body.email, password: req.body.password} ] }, function(err, user) {
     if(user == null){
       res.send({
         status: 0,
