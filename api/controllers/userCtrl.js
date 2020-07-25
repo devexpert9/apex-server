@@ -219,7 +219,7 @@ exports.update_user = function(req, res)
             error: 'Username already exist in our system!'
           });
         }
-      }
+      })
     }
     else{
       res.send({
