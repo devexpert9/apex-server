@@ -180,6 +180,57 @@ exports.addUser = function(req, res)
   });
 };
 
+exports.update_user = function(req, res)
+{
+  users.findOne({email: req.body.email, '_id': { $ne: req.body._id}}, function(err, user)
+  {
+    if(user == null)
+    {
+      users.findOne({username: req.body.username, '_id': { $ne: req.body._id}}, function(err, username)
+      {
+        if(username == null)
+        {
+          users.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'username': req.body.username, 'email':req.body.email, 'password': req.body.password } }, {new: true}, function(err, user)
+          {
+            if(user == null)
+            {
+              res.send({
+                error: err,
+                status: 0,
+                msg:"Try Again"
+              });
+            }
+            else
+            {
+              res.json({
+                error: null,
+                status: 1,
+                data:user,
+                msg:"Agent updated successfully!"
+              });
+            }
+          });
+        }
+        else
+        {
+          res.send({
+            status: 0,
+            data: null,
+            error: 'Username already exist in our system!'
+          });
+        }
+      }
+    }
+    else{
+      res.send({
+        status: 0,
+        data: null,
+        error: 'Email already exist in our system!'
+      });
+    }
+  });
+};
+
 
 
 //**************** checkEmailExist ******************
@@ -389,29 +440,7 @@ exports.deleteuser = function(req, res)
     });
 };
 
-exports.update_user = function(req, res)
-{
-  users.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'username': req.body.username, 'email':req.body.email, 'password': req.body.password } }, {new: true}, function(err, user)
-  {
-    if(user == null)
-    {
-      res.send({
-        error: err,
-        status: 0,
-        msg:"Try Again"
-      });
-    }
-    else
-    {
-      res.json({
-        error: null,
-        status: 1,
-        data:user,
-        msg:"Agent updated successfully!"
-      });
-    }
-  });
-};
+
 
 exports.update_userLess = function(req, res)
 {
