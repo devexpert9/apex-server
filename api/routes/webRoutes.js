@@ -106,6 +106,10 @@ var userData = require('../controllers/cmscontentCtrl');
    app.route('/addCmsContant')
      .post(userData.addCmsContant);
 
+var userData = require('../controllers/cmscontentCtrl');
+   app.route('/getCmsContent')
+     .post(userData.getCmsContent);
+
 var userData = require('../controllers/inquiryCtrl');
    app.route('/contactData')
      .post(userData.getPageData);  

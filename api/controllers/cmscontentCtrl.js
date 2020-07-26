@@ -21,29 +21,57 @@ var upload = multer({ storage: storage }).single('image');
 // Add CMS content---------------------------------------
 exports.addCmsContant = function(req, res)
 {
-  var new_admin = new superadmin({
-    template:                   req.body.template,
-    selfservice_image:          req.body.selfservice_image,
-    selfservice_content:        req.body.selfservice_content,
-    disability_image:           req.body.disability_image,
-    disability_content:         req.body.disability_content,
-    property_casuality_image:   req.body.property_casuality_image,
-    property_casuality_content: req.body.property_casuality_content
-  });
-  cmscontent.save(function(err, doc) {
+  cmscontent.findOne({template: req.body.template}, function(err, doc) {
     if(doc == null){
-      res.send({
-        data: null,
-        error: 'Something went wrong.Please try later.',
-        status: 0
+      var new_admin = new cmscontent({
+        template: req.body.template,
+        data: req.body.data
+      });
+      cmscontent.save(function(err, doc) {
+        if(doc == null){
+          res.send({
+            data: null,
+            error: 'Something went wrong.Please try later.',
+            status: 0
+          });
+        }else{
+          res.send({
+            data: doc,
+            status: 1,
+            error: 'Content updated successfully!'
+          });
+        }
       });
     }else{
-      res.send({
-        data: doc,
-        status: 1,
-        error: 'Content updated successfully!'
+      cmscontent.update({template: req.body.template}, { $set: { data: req.body.data}}, {new: true}, function(err, save) {
+        if(save == null){
+          res.send({
+            status: 0,
+            data: save,
+            msg:'Try Again'
+          });
+
+        }else{
+          res.json({
+             status: 1,
+             add:0,
+             data: save,
+             msg:'Updated successfully!'
+          });
+        }
       });
     }
+  });
+}
+
+exports.getCmsContent = function(req, res){
+  cmscontent.findOne({'template': req.body.template}, function(err, doc){
+    res.json({
+       status: 1,
+       add:0,
+       data: doc,
+       msg:'Updated successfully!'
+    });
   });
 }
 
