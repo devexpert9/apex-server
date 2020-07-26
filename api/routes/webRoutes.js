@@ -102,6 +102,10 @@ var userData = require('../controllers/inquiryCtrl');
    app.route('/contactRequest')
      .post(userData.add_contactRequest);
 
+var userData = require('../controllers/superadminCtrl');
+   app.route('/addCmsContant')
+     .post(userData.addCmsContant);
+
 var userData = require('../controllers/inquiryCtrl');
    app.route('/contactData')
      .post(userData.getPageData);  

@@ -7,6 +7,7 @@ var express = require('express'),
   superadmin = require('./api/models/superadminModel'), 
   cmspage   = require('./api/models/cmspageModel'),
   dashboard = require('./api/models/dashboardModel'),
+  cmscontent = require('./api/models/cmscontentModel'),
   multer    = require('multer'),
   bodyParser = require('body-parser');
 
