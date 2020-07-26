@@ -49,7 +49,7 @@ exports.addCmsContent = function(req, res)
         }
       });
     }else{
-      cmscontent.update({template: req.body.template}, { $set: { selfservice_image: req.body.selfservice_image,selfservice_content: req.body.selfservice_image, disability_image: req.body.disability_image,disability_content: req.body.disability_content,property_casuality_image: req.body.property_casuality_image, property_casuality_content: req.body.property_casuality_content}}, {new: true}, function(err, save) {
+      cmscontent.update({template: req.body.template}, { $set: { selfservice_image: req.body.selfservice_image,selfservice_content: req.body.selfservice_content, disability_image: req.body.disability_image,disability_content: req.body.disability_content,property_casuality_image: req.body.property_casuality_image, property_casuality_content: req.body.property_casuality_content}}, {new: true}, function(err, save) {
         if(save == null){
           res.send({
             status: 0,
