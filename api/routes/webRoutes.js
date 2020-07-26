@@ -113,7 +113,6 @@ var userData = require('../controllers/cmscontentCtrl');
 var userData = require('../controllers/inquiryCtrl');
    app.route('/contactData')
      .post(userData.getPageData);  
-};
 
 var userData = require('../controllers/inquiryCtrl');
    app.route('/deleteInquiry')
