@@ -116,6 +116,6 @@ var userData = require('../controllers/inquiryCtrl');
 
 var userData = require('../controllers/inquiryCtrl');
    app.route('/deleteInquiry')
-     .post(userData.deleteInquiry);  
+     .get(userData.deleteInquiry);  
 };
 
