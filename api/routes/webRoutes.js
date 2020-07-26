@@ -102,7 +102,7 @@ var userData = require('../controllers/inquiryCtrl');
    app.route('/contactRequest')
      .post(userData.add_contactRequest);
 
-var userData = require('../controllers/superadminCtrl');
+var userData = require('../controllers/cmscontentCtrl');
    app.route('/addCmsContant')
      .post(userData.addCmsContant);
 
