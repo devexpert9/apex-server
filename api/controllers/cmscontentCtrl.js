@@ -19,13 +19,18 @@ var mongoose   = require('mongoose'),
 var upload = multer({ storage: storage }).single('image');
 
 // Add CMS content---------------------------------------
-exports.addCmsContant = function(req, res)
+exports.addCmsContent = function(req, res)
 {
   cmscontent.findOne({template: req.body.template}, function(err, doc) {
     if(doc == null){
       var new_admin = new cmscontent({
-        template: req.body.template,
-        data: req.body.data
+        template:                   req.body.template,
+        selfservice_image:          req.body.selfservice_image,
+        selfservice_content:        req.body.selfservice_content,
+        disability_image:           req.body.disability_image,
+        disability_content:         req.body.disability_content,
+        property_casuality_image:   req.body.property_casuality_image,
+        property_casuality_content: req.body.property_casuality_content
       });
       cmscontent.save(function(err, doc) {
         if(doc == null){
@@ -43,7 +48,7 @@ exports.addCmsContant = function(req, res)
         }
       });
     }else{
-      cmscontent.update({template: req.body.template}, { $set: { data: req.body.data}}, {new: true}, function(err, save) {
+      cmscontent.update({template: req.body.template}, { $set: { selfservice_image: req.body.selfservice_image,selfservice_content: req.body.selfservice_image, disability_image: req.body.disability_image,disability_content: req.body.disability_content,property_casuality_image: req.body.property_casuality_image, property_casuality_content: req.body.property_casuality_content}}, {new: true}, function(err, save) {
         if(save == null){
           res.send({
             status: 0,
@@ -64,8 +69,9 @@ exports.addCmsContant = function(req, res)
   });
 }
 
-exports.getCmsContent = function(req, res){
-  cmscontent.findOne({'template': req.body.template}, function(err, doc){
+exports.getCmsContent = function(req, res)
+{
+  cmscontent.find({}, function(err, doc) {
     res.json({
        status: 1,
        add:0,

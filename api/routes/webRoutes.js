@@ -103,8 +103,8 @@ var userData = require('../controllers/inquiryCtrl');
      .post(userData.add_contactRequest);
 
 var userData = require('../controllers/cmscontentCtrl');
-   app.route('/addCmsContant')
-     .post(userData.addCmsContant);
+   app.route('/addCmsContent')
+     .post(userData.addCmsContent);
 
 var userData = require('../controllers/cmscontentCtrl');
    app.route('/getCmsContent')

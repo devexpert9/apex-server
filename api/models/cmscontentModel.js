@@ -8,8 +8,23 @@ var cmscontentSchema = new Schema({
     template : {
       type: String
     },
-    data: {
+    selfservice_image: {
       type: String
+    },
+    selfservice_content: {
+      type: String
+    },
+    disability_image: {
+      type: String,
+    },
+    disability_content: {
+      type : String
+    },
+    property_casuality_image: {
+      type : String
+    },
+    property_casuality_content: {
+      type : String
     }
 });
 
