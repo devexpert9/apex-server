@@ -32,7 +32,8 @@ exports.addCmsContent = function(req, res)
         property_casuality_image:   req.body.property_casuality_image,
         property_casuality_content: req.body.property_casuality_content
       });
-      cmscontent.save(function(err, doc) {
+      
+      new_admin.save(function(err, doc) {
         if(doc == null){
           res.send({
             data: null,
