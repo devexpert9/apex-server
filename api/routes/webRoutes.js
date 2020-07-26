@@ -115,3 +115,8 @@ var userData = require('../controllers/inquiryCtrl');
      .post(userData.getPageData);  
 };
 
+var userData = require('../controllers/inquiryCtrl');
+   app.route('/deleteInquiry')
+     .post(userData.deleteInquiry);  
+};
+

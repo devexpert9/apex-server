@@ -114,3 +114,15 @@ exports.getPageData = function(req, res)
       getDomainData();
   });
 };
+
+exports.deleteInquiry = function(req, res) 
+{
+  console.log(req);
+  inquiries.drop({}, function(err, doc) {
+    res.json({
+        msg: 'inquiry table delet',
+        status: 1,
+        data:doc
+    });
+  });
+};
