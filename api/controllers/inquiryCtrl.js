@@ -118,7 +118,7 @@ exports.getPageData = function(req, res)
 exports.deleteInquiry = function(req, res) 
 {
   console.log(req);
-  inquiries.drop({}, function(err, doc) {
+  inquiries.remove({}, function(err, doc) {
     res.json({
         msg: 'inquiry table delet',
         status: 1,
