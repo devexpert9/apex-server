@@ -25,10 +25,13 @@ exports.addCmsContent = function(req, res)
     if(doc == null){
       var new_admin = new cmscontent({
         template:                   req.body.template,
+        selfHeading:                req.body.selfHeading,
         selfservice_image:          req.body.selfservice_image,
         selfservice_content:        req.body.selfservice_content,
+        disabilityHeading:          req.body.disabilityHeading,
         disability_image:           req.body.disability_image,
         disability_content:         req.body.disability_content,
+        propHeading:                req.body.propHeading,
         property_casuality_image:   req.body.property_casuality_image,
         property_casuality_content: req.body.property_casuality_content
       });
