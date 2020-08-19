@@ -22,7 +22,8 @@ var upload = multer({ storage: storage }).single('image');
 exports.addCmsContent = function(req, res)
 {
   cmscontent.findOne({template: req.body.template}, function(err, doc) {
-    if(doc == null){
+    if(doc == null)
+    {
       var new_admin = new cmscontent({
         template:                   req.body.template,
         selfHeading:                req.body.selfHeading,
@@ -52,7 +53,17 @@ exports.addCmsContent = function(req, res)
         }
       });
     }else{
-      cmscontent.update({template: req.body.template}, { $set: { selfservice_image: req.body.selfservice_image,selfservice_content: req.body.selfservice_content, disability_image: req.body.disability_image,disability_content: req.body.disability_content,property_casuality_image: req.body.property_casuality_image, property_casuality_content: req.body.property_casuality_content}}, {new: true}, function(err, save) {
+      cmscontent.update({template: req.body.template}, { $set: { 
+          selfHeading:req.body.selfHeading,
+          selfservice_image: req.body.selfservice_image,
+          selfservice_content: req.body.selfservice_content, 
+          disabilityHeading:req.body.disabilityHeading,
+          disability_image: req.body.disability_image,
+          disability_content: req.body.disability_content,
+          propHeading:req.body.propHeading,
+          property_casuality_image: req.body.property_casuality_image, 
+          property_casuality_content: req.body.property_casuality_content
+        }}, {new: true}, function(err, save) {
         if(save == null){
           res.send({
             status: 0,
