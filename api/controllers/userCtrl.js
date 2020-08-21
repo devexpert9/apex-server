@@ -106,7 +106,7 @@ exports.addUser = function(req, res)
           new_user.save(function(err, users)
           {
             // SEND EMAIL TO AGENT ----------------------------------
-              /* var string = 'Apex'
+               var string = 'Apex'
               var fs = require('fs'); // npm install fs
               var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentadd.html', 'utf8');
               let dynamic_data = ''
@@ -129,7 +129,7 @@ exports.addUser = function(req, res)
                 var mail = new helper.Mail(fromEmail, subject, toEmail, content);
                 // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
 
-                var sg = require('sendgrid')('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');
+                var sg = require('sendgrid')('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');
                 var request = sg.emptyRequest({
                     method: 'POST',
                     path: '/v3/mail/send',
@@ -151,7 +151,7 @@ exports.addUser = function(req, res)
                     });
                   }
                 })
-              }) */
+              }) 
             //-------------------------------------------------------
             res.send({
               data: users,
