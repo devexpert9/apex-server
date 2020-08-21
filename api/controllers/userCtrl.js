@@ -400,6 +400,7 @@ exports.otp_verification = function(req, res) {
 };
 
 exports.userlist = function(req, res) {
+  console.log('sorting');
   users.find({}, null, {sort: {'created_on': -1}})
        .exec(function(err, users) {
     if(users == null){
