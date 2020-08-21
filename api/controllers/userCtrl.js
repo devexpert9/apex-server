@@ -153,11 +153,11 @@ exports.addUser = function(req, res)
                 })
               }) 
             //-------------------------------------------------------
-            res.send({
+            /*res.send({
               data: users,
               status: 1,
               error: 'User registered successfully!'
-            });
+            });*/
           });
         }
         else{
