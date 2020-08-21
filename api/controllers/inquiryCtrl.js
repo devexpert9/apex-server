@@ -36,8 +36,8 @@ exports.add_contactRequest = function(req, res) {
           }).on('end', function() {
             var helper = require('sendgrid').mail;
             var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
-            var toEmail   = new helper.Email(req.body.data.email);
-            //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
+            // var toEmail   = new helper.Email(req.body.data.email);
+            var toEmail = new helper.Email('manmohitindiit@gmail.com');
             var subject = 'Contact Request Submitted';
 
             // dynamic_data = dynamic_data.replace("#STRING#",  string);
@@ -49,7 +49,7 @@ exports.add_contactRequest = function(req, res) {
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
-            var sg = require('sendgrid')('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');
+            var sg = require('sendgrid')('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');
             var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
