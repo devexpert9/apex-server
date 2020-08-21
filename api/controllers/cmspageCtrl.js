@@ -20,7 +20,7 @@ exports.add_cmspage = function(req, res)
           //email already exist
           res.send({
             status: 0,
-            data: save,
+            data: doc,
             msg:'Try Again'
           });
         }else{
