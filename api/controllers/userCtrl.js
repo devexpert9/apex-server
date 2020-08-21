@@ -400,7 +400,8 @@ exports.otp_verification = function(req, res) {
 };
 
 exports.userlist = function(req, res) {
-  users.find({ },function(err, users) {
+  users.find({}, null, {sort: {'created_on': -1}})
+       .exec(function(err, users) {
     if(users == null){
       res.send({
         error: err,
