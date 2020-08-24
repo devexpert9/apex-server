@@ -48,7 +48,7 @@ exports.add_contactRequest = function(req, res) {
             dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
             var content = new helper.Content('text/html', dynamic_data);
 
-            var mail = new helper.Mail(fromEmail, subject, toEmail, bccEmail, content);
+            var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
             var sg = require('sendgrid')('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');
             var request = sg.emptyRequest({
