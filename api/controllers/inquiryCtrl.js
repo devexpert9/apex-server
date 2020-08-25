@@ -64,8 +64,7 @@ exports.add_contactRequest = function(req, res) {
             })
           })
       //----another to super admin------------------------------
-          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
-          let dynamic_data = ''
+
           readStream.on('data', function(chunk) {
               dynamic_data += chunk;
           }).on('end', function() {
