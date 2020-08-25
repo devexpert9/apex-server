@@ -37,7 +37,7 @@ exports.add_contactRequest = function(req, res) {
             dynamic_data = dynamic_data.replace("#NAME#", req.body.data.name) ;
             dynamic_data = dynamic_data.replace("#EMAIL#", req.body.data.email) ;
             dynamic_data = dynamic_data.replace("#SUBJECT#", req.body.data.subject);
-            dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);zz
+            dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
             var content = new helper.Content('text/html', dynamic_data);
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
@@ -77,7 +77,7 @@ exports.add_contactRequest = function(req, res) {
             dynamic_data = dynamic_data.replace("#NAME#", req.body.data.name) ;
             dynamic_data = dynamic_data.replace("#EMAIL#", req.body.data.email) ;
             dynamic_data = dynamic_data.replace("#SUBJECT#", req.body.data.subject);
-            dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);zz
+            dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
             var content = new helper.Content('text/html', dynamic_data);
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
