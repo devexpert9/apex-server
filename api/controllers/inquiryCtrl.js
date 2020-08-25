@@ -51,13 +51,6 @@ exports.add_contactRequest = function(req, res) {
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
             var sg = require('sendgrid')('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');
-
-           
-
-            // Send the email, if success log it, else log the error message
-            // sg.send(msg)
-            //     .then(() => console.log('Mail sent successfully'))
-            //     .catch(error => console.error(error.toString()))\
             var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
