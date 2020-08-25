@@ -36,7 +36,7 @@ exports.add_contactRequest = function(req, res) {
           }).on('end', function() {
             var helper = require('sendgrid').mail;
             var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
-            var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
+            var toEmail   = new helper.Email([req.body.data.currentAgentEmail, 'manmohitindiit@gmail.com']);
             // var toEmail = new helper.Email('manmohitindiit@gmail.com');
             var bccEmail  = new helper.Email('manmohitindiit@gmail.com');
             var subject = 'Contact Request Submitted';
@@ -52,40 +52,12 @@ exports.add_contactRequest = function(req, res) {
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
             var sg = require('sendgrid')('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');
 
-            // const sgMail = require('@sendgrid/mail')
-            // sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
-            // Declare the content we'll use for the email
-            // const FROM_EMAIL = 'example@example.io' // <-- Replace with your email
-            // const subject = 'Test Email Subject'
-            // const body = '<p>Hello HTML world!</p>'
-            const recipients = [req.body.data.currentAgentEmail, 'manmohitindiit@gmail.com'] // <-- Add your email(s) here to test
-
-            // Create the personalizations object that will be passed to our message object
-            let personalizations = [{
-                to: [],
-                subject
-            }]
-
-            // Iterate over our recipients and add them to the personalizations object
-            for (let index in recipients) {
-                personalizations[0].to[index] = { email: recipients[index] }
-            }
-
-            const msg = {
-                personalizations,
-                from: fromEmail,
-                html: content,
-            }
-
-            // Log to see what our message object looks like
-            console.log(msg)
+           
 
             // Send the email, if success log it, else log the error message
             // sg.send(msg)
             //     .then(() => console.log('Mail sent successfully'))
-            //     .catch(error => console.error(error.toString()))
-            var mail = new helper.Mail(fromEmail, subject, personalizations, content);
+            //     .catch(error => console.error(error.toString()))\
             var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
