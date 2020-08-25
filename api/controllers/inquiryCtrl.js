@@ -82,30 +82,31 @@ exports.add_contactRequest = function(req, res) {
             console.log(msg)
 
             // Send the email, if success log it, else log the error message
-            sg.send(msg)
-                .then(() => console.log('Mail sent successfully'))
-                .catch(error => console.error(error.toString()))
-            // var request = sg.emptyRequest({
-            //     method: 'POST',
-            //     path: '/v3/mail/send',
-            //     body: mail.toJSON()
-            // });
-            // sg.API(request, function (error, response) {
-            //   if (error) {
-            //     res.json({
-            //         msg: 'Something went wrong.Please try later.',
-            //         status: 0
+            // sg.send(msg)
+            //     .then(() => console.log('Mail sent successfully'))
+            //     .catch(error => console.error(error.toString()))
+            var mail = new helper.Mail(fromEmail, subject, personalizations, content);
+            var request = sg.emptyRequest({
+                method: 'POST',
+                path: '/v3/mail/send',
+                body: mail.toJSON()
+            });
+            sg.API(request, function (error, response) {
+              if (error) {
+                res.json({
+                    msg: 'Something went wrong.Please try later.',
+                    status: 0
                    
-            //     });
-            //     // console.log('Error response received');
-            //   }else{
-            //     res.json({
-            //         msg: 'Mail has been sent successfully',
-            //         status: 1,
-            //         data:null
-            //     });
-            //   }
-            // })
+                });
+                // console.log('Error response received');
+              }else{
+                res.json({
+                    msg: 'Mail has been sent successfully',
+                    status: 1,
+                    data:null
+                });
+              }
+            })
           })
     }
   });
