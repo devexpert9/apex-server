@@ -82,7 +82,7 @@ exports.add_contactRequest = function(req, res) {
             console.log(msg)
 
             // Send the email, if success log it, else log the error message
-            sgMail.send(msg)
+            sg.send(msg)
                 .then(() => console.log('Mail sent successfully'))
                 .catch(error => console.error(error.toString()))
             // var request = sg.emptyRequest({
