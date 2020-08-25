@@ -50,8 +50,8 @@ exports.add_contactRequest = function(req, res) {
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
-            var sg = require('sendgrid')('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');
-            /*var request = sg.emptyRequest({
+            /*var sg = require('sendgrid')('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');
+            var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
                 body: mail.toJSON()
@@ -76,6 +76,8 @@ exports.add_contactRequest = function(req, res) {
             ///here new code
 
             // var sendgrid = new SendGrid('{{sendgrid username}}', '{{sendgrid password}}');      
+            var SendGrid = require('sendgrid').SendGrid;
+            var sendgrid = new SendGrid('gurmukhindiit', 'Indiit@123'); 
             sg.send({
                 to: [toEmail],
                 from: fromEmail,
