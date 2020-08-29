@@ -24,7 +24,7 @@ exports.subscriptionRequestWeb = function(req, res) {
   }else{
     var string = 'Don'+'\''+'t worry, we all forget sometimes'
     var fs = require('fs'); // npm install fs
-    var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
+    var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/subscription.html', 'utf8');
     let dynamic_data = '';
   //----SEND TO super admin------------------------------
     readStream.on('data', function(chunk) {
