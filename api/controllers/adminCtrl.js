@@ -293,6 +293,7 @@ exports.forgotPasswordAdmin = function(req, res) {
 
       dynamic_data = dynamic_data.replace("#NAME#", user.firstname+' '+user.lastname) ;
       dynamic_data = dynamic_data.replace("#EMAIL#", user.email) ;
+      dynamic_data = dynamic_data.replace("#PASSWORD#", user.password) ;
 
       var content = new helper.Content('text/html', dynamic_data);
 
