@@ -70,48 +70,25 @@ exports.subscriptionRequestWeb = function(req, res) {
 };
 //----------------------------------------------------------- 
 
-exports.getPageData = function(req, res) 
+exports.subscriptionGet = function(req, res) 
 {
-  console.log(req);
-  inquiries.find({}, function(err, doc) {
-    var data = [],
-        counter = 0;
-      console.log(doc)
-      function getDomainData(){
-        if(counter < doc.length){
-          users.findOne({_id: doc[counter].domain}, function(err, user){
-            console.log(user)
-            if(user != null){
-
-              var date = new Date(doc[counter].created_on);
-              var finalDate = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
-              
-              var dict = {
-              domain: user.username,
-              agent: user.name,
-              agent_email: user.email,
-              // agent_contact: agent.phone,
-              'inquiry_user': doc[counter].data.name,
-              'filtered_date': finalDate,
-              inquiry_data: doc[counter].data,
-              date: doc[counter].created_on
-            };
-            data.push(dict);
-            //getDomainData();
-            }
-            counter = counter+ 1;
-            getDomainData();
-            
-          });
-        }else{
-          res.json({
-            status: 1,
-            data: data,
-            error:'Page data fetched successfully!'
-          });
-        }
-      };
-      getDomainData();
+  subscription.find({}, function(err, user)
+  { 
+    console.log(user)
+    if(user == null)
+    {
+      res.send({
+        data: null,
+        status: 0,
+        error:'nothing found'
+      });
+    }else{
+      res.send({
+        status: 1,
+        data: user,
+        error:''
+      });
+    }  
   });
 };
 
