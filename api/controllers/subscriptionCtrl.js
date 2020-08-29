@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
 multer      = require('multer'),
 users = mongoose.model('users'),
-inquiries   = mongoose.model('inquiries');
+inquiries   = mongoose.model('inquiries'),
 subscription   = mongoose.model('subscription');
 var path    = require('path');
 
