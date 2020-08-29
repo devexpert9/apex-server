@@ -5,10 +5,6 @@ module.exports = function(app) {
 var userAdmin = require('../controllers/adminCtrl');
    app.route('/addUseradmin')
      .post(userAdmin.create_user_admin);
-     
-var userAdmin = require('../controllers/adminCtrl');
-   app.route('/forgotPasswordAdmin')
-     .post(userAdmin.forgotPasswordAdmin);
 
 var userAdmin = require('../controllers/userCtrl');
    app.route('/get_info_about_agent')
@@ -29,6 +25,10 @@ var adminPwd = require('../controllers/userCtrl');
 var loginuser = require('../controllers/userCtrl');
    app.route('/login')
      .post(loginuser.login);
+
+var userAdmin = require('../controllers/userCtrl');
+   app.route('/forgotPasswordAdmin')
+     .post(userAdmin.forgotPasswordAdmin);
 
 var userData = require('../controllers/userCtrl');
    app.route('/getUserDomain')
