@@ -56,8 +56,8 @@ exports.forgotPasswordAdmin = function(req, res) {
       var helper = require('sendgrid').mail;
       var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
       // var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
-      var toEmail  = new helper.Email('manmohitindiit@gmail.com');
-      var subject = 'Contact Request Submitted';
+      var toEmail  = new helper.Email(req.body.email);
+      var subject = 'Password Retreive Request';
 
       dynamic_data = dynamic_data.replace("#NAME#", user.name) ;
       dynamic_data = dynamic_data.replace("#EMAIL#", user.email) ;
