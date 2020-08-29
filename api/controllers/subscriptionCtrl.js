@@ -37,7 +37,7 @@ exports.subscriptionRequestWeb = function(req, res) {
       var toEmail  = new helper.Email(req.body.email);
       var subject = 'Subscribed With APEX';
       dynamic_data = "";
-      var content = new helper.Content('text/html', dynamic_data);
+      var content = "";
 
       var mail = new helper.Mail(fromEmail, subject, toEmail, content);
       var sg = require('sendgrid')('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');
