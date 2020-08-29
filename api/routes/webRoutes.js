@@ -106,7 +106,7 @@ var userData = require('../controllers/inquiryCtrl');
    app.route('/contactRequestWeb')
      .post(userData.contactRequestWeb);
      
-var userData = require('../controllers/inquiryCtrl');
+var userData = require('../controllers/subscriptionCtrl');
    app.route('/subscriptionRequestWeb')
      .post(userData.subscriptionRequestWeb);
 
