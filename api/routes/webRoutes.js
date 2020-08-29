@@ -114,6 +114,11 @@ var userData = require('../controllers/subscriptionCtrl');
    app.route('/subscriptionRequestWeb')
      .post(userData.subscriptionRequestWeb);
 
+     
+var userData = require('../controllers/subscriptionCtrl');
+   app.route('/subscriptionGet')
+     .post(userData.subscriptionGet);
+
 var userData = require('../controllers/cmscontentCtrl');
    app.route('/addCmsContent')
      .post(userData.addCmsContent);
