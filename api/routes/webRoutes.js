@@ -105,6 +105,10 @@ var userData = require('../controllers/inquiryCtrl');
 var userData = require('../controllers/inquiryCtrl');
    app.route('/contactRequestWeb')
      .post(userData.contactRequestWeb);
+     
+var userData = require('../controllers/inquiryCtrl');
+   app.route('/subscriptionRequestWeb')
+     .post(userData.subscriptionRequestWeb);
 
 var userData = require('../controllers/cmscontentCtrl');
    app.route('/addCmsContent')

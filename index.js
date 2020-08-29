@@ -8,6 +8,7 @@ var express = require('express'),
   cmspage   = require('./api/models/cmspageModel'),
   dashboard = require('./api/models/dashboardModel'),
   cmscontent = require('./api/models/cmscontentModel'),
+  subscription = require('./api/models/subscriptionModel'),
   multer    = require('multer'),
   bodyParser = require('body-parser');
 
