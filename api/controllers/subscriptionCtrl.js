@@ -9,6 +9,7 @@ var path    = require('path');
 
 //--- Send Message From Web Side-----------------------------
 exports.subscriptionRequestWeb = function(req, res) {
+  console.log(req.body.email);
   var newadd = new subscription({
     email: req.body.email,
     created_on: new Date()
@@ -46,13 +47,16 @@ exports.subscriptionRequestWeb = function(req, res) {
           body: mail.toJSON()
       });
       sg.API(request, function (error, response) {
-        if (error) {
+        if (error)
+        {
+          console.log(error);
           res.json({
               msg: 'Something went wrong.Please try later.',
               status: 0
              
           });
         }else{
+          console.log('done');
           res.json({
               msg: 'Mail has been sent successfully',
               status: 1,
