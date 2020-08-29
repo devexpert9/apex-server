@@ -5,6 +5,10 @@ module.exports = function(app) {
 var userAdmin = require('../controllers/adminCtrl');
    app.route('/addUseradmin')
      .post(userAdmin.create_user_admin);
+     
+var userAdmin = require('../controllers/adminCtrl');
+   app.route('/forgotPasswordAdmin')
+     .post(userAdmin.forgotPasswordAdmin);
 
 var userAdmin = require('../controllers/userCtrl');
    app.route('/get_info_about_agent')
