@@ -27,12 +27,15 @@ exports.addCmsContent = function(req, res)
       var new_admin = new cmscontent({
         template:                   req.body.template,
         selfHeading:                req.body.selfHeading,
+        selfHeadingCheckbox:        req.body.selfHeadingCheckbox,
         selfservice_image:          req.body.selfservice_image,
         selfservice_content:        req.body.selfservice_content,
         disabilityHeading:          req.body.disabilityHeading,
+        disabilityHeadingCheckbox:  req.body.disabilityHeadingCheckbox,
         disability_image:           req.body.disability_image,
         disability_content:         req.body.disability_content,
         propHeading:                req.body.propHeading,
+        propHeadingCheckbox:        req.body.propHeadingCheckbox,
         property_casuality_image:   req.body.property_casuality_image,
         property_casuality_content: req.body.property_casuality_content
       });
@@ -55,12 +58,15 @@ exports.addCmsContent = function(req, res)
     }else{
       cmscontent.update({template: req.body.template}, { $set: { 
           selfHeading:req.body.selfHeading,
+          selfHeadingCheckbox:req.body.selfHeadingCheckbox,
           selfservice_image: req.body.selfservice_image,
           selfservice_content: req.body.selfservice_content, 
           disabilityHeading:req.body.disabilityHeading,
+          disabilityHeadingCheckbox:req.body.disabilityHeadingCheckbox,
           disability_image: req.body.disability_image,
           disability_content: req.body.disability_content,
           propHeading:req.body.propHeading,
+          propHeadingCheckbox:req.body.propHeadingCheckbox,
           property_casuality_image: req.body.property_casuality_image, 
           property_casuality_content: req.body.property_casuality_content
         }}, {new: true}, function(err, save) {

@@ -11,6 +11,9 @@ var cmscontentSchema = new Schema({
     selfHeading: {
       type: String
     },
+    selfHeadingCheckbox: {
+      type: Boolean
+    },
     selfservice_image: {
       type: String
     },
@@ -19,6 +22,9 @@ var cmscontentSchema = new Schema({
     },
     disabilityHeading: {
       type: String,
+    }, 
+    disabilityHeadingCheckbox: {
+      type: Boolean,
     },
     disability_image: {
       type: String,
@@ -28,6 +34,9 @@ var cmscontentSchema = new Schema({
     },
     propHeading: {
       type : String
+    },
+    propHeadingCheckbox: {
+      type : Boolean
     },
     property_casuality_image: {
       type : String
