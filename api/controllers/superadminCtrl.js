@@ -65,6 +65,7 @@ exports.update_admin_profile = function(req, res) {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email:req.body.email,
+            password:req.body.password,
             contact:req.body.contact,
             image:req.body.image,
           }}, {new: true}, function(err, user) {
