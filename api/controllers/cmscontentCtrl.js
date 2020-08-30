@@ -21,6 +21,18 @@ var upload = multer({ storage: storage }).single('image');
 // Add CMS content---------------------------------------
 exports.addCmsContent = function(req, res)
 {
+  if(req.body.template != 'version1'){
+    cmscontent.update({template: 'version1'}, { $set: { 
+      selfHeading:req.body.selfHeading,
+      selfHeadingCheckbox:req.body.selfHeadingCheckbox,
+      disabilityHeading:req.body.disabilityHeading,
+      disabilityHeadingCheckbox:req.body.disabilityHeadingCheckbox,
+      propHeading:req.body.propHeading,
+      propHeadingCheckbox:req.body.propHeadingCheckbox,
+    }}, {new: true}, function(err, save) {
+
+    });
+  }
   cmscontent.findOne({template: req.body.template}, function(err, doc) {
     if(doc == null)
     {
