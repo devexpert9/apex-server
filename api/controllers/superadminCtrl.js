@@ -87,7 +87,7 @@ exports.update_admin_profile = function(req, res) {
 };
 
 exports.login_superadmin = function(req, res) {
-  superadmin.findOne({username: req.body.email, password: req.body.password}, function(err, user) { 
+  superadmin.findOne({email: req.body.email, password: req.body.password}, function(err, user) { 
     console.log(user)
     if(user == null){
       res.send({
