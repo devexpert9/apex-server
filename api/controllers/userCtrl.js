@@ -168,7 +168,7 @@ exports.addUser = function(req, res)
             // SEND EMAIL TO AGENT ----------------------------------
                var string = 'Apex'
               var fs = require('fs'); // npm install fs
-              var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentadd.html', 'utf8');
+              var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentRegister.html', 'utf8');
               let dynamic_data = ''
               readStream.on('data', function(chunk) {
                   dynamic_data += chunk;
