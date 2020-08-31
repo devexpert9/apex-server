@@ -92,10 +92,10 @@ exports.subscriptionGet = function(req, res)
   });
 };
 
-exports.deleteInquiry = function(req, res) 
+exports.deleteSubscriptions = function(req, res) 
 {
   console.log(req);
-  inquiries.remove({}, function(err, doc) {
+  subscription.remove({}, function(err, doc) {
     res.json({
         msg: 'inquiry table delet',
         status: 1,
