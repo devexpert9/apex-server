@@ -15,7 +15,7 @@ var express = require('express'),
  
 mongoose.Promise = global.Promise;
 
-var connectionUrl = 'mongodb://root:gUW1iO3eyomJ@localhost:27017/hats?authSource=admin';
+var connectionUrl = 'mongodb://root:HG3eFtw60KcU@localhost:27017/hats?authSource=admin';
 mongoose.connect(connectionUrl); 
 
 app.use(function (req, res, next) {
