@@ -66,9 +66,12 @@ exports.add_contactRequest = function(req, res) {
           })
       //----another to super admin------------------------------
       superadmin.findOne({}, function(err, doc){
-
-        readStream.on('data', function(chunk) {
-              dynamic_data += chunk;
+        var string = 'Don'+'\''+'t worry, we all forget sometimes'
+          var fs = require('fs'); // npm install fs
+          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
+          let dynamic_data = ''
+          readStream.on('data', function(chunk) {
+            dynamic_data += chunk;
           }).on('end', function() {
             var helper = require('sendgrid').mail;
             var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
