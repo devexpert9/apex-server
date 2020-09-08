@@ -12,7 +12,7 @@ var securityprivacySchema = new Schema({
     },
     image : {
       type: String
-    }
+    },
     created_at:{
       type: Date
     }
