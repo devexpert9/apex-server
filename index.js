@@ -1,16 +1,17 @@
 var express = require('express'),
-  app       = express(),
-  port      = process.env.PORT || 3000,
-  mongoose  = require('mongoose'),
-  users     = require('./api/models/userModel'), 
-  admin     = require('./api/models/adminModel'), 
-  superadmin = require('./api/models/superadminModel'), 
-  cmspage   = require('./api/models/cmspageModel'),
-  dashboard = require('./api/models/dashboardModel'),
-  cmscontent = require('./api/models/cmscontentModel'),
+  app          = express(),
+  port         = process.env.PORT || 3000,
+  mongoose     = require('mongoose'),
+  users        = require('./api/models/userModel'), 
+  admin        = require('./api/models/adminModel'), 
+  superadmin   = require('./api/models/superadminModel'), 
+  cmspage      = require('./api/models/cmspageModel'),
+  dashboard    = require('./api/models/dashboardModel'),
+  cmscontent   = require('./api/models/cmscontentModel'),
   subscription = require('./api/models/subscriptionModel'),
-  multer    = require('multer'),
-  bodyParser = require('body-parser');
+  package      = require('./api/models/packageModel'),
+  multer       = require('multer'),
+  bodyParser   = require('body-parser');
 
  
 mongoose.Promise = global.Promise;
