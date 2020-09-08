@@ -11,6 +11,7 @@ var express = require('express'),
   subscription = require('./api/models/subscriptionModel'),
   package      = require('./api/models/packageModel'),
   testimonial  = require('./api/models/testimonialModel'),
+  securityprivacy  = require('./api/models/securityprivacyModel'),
   multer       = require('multer'),
   bodyParser   = require('body-parser');
 

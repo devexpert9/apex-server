@@ -130,6 +130,19 @@ var pack = require('../controllers/testimonialCtrl');
    app.route('/getTestimonialById')
     .post(pack.getTestimonialById);
 
+//--- SECURITY -------------------------------------
+var pack = require('../controllers/securityprivacyCtrl');
+   app.route('/addSecurityData')
+    .post(pack.addSecurityData);
+
+var pack = require('../controllers/securityprivacyCtrl');
+   app.route('/updateSecurityData')
+    .post(pack.updateSecurityData);
+
+var pack = require('../controllers/securityprivacyCtrl');
+   app.route('/getSecurityPrivacyById')
+    .post(pack.getSecurityPrivacyById);
+
 
 //--- SUPER ADMIN STUFF BELOW -------------------------------------
 
