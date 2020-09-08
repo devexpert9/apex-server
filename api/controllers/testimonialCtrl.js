@@ -16,7 +16,7 @@ exports.create_testimonial = function(req, res) {
     message:    req.body.message,
     rating:     req.body.rating,
     image:      req.body.image,
-    created_on: new Date()
+    created_at: new Date()
   });
   new_pack.save(function(err, doc) 
   {

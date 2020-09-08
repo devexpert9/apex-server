@@ -14,7 +14,7 @@ exports.addSecurityData = function(req, res) {
     heading:    req.body.heading,
     content:    req.body.content,
     image:      req.body.image,
-    created_on: new Date()
+    created_at: new Date()
   });
   new_pack.save(function(err, doc) 
   {

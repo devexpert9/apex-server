@@ -19,7 +19,7 @@ exports.create_package = function(req, res) {
         timePeriod:   req.body.timePeriod,
         description:  req.body.description,
         status:       1,
-        created_on:   new Date()
+        created_at:   new Date()
       });
       new_pack.save(function(err, doc) 
       {
