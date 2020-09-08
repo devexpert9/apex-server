@@ -73,15 +73,15 @@ exports.getAllPackages = function(req, res)
 // Update Package -----------------------------------
 exports.updatePackage = function(req, res)
 {
-  packages.findOne({name: req.body.name, '_id': { $ne: req.body.packID}}, function(err, user)
+  packages.findOne({name: req.body.name, '_id': { $ne: req.body._id}}, function(err, user)
   {
     if(user == null)
     {
-      packages.findOne({name: req.body.name, '_id': { $ne: req.body.packID}}, function(err, username)
+      packages.findOne({name: req.body.name, '_id': { $ne: req.body._id}}, function(err, username)
       {
         if(username == null)
         {
-          users.update({_id: req.body.packID},{$set:{ 'name': req.body.name, 'price': req.body.price, 'timePeriod':req.body.timePeriod, 'description': req.body.description, 'status': req.body.status } }, {new: true}, function(err, user)
+          packages.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'price': req.body.price, 'timePeriod':req.body.timePeriod, 'description': req.body.description, 'status': req.body.status } }, {new: true}, function(err, user)
           {
             if(user == null)
             {
@@ -125,7 +125,7 @@ exports.updatePackage = function(req, res)
 // DELETE PACKAGE -----------------------------------
 exports.deletePackage = function(req, res)
 {
-    packages.remove({_id:req.body.packID}, function(err, pack) {
+    packages.remove({_id:req.body._id}, function(err, pack) {
       if(pack == null)
       {
         res.json({

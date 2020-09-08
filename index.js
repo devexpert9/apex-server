@@ -10,6 +10,7 @@ var express = require('express'),
   cmscontent   = require('./api/models/cmscontentModel'),
   subscription = require('./api/models/subscriptionModel'),
   package      = require('./api/models/packageModel'),
+  testimonial  = require('./api/models/testimonialModel'),
   multer       = require('multer'),
   bodyParser   = require('body-parser');
 
