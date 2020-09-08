@@ -18,7 +18,7 @@ exports.create_package = function(req, res) {
         price:        req.body.price,
         timePeriod:   req.body.timePeriod,
         description:  req.body.description,
-        status:       req.body.status,
+        status:       1,
         created_on:   new Date()
       });
       new_pack.save(function(err, doc) 
