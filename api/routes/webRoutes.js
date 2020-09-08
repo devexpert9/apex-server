@@ -103,10 +103,32 @@ var pack = require('../controllers/packageCtrl');
 var pack = require('../controllers/packageCtrl');
    app.route('/deletePackage')
     .post(pack.deletePackage);
-    
+
 var pack = require('../controllers/packageCtrl');
    app.route('/getPackageById')
     .post(pack.getPackageById);
+
+
+//--- TESTIMONIALS -------------------------------------
+var pack = require('../controllers/testimonialCtrl');
+   app.route('/create_testimonial')
+    .post(pack.create_testimonial);
+
+var pack = require('../controllers/testimonialCtrl');
+   app.route('/getAllTestimonials')
+    .post(pack.getAllTestimonials);
+
+var pack = require('../controllers/testimonialCtrl');
+   app.route('/updateTestimonial')
+    .post(pack.updateTestimonial);
+
+var pack = require('../controllers/testimonialCtrl');
+   app.route('/deleteTestimonial')
+    .post(pack.deleteTestimonial);
+    
+var pack = require('../controllers/testimonialCtrl');
+   app.route('/getTestimonialById')
+    .post(pack.getTestimonialById);
 
 
 //--- SUPER ADMIN STUFF BELOW -------------------------------------

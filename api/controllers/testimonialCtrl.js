@@ -84,6 +84,25 @@ exports.updateTestimonial = function(req, res)
           });
 };
 
+// GET TESTIMONIAL BY ID --------------------------------
+exports.getTestimonialById = function(req, res) {
+  testimonial.findOne({_id:req.body._id}, function(err, user) {
+    if(user == null){
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid.'
+      });
+    }else{
+      res.json({
+         status: 1,
+         data: user,
+         error:'Testimonial fetched successfully!'
+      });
+    }
+  });
+};
+
 // DELETE TESTIMONIAL -----------------------------------
 exports.deleteTestimonial = function(req, res)
 {
