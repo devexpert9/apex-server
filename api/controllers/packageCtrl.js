@@ -70,6 +70,25 @@ exports.getAllPackages = function(req, res)
   });
 };
 
+// GET PACKAGE BY ID --------------------------------
+exports.getPackageById = function(req, res) {
+  packages.findOne({_id:req.body._id}, function(err, user) {
+    if(user == null){
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid username.'
+      });
+    }else{
+      res.json({
+         status: 1,
+         data: user,
+         error:'Package fetched successfully!'
+      });
+    }
+  });
+};
+
 // Update Package -----------------------------------
 exports.updatePackage = function(req, res)
 {

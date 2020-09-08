@@ -103,6 +103,10 @@ var pack = require('../controllers/packageCtrl');
 var pack = require('../controllers/packageCtrl');
    app.route('/deletePackage')
     .post(pack.deletePackage);
+    
+var pack = require('../controllers/packageCtrl');
+   app.route('/getPackageById')
+    .post(pack.getPackageById);
 
 
 //--- SUPER ADMIN STUFF BELOW -------------------------------------
