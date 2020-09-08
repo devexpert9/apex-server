@@ -5,15 +5,15 @@ multer        = require('multer'),
 users         = mongoose.model('users'),
 inquiries     = mongoose.model('inquiries'),
 subscription  = mongoose.model('subscription'),
-package       = mongoose.model('package');
+packages      = mongoose.model('package');
 var path      = require('path');
 
 //--- Create Package-----------------------------
 exports.create_package = function(req, res) {
-  package.findOne({name: req.body.name}, function(err, pack) {
+  packages.findOne({name: req.body.name}, function(err, pack) {
     if(pack == null)
     {
-      var new_pack = new package({
+      var new_pack = new packages({
         name:         req.body.name,
         price:        req.body.price,
         timePeriod:   req.body.timePeriod,
@@ -50,7 +50,7 @@ exports.create_package = function(req, res) {
 // Get All Packages ---------------------------------
 exports.getAllPackages = function(req, res) 
 {
-  package.find({}, function(err, pack)
+  packages.find({}, function(err, pack)
   { 
     // console.log(user)
     if(pack == null)
@@ -73,11 +73,11 @@ exports.getAllPackages = function(req, res)
 // Update Package -----------------------------------
 exports.updatePackage = function(req, res)
 {
-  package.findOne({name: req.body.name, '_id': { $ne: req.body.packID}}, function(err, user)
+  packages.findOne({name: req.body.name, '_id': { $ne: req.body.packID}}, function(err, user)
   {
     if(user == null)
     {
-      package.findOne({name: req.body.name, '_id': { $ne: req.body.packID}}, function(err, username)
+      packages.findOne({name: req.body.name, '_id': { $ne: req.body.packID}}, function(err, username)
       {
         if(username == null)
         {
@@ -125,7 +125,7 @@ exports.updatePackage = function(req, res)
 // DELETE PACKAGE -----------------------------------
 exports.deletePackage = function(req, res)
 {
-    package.remove({_id:req.body.packID}, function(err, pack) {
+    packages.remove({_id:req.body.packID}, function(err, pack) {
       if(pack == null)
       {
         res.json({
