@@ -87,12 +87,29 @@ var dashboard = require('../controllers/dashboardCtrl');
      .post(dashboard.updateDropList);
 
 
+//--- PACKAGES -------------------------------------
+var pack = require('../controllers/packageCtrl');
+   app.route('/create_package')
+    .post(pack.create_package);
+
+var pack = require('../controllers/packageCtrl');
+   app.route('/getAllPackages')
+    .post(pack.getAllPackages);
+
+var pack = require('../controllers/packageCtrl');
+   app.route('/updatePackage')
+    .post(pack.updatePackage);
+
+var pack = require('../controllers/packageCtrl');
+   app.route('/deletePackage')
+    .post(pack.deletePackage);
+
+
 //--- SUPER ADMIN STUFF BELOW -------------------------------------
 
 var superAdmin = require('../controllers/superadminCtrl');
    app.route('/register_super_user')
     .post(superAdmin.create_user_admin);
-
 
 var superAdmin = require('../controllers/superadminCtrl');
    app.route('/super_admin_login')
