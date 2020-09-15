@@ -136,12 +136,17 @@ var pack = require('../controllers/securityprivacyCtrl');
     .post(pack.addSecurityData);
 
 var pack = require('../controllers/securityprivacyCtrl');
-   app.route('/updateSecurityData')
-    .post(pack.updateSecurityData);
-
-var pack = require('../controllers/securityprivacyCtrl');
    app.route('/getSecurityPrivacyById')
     .post(pack.getSecurityPrivacyById);
+
+//--- WEB ABOUT DATA -------------------------------------
+var pack = require('../controllers/securityprivacyCtrl');
+   app.route('/addWebAboutData')
+    .post(pack.addWebAboutData);
+
+var pack = require('../controllers/securityprivacyCtrl');
+   app.route('/getWebAboutData')
+    .post(pack.getWebAboutData);
 
 
 //--- SUPER ADMIN STUFF BELOW -------------------------------------
