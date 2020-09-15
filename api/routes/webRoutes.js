@@ -148,6 +148,15 @@ var pack = require('../controllers/securityprivacyCtrl');
    app.route('/getWebAboutData')
     .post(pack.getWebAboutData);
 
+//--- WEB CONTACT DATA -------------------------------------
+var pack = require('../controllers/securityprivacyCtrl');
+   app.route('/addWebContactData')
+    .post(pack.addWebContactData);
+
+var pack = require('../controllers/securityprivacyCtrl');
+   app.route('/getWebContactData')
+    .post(pack.getWebContactData);
+
 
 //--- SUPER ADMIN STUFF BELOW -------------------------------------
 
