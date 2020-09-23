@@ -33,7 +33,7 @@ exports.add_contactRequest = function(req, res) {
             var helper = require('sendgrid').mail;
             var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
             var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
-            var bccEmail  = new helper.Email('manmohitindiit@gmail.com');
+            // var bccEmail  = new helper.Email('manmohitindiit@gmail.com');
             var subject = 'Contact Request Submitted';
 
             dynamic_data = dynamic_data.replace("#NAME#", req.body.data.name) ;
