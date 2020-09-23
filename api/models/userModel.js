@@ -17,6 +17,24 @@ var userSchema = new Schema({
     password: {
       type : String
     },
+    contact: {
+      type: String
+    },
+    zip: {
+      type: String
+    },
+    state: {
+      type: String
+    },
+    city: {
+      type: String
+    },
+    country: {
+      type: String
+    },
+    address: {
+      type: String
+    },
     created_on: {
       type: Date
     },
