@@ -53,7 +53,8 @@ exports.forgotPasswordAdmin = function(req, res) {
       readStream.on('data', function(chunk) {
         dynamic_data += chunk;
       }).on('end', function() {
-      var helper = require('sendgrid').mail;
+        var sg = require('sendgrid')('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');
+      var helper = sg.mail;
       var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
       // var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
       var toEmail  = new helper.Email(req.body.email);
