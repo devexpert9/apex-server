@@ -20,6 +20,9 @@ var userSchema = new Schema({
     created_on: {
       type: Date
     },
+    status: {
+      type: String
+    },
     image: {
       type: String
     }

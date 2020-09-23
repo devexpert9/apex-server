@@ -160,6 +160,7 @@ exports.addUser = function(req, res)
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
+            status: req.body.status,
             image: null
           });
 
@@ -250,7 +251,7 @@ exports.update_user = function(req, res)
       {
         if(username == null)
         {
-          users.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'username': req.body.username, 'email':req.body.email, 'password': req.body.password } }, {new: true}, function(err, user)
+          users.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'username': req.body.username, 'email':req.body.email, 'status':req.body.status, 'password': req.body.password } }, {new: true}, function(err, user)
           {
             if(user == null)
             {
