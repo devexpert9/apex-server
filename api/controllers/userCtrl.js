@@ -182,7 +182,8 @@ exports.addUser = function(req, res)
               readStream.on('data', function(chunk) {
                   dynamic_data += chunk;
               }).on('end', function() {
-                var helper = require('sendgrid').mail;
+                var sg = require('sendgrid')('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');
+      var helper = sg.mail;
                 var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
                 var toEmail   = new helper.Email(req.body.email);
                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
@@ -435,7 +436,8 @@ exports.forgot_password = function(req, res) {
                 readStream.on('data', function(chunk) {
                     dynamic_data += chunk;
                 }).on('end', function() {
-                var helper = require('sendgrid').mail;
+                var sg = require('sendgrid')('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');
+      var helper = sg.mail;
                 var fromEmail = new helper.Email('babitaindiit@gmail.com'/*'priyankasharma4010@gmail.com'*/, 'Stratergy Athlete');
                 var toEmail = new helper.Email(req.body.email);
                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
@@ -1058,7 +1060,8 @@ exports.show_users_addgroup = function(req, res) {
 //         }else{
 
 //            if(req.body.loginwithfb == 'true'){
-//                 // var helper = require('sendgrid').mail;
+//                 // var sg = require('sendgrid')('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');
+      var helper = sg.mail;
 //                 // var fromEmail = new helper.Email('noreply@cleanme.com');
 //                 // var toEmail = new helper.Email('info@cleanmebh.com');
 //                 // var subject = 'New User Resgister';
@@ -1097,7 +1100,8 @@ exports.show_users_addgroup = function(req, res) {
 //                 readStream.on('data', function(chunk) {
 //                     dynamic_data += chunk;
 //                 }).on('end', function() {
-//                 var helper = require('sendgrid').mail;
+//                 var sg = require('sendgrid')('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');
+      var helper = sg.mail;
 //                 var fromEmail = new helper.Email('noreply@cleanme.com'/*'priyankasharma4010@gmail.com'*/, 'Cleanme');
 //                 var toEmail = new helper.Email('info@cleanmebh.com');
 //                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
@@ -1134,7 +1138,8 @@ exports.show_users_addgroup = function(req, res) {
 //           }
 
 //           if(req.body.loginwithfb == 'true'){
-//             var helper = require('sendgrid').mail;
+//             var sg = require('sendgrid')('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');
+      var helper = sg.mail;
 //             var fromEmail = new helper.Email('noreply@cleanme.com');
 //             var toEmail = new helper.Email(req.body.email);
 //             var subject = 'Login Cleanme';
@@ -1887,7 +1892,8 @@ exports.show_users_addgroup = function(req, res) {
 //                 readStream.on('data', function(chunk) {
 //                     dynamic_data += chunk;
 //                 }).on('end', function() {
-//                 var helper = require('sendgrid').mail;
+//                 var sg = require('sendgrid')('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');
+      var helper = sg.mail;
 //                 var fromEmail = new helper.Email('noreply@cleanme.com'/*'priyankasharma4010@gmail.com'*/, 'Cleanme');
 //                 var toEmail = new helper.Email(req.body.email);
 //                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
@@ -1927,7 +1933,8 @@ exports.show_users_addgroup = function(req, res) {
 //             });
 
 
-//             // var helper = require('sendgrid').mail;
+//             // var sg = require('sendgrid')('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');
+      var helper = sg.mail;
 //             // var fromEmail = new helper.Email('noreply@cleanme.com');
 //             // var toEmail = new helper.Email(req.body.email);
 //             // var subject = 'Forgot Password';
