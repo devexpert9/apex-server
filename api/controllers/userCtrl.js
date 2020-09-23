@@ -167,7 +167,8 @@ exports.addUser = function(req, res)
             country: req.body.country,
             address: req.body.address,
             status: 1,
-            image: null
+            image: null,
+            created_on: new Date()
           });
 
           new_user.save(function(err, users)
