@@ -45,7 +45,7 @@ exports.forgotPasswordAdmin = function(req, res) {
   users.findOne({email: req.body.email}, function(err, user) {
     if(user)
     {
-      var string = 'Don'+'\''+'t worry, we all forget sometimes'
+      var string = 'Don'+'\''+'t worry, we all forget sometimes';
       var fs = require('fs'); // npm install fs
       var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/emailForgotPwd.html', 'utf8');
       let dynamic_data = '';
@@ -53,7 +53,7 @@ exports.forgotPasswordAdmin = function(req, res) {
       readStream.on('data', function(chunk) {
         dynamic_data += chunk;
       }).on('end', function() {
-        var sg = require('sendgrid')('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');
+      var sg = require('sendgrid')('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');
       var helper = sg.mail;
       var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
       // var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
@@ -175,7 +175,7 @@ exports.addUser = function(req, res)
           new_user.save(function(err, users)
           {
             // SEND EMAIL TO AGENT ----------------------------------
-               var string = 'Apex'
+              var string = 'Apex';
               var fs = require('fs'); // npm install fs
               var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentRegister.html', 'utf8');
               let dynamic_data = ''
@@ -183,7 +183,7 @@ exports.addUser = function(req, res)
                   dynamic_data += chunk;
               }).on('end', function() {
                 var sg = require('sendgrid')('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');
-      var helper = sg.mail;
+                var helper = sg.mail;
                 var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
                 var toEmail   = new helper.Email(req.body.email);
                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
@@ -1061,7 +1061,7 @@ exports.show_users_addgroup = function(req, res) {
 
 //            if(req.body.loginwithfb == 'true'){
 //                 // var sg = require('sendgrid')('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');
-      var helper = sg.mail;
+     // var helper = sg.mail;
 //                 // var fromEmail = new helper.Email('noreply@cleanme.com');
 //                 // var toEmail = new helper.Email('info@cleanmebh.com');
 //                 // var subject = 'New User Resgister';
@@ -1101,7 +1101,7 @@ exports.show_users_addgroup = function(req, res) {
 //                     dynamic_data += chunk;
 //                 }).on('end', function() {
 //                 var sg = require('sendgrid')('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');
-      var helper = sg.mail;
+  //    var helper = sg.mail;
 //                 var fromEmail = new helper.Email('noreply@cleanme.com'/*'priyankasharma4010@gmail.com'*/, 'Cleanme');
 //                 var toEmail = new helper.Email('info@cleanmebh.com');
 //                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
@@ -1139,7 +1139,7 @@ exports.show_users_addgroup = function(req, res) {
 
 //           if(req.body.loginwithfb == 'true'){
 //             var sg = require('sendgrid')('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');
-      var helper = sg.mail;
+    //  var helper = sg.mail;
 //             var fromEmail = new helper.Email('noreply@cleanme.com');
 //             var toEmail = new helper.Email(req.body.email);
 //             var subject = 'Login Cleanme';
@@ -1893,7 +1893,7 @@ exports.show_users_addgroup = function(req, res) {
 //                     dynamic_data += chunk;
 //                 }).on('end', function() {
 //                 var sg = require('sendgrid')('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');
-      var helper = sg.mail;
+   //   var helper = sg.mail;
 //                 var fromEmail = new helper.Email('noreply@cleanme.com'/*'priyankasharma4010@gmail.com'*/, 'Cleanme');
 //                 var toEmail = new helper.Email(req.body.email);
 //                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
