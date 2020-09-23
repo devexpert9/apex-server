@@ -292,6 +292,30 @@ exports.update_user = function(req, res)
   });
 };
 
+exports.updateAgentStatus = function(req, res)
+{
+  users.update({_id: req.body._id},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
+  {
+    if(user == null)
+    {
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }
+    else
+    {
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Agent status updated successfully!"
+      });
+    }
+  });
+};
+
 
 
 //**************** checkEmailExist ******************

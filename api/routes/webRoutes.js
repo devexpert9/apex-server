@@ -15,6 +15,10 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.addUser);
 
 var adduser = require('../controllers/userCtrl');
+   app.route('/updateAgentStatus')
+     .post(adduser.updateAgentStatus);
+
+var adduser = require('../controllers/userCtrl');
    app.route('/checkEmailExist')
      .post(adduser.checkEmailExist);
 
