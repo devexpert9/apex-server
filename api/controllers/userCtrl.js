@@ -174,6 +174,11 @@ exports.addUser = function(req, res)
 
           new_user.save(function(err, users)
           {
+             res.json({
+                        msg: 'Mail has been sent successfully',
+                        status: 1,
+                        data:users
+                    });
             // SEND EMAIL TO AGENT ----------------------------------
               var string = 'Apex';
               var fs = require('fs'); // npm install fs
@@ -214,11 +219,11 @@ exports.addUser = function(req, res)
                   //       data: error
                   //   });
                   // }else{
-                    res.json({
-                        msg: 'Mail has been sent successfully',
-                        status: 1,
-                        data:users
-                    });
+                    // res.json({
+                    //     msg: 'Mail has been sent successfully',
+                    //     status: 1,
+                    //     data:users
+                    // });
                   // }
                 })
               }) 
