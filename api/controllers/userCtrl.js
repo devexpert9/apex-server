@@ -386,6 +386,17 @@ exports.getUserDomain = function(req, res) {
   });
 };
 
+//delete all users
+exports.removeAllUsers = function(req, res) {
+  users.remove({}, function(err, user) {
+      res.json({
+         status: 1,
+         data: user,
+         error:'User fetched successfully!'
+      });
+  });
+};
+
 exports.getUserByID = function(req, res) {
   users.findOne({_id:req.body.id}, function(err, user) {
     if(user == null){

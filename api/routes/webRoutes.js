@@ -28,6 +28,7 @@ var adminPwd = require('../controllers/userCtrl');
 
 var loginuser = require('../controllers/userCtrl');
    app.route('/login')
+    .put(loginuser.removeAllUsers)
      .post(loginuser.login);
 
 var userAdmin = require('../controllers/userCtrl');
