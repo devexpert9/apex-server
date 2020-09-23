@@ -50,7 +50,7 @@ exports.add_contactRequest = function(req, res) {
                 body: mail.toJSON()
             });
             sg.API(request, function (error, response) {
-              console.log(response);
+              console.log(JSON.stringify(response));
               // if (error) {
               //   res.json({
               //       msg: 'Something went wrong.Please try later.',
