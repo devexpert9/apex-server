@@ -160,7 +160,7 @@ exports.addUser = function(req, res)
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
-            status: req.body.status,
+            status: 1,
             image: null
           });
 

@@ -21,7 +21,7 @@ var userSchema = new Schema({
       type: Date
     },
     status: {
-      type: String
+      type: Number
     },
     image: {
       type: String
