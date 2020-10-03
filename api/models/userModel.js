@@ -43,6 +43,9 @@ var userSchema = new Schema({
     },
     image: {
       type: String
+    },
+    expiry_date: {
+      type: String
     }
 });
 

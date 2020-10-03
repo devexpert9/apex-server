@@ -135,6 +135,27 @@ var pack = require('../controllers/testimonialCtrl');
    app.route('/getTestimonialById')
     .post(pack.getTestimonialById);
 
+//--- GLOSSARY -------------------------------------
+var pack = require('../controllers/glossaryCtrl');
+   app.route('/create_glossary')
+    .post(pack.create_glossary);
+
+var pack = require('../controllers/glossaryCtrl');
+   app.route('/getAllGlossaries')
+    .post(pack.getAllGlossaries);
+
+var pack = require('../controllers/glossaryCtrl');
+   app.route('/updateGlossary')
+    .post(pack.updateGlossary);
+
+var pack = require('../controllers/glossaryCtrl');
+   app.route('/deleteGlossary')
+    .post(pack.deleteGlossary);
+    
+var pack = require('../controllers/glossaryCtrl');
+   app.route('/getGlossaryById')
+    .post(pack.getGlossaryById);
+
 //--- SECURITY -------------------------------------
 var pack = require('../controllers/securityprivacyCtrl');
    app.route('/addSecurityData')

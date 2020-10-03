@@ -212,7 +212,7 @@ exports.addWebContactData = function(req, res)
     }
     else
     {
-      webContact.update({_id: doc._id},{$set:{ 'phonr': req.body.phone, 'desc': req.body.desc, 'newsletterDesc':req.body.newsletterDesc, 'email':req.body.email, 'address':req.body.address, 'skype':req.body.skype, 'facebook':req.body.facebook, 'twitter':req.body.twitter, 'instagram':req.body.instagram, 'google':req.body.google, 'pintrest':req.body.pintrest, 'linkedin':req.body.linkedin} }, {new: true}, function(err, user)
+      webContact.update({_id: doc._id},{$set:{ 'phone': req.body.phone, 'desc': req.body.desc, 'newsletterDesc':req.body.newsletterDesc, 'email':req.body.email, 'address':req.body.address, 'skype':req.body.skype, 'facebook':req.body.facebook, 'twitter':req.body.twitter, 'instagram':req.body.instagram, 'google':req.body.google, 'pintrest':req.body.pintrest, 'linkedin':req.body.linkedin} }, {new: true}, function(err, user)
       {
         if(user == null)
         {
