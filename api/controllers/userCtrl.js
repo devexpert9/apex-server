@@ -366,10 +366,11 @@ exports.login = function(req, res) {
       });
     }else{
       users.update({_id: user._id }, { $set: {registrationId: req.body.registrationId}}, {new: true}, function(err, save) {
+        
         res.json({
-           status: 1,
-           data: user,
-           error:'Logged In successfully!'
+           status: user.status == 1 ? 1 : 0,
+           data: user.status == 1 ? user : null,
+           error: user.status == 1 ? 'Logged In successfully!' : null
         });
       });
     }
