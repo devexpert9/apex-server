@@ -45,7 +45,7 @@ var userSchema = new Schema({
       type: String
     },
     expiry_date: {
-      type: Date
+      type: String
     }
 });
 
