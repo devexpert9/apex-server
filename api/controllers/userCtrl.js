@@ -272,9 +272,9 @@ exports.update_user = function(req, res)
             else
             {
               res.json({
-                error: null,
+                error: err,
                 status: 1,
-                data:user,
+                data: user,
                 msg:"Agent updated successfully!"
               });
             }
