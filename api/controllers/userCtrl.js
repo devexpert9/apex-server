@@ -169,11 +169,8 @@ exports.addUser = function(req, res)
             address: req.body.address,
             status: 1,
             image: null,
-<<<<<<< HEAD
-            created_on: new Date()
-=======
+            created_on: new Date(),
             expiry_date: req.body.expiry_date
->>>>>>> 447ac03a982c616ac710af1eaf3c6113a6be19a6
           });
 
           new_user.save(function(err, users)
@@ -269,12 +266,8 @@ exports.update_user = function(req, res)
       {
         if(username == null)
         {
-<<<<<<< HEAD
-          users.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'username': req.body.username, 'email':req.body.email, 'password': req.body.password, 'contact': req.body.contact, 'zip': req.body.zip, 'state': req.body.state, 'city': req.body.city, 'country': req.body.country, 'address': req.body.address } }, {new: true}, function(err, user)
-=======
           console.log(req.body)
           users.update({_id: req.body._id},{ $set: { 'name': req.body.name, 'username': req.body.username, 'email':req.body.email, 'password': req.body.password, 'contact': req.body.contact, 'zip': req.body.zip, 'state': req.body.state, 'city': req.body.city, 'country': req.body.country, 'address': req.body.address, 'expiry_date': req.body.expiry_date } }, {new: true}, function(err, user)
->>>>>>> 447ac03a982c616ac710af1eaf3c6113a6be19a6
           {
             if(user == null)
             {
