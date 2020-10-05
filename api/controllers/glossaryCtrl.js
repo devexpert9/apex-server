@@ -33,6 +33,46 @@ exports.create_glossary = function(req, res) {
   });
 };
 
+exports.import_csv_data = function(req, res){
+  class Employee{
+    set Topic(Topic){
+        this._Topic=Topic;
+    }
+    set Definition(Definition){
+        this._Definition=Definition;
+    }
+    get Name(){
+        return this._Topic;
+    }
+    get Title(){
+        return this._Definition;
+    }
+    constructor(){
+    }
+  };
+
+  let emp=[];
+
+  const csv=require('csvtojson')
+  // Invoking csv returns a promise
+  const converter=csv()
+  .fromFile('./Glossary.csv')
+  .then((json)=>{
+      let e;
+      json.forEach((row)=>{
+          e=new Employee();// New Employee Object
+          Object.assign(e,row);// Assign json to the new Employee
+          emp.push(e);// Add the Employee to the Array
+          
+      });
+  }).then(()=>{
+      // Output the names of the Employees
+      emp.forEach((em)=>{
+          console.log(em.Name);// Invoke the Name getter
+      });
+  });
+};
+
 // Get All glossaries ---------------------------------
 exports.getAllGlossaries = function(req, res) 
 {

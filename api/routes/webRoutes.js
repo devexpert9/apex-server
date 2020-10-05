@@ -156,6 +156,10 @@ var pack = require('../controllers/glossaryCtrl');
    app.route('/getGlossaryById')
     .post(pack.getGlossaryById);
 
+var pack = require('../controllers/glossaryCtrl');
+   app.route('/import_csv_data')
+    .post(pack.import_csv_data);
+
 //--- SECURITY -------------------------------------
 var pack = require('../controllers/securityprivacyCtrl');
    app.route('/addSecurityData')
