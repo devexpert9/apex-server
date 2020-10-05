@@ -12,6 +12,7 @@ var express = require('express'),
   package      = require('./api/models/packageModel'),
   testimonial  = require('./api/models/testimonialModel'),
   glossary     = require('./api/models/glossaryModel'),
+  agentsubscription     = require('./api/models/agentsubscriptionModel'),
   securityprivacy  = require('./api/models/securityprivacyModel'),
   multer       = require('multer'),
   bodyParser   = require('body-parser');

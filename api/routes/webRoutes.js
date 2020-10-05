@@ -184,6 +184,16 @@ var pack = require('../controllers/securityprivacyCtrl');
     .post(pack.getWebContactData);
 
 
+//--- AGENT SUBSCRIPTIONS -------------------------------------
+var pack = require('../controllers/agentsubscriptionCtrl');
+   app.route('/addAgentSubs')
+    .post(pack.addAgentSubs);
+
+var pack = require('../controllers/agentsubscriptionCtrl');
+   app.route('/getUserSubscriptions')
+    .post(pack.getUserSubscriptions);
+
+
 //--- SUPER ADMIN STUFF BELOW -------------------------------------
 
 var superAdmin = require('../controllers/superadminCtrl');
