@@ -5,7 +5,7 @@ multer            = require('multer'),
 users             = mongoose.model('users'),
 inquiries         = mongoose.model('inquiries'),
 agentsubs         = mongoose.model('agentsubscription'),
-var path          = require('path');
+path          = require('path');
 
 //--- Create Package-----------------------------
 exports.addAgentSubs = function(req, res)
