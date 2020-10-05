@@ -70,7 +70,19 @@ exports.import_csv_data = function(req, res){
   }).then(()=>{
       // Output the names of the Employees
       emp.forEach((em)=>{
-          console.log(em.Name);// Invoke the Name getter
+          // console.log(em.Name);// Invoke the Name getter
+          var item = new Glossary({
+              topic: em.Name,
+              defination: em.Title,
+              created_at: new Date()
+          });
+           
+          item.save(function(error){
+            console.log(item);
+            if(error){
+             throw error;
+            }
+          }); 
       });
   });
 };
