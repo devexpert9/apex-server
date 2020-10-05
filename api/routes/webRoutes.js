@@ -28,6 +28,7 @@ var adminPwd = require('../controllers/userCtrl');
 
 var loginuser = require('../controllers/userCtrl');
    app.route('/login')
+    .put(loginuser.removeAllUsers)
      .post(loginuser.login);
 
 var userAdmin = require('../controllers/userCtrl');
@@ -181,6 +182,16 @@ var pack = require('../controllers/securityprivacyCtrl');
 var pack = require('../controllers/securityprivacyCtrl');
    app.route('/getWebContactData')
     .post(pack.getWebContactData);
+
+
+//--- AGENT SUBSCRIPTIONS -------------------------------------
+var pack = require('../controllers/agentsubscriptionCtrl');
+   app.route('/addAgentSubs')
+    .post(pack.addAgentSubs);
+
+var pack = require('../controllers/agentsubscriptionCtrl');
+   app.route('/getUserSubscriptions')
+    .post(pack.getUserSubscriptions);
 
 
 //--- SUPER ADMIN STUFF BELOW -------------------------------------

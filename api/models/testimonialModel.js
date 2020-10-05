@@ -7,7 +7,7 @@ var testimonialSchema = new Schema({
     name : {
       type: String
     },
-    position : {
+    website : {
       type: String
     },
     message : {

@@ -12,7 +12,7 @@ var path      = require('path');
 exports.create_testimonial = function(req, res) {
   var new_pack = new testimonial({
     name:       req.body.name,
-    position:   req.body.position,
+    website:   req.body.website,
     message:    req.body.message,
     rating:     req.body.rating,
     image:      req.body.image,
@@ -62,7 +62,7 @@ exports.getAllTestimonials = function(req, res)
 // Update TESTIMONIAL -----------------------------------
 exports.updateTestimonial = function(req, res)
 {
-  testimonial.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'position': req.body.position, 'message':req.body.message, 'rating': req.body.rating, 'image': req.body.image } }, {new: true}, function(err, user)
+  testimonial.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'website': req.body.website, 'message':req.body.message, 'rating': req.body.rating, 'image': req.body.image } }, {new: true}, function(err, user)
           {
             if(user == null)
             {
