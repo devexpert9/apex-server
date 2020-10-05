@@ -37,11 +37,10 @@ exports.import_csv_data = function(req, res){
    var  products  = []
   var csv = require("fast-csv");
   var fs = require('fs');  
-  var csvfile = __dirname + "/../api/controllers/Glossary.csv";
+  var csvfile = __dirname + "/Glossary.csv";
   console.log(csvfile);
   var stream = fs.createReadStream(csvfile);
-  var csvStream = csv()
-          .on("data", function(data){
+  var csvStream = csv().on("data", function(data){
           console.log(data)
            // var item = new Product({
            //      name: data[0],
