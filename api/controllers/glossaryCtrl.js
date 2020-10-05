@@ -34,35 +34,45 @@ exports.create_glossary = function(req, res) {
 };
 
 exports.import_csv_data = function(req, res){
-   var  products  = []
-  var csv = require("fast-csv");
+  class Employee{
+    set Topic(Topic){
+        this._Topic=Topic;
+    }
+    set Definition(Definition){
+        this._Definition=Definition;
+    }
+    get Name(){
+        return this._Topic;
+    }
+    get Title(){
+        return this._Definition;
+    }
+    constructor(){
+    }
+  };
+
+  let emp=[];
+
+  const csv=require('csvtojson');
+
   var fs = require('fs');  
   var csvfile = __dirname + "/Glossary.csv";
-  console.log(csvfile);
-  var stream = fs.createReadStream(csvfile);
-  var csvStream = csv().on("data", function(data){
-          console.log(data)
-           // var item = new Product({
-           //      name: data[0],
-           //      price: data[1],
-           //      category: data[2],
-           //      description: data[3],
-           //      manufacturer:data[4] 
-           // });
-           
-           //  item.save(function(error){
-           //    console.log(item);
-           //      if(error){
-           //           throw error;
-           //      }
-           //  }); 
-      }).on("end", function(){
-            console.log(" End of file import");
+
+  // Invoking csv returns a promise
+  const converter=csv().fromFile(csvfile).then((json)=>{
+      let e;
+      json.forEach((row)=>{
+          e=new Employee();// New Employee Object
+          Object.assign(e,row);// Assign json to the new Employee
+          emp.push(e);// Add the Employee to the Array
+          
       });
-    
-      stream.pipe(csvStream);
-      res.json({success : "Data imported successfully.", status : 200});
-      
+  }).then(()=>{
+      // Output the names of the Employees
+      emp.forEach((em)=>{
+          console.log(em.Name);// Invoke the Name getter
+      });
+  });
 };
 
 // Get All glossaries ---------------------------------
