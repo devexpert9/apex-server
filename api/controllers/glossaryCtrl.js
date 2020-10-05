@@ -56,7 +56,7 @@ exports.import_csv_data = function(req, res){
   const csv=require('csvtojson')
   // Invoking csv returns a promise
   const converter=csv()
-  .fromFile('./Glossary.csv')
+  .fromFile('Glossary.csv')
   .then((json)=>{
       let e;
       json.forEach((row)=>{
