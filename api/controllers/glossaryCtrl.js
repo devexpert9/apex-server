@@ -71,7 +71,7 @@ exports.import_csv_data = function(req, res){
       // Output the names of the Employees
       emp.forEach((em)=>{
           // console.log(em.Name);// Invoke the Name getter
-          var item = new Glossary({
+          var item = new glossary({
               topic: em.Name,
               defination: em.Title,
               created_at: new Date()
