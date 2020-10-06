@@ -46,8 +46,8 @@ var webroutes = require('./api/routes/webRoutes');
 app.use('/images', express.static(path[0] + '/images'));
 
 const options = {
-  key: fs.readFileSync("server.key"),
-  cert: fs.readFileSync("server.crt")
+  key: fs.readFileSync("private.key"),
+  cert: fs.readFileSync("certificate.crt")
 };
 
 
