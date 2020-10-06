@@ -1,6 +1,7 @@
 var express = require('express'),
   https = require("https"),
   app          = express(),
+  fs = require('fs'),
   port         = process.env.PORT || 3000,
   mongoose     = require('mongoose'),
   users        = require('./api/models/userModel'), 
