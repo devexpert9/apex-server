@@ -1,4 +1,5 @@
 var express = require('express'),
+  https = require("https"),
   app          = express(),
   port         = process.env.PORT || 3000,
   mongoose     = require('mongoose'),
@@ -42,6 +43,17 @@ app.set('port', port);
 var webroutes = require('./api/routes/webRoutes');
   webroutes(app);
 app.use('/images', express.static(path[0] + '/images'));
-app.listen(port);
+
+const options = {
+  key: fs.readFileSync("server.key"),
+  cert: fs.readFileSync("server.crt")
+};
+
+
+https.createServer(options, app).listen(port, function () {
+  console.log('APIs started at '+port)
+});
+
+// app.listen(port);
 module.exports = app;
-console.log('todo list RESTful API server started on: ' + port);
+// console.log('todo list RESTful API server started on: ' + port);
