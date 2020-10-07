@@ -101,10 +101,10 @@ exports.autoRenewalPlan = function (req, res) {
 			"description": "This is the payment transaction description."
 		}]
 	};
-	console.log(cardData);
+	console.log(JSON.stringify(cardData));
 	console.log('qwyjteuqwyteuqywte');
-	console.log(req.body.paymentInfo);
-	paypal.payment.create(cardData, function(error, payment){
+	console.log(JSON.stringify(req.body.paymentInfo));
+	paypal.payment.create(req.body.paymentInfo, function(error, payment){
 		if(error){
 			console.log(error);
 		} else {
