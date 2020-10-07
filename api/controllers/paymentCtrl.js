@@ -106,12 +106,12 @@ exports.autoRenewalPlan = function (req, res) {
 		"intent": req.body.paymentInfo.intent,
 		"payer": {
 			"payment_method": req.body.paymentInfo.payer.payment_method,
-			"funding_instruments": [{
+			"funding_instruments": [ {
 				"credit_card_token": {
-					"credit_card_id": req.body.paymentInfo.payer.funding_instruments[0].credit_card_id,
-					"external_customer_id": req.body.paymentInfo.payer.funding_instruments[0].external_customer_id
+					"credit_card_id": req.body.paymentInfo.payer.funding_instruments[0].credit_card_token.credit_card_id,
+					"external_customer_id": req.body.paymentInfo.payer.funding_instruments[0].credit_card_token.external_customer_id
 				}
-			}]
+			} ]
 		},
 		"transactions": [{
 			"amount": {
