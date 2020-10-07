@@ -133,7 +133,6 @@ exports.contactRequestWeb = function(req, res) {
 
     superadmin.findOne({}, function(err, doc)
     {
-      console.log('manmohit'); return false;
       var string = 'Don'+'\''+'t worry, we all forget sometimes'
       var fs = require('fs'); // npm install fs
       var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
