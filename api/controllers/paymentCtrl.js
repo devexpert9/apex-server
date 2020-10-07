@@ -45,7 +45,7 @@ exports.storeCreditCardVault = function (req, res) {
 	  	if (error) {
 		    res.json({
 		        msg: 'inquiry table delet',
-		        status: 1,
+		        status: 0,
 		        data: error
 		    });
 	  	} else {
@@ -82,25 +82,25 @@ exports.autoRenewalPlan = function (req, res) {
 		'client_id': PAYPAL_CLIENT,
 		'client_secret': PAYPAL_SECRET
 	});
-	var cardData = {
-		"intent": "sale",
-		"payer": {
-			"payment_method": "credit_card",
-			"funding_instruments": [{
-				"credit_card_token": {
-					"credit_card_id": "CARD-97H24964AF825961YL56WD4Q",
-					"external_customer_id": "b71710de-15ec-4ef7-9c70-850b95be785b"
-				}
-			}]
-		},
-		"transactions": [{
-			"amount": {
-				"total": "7.50",
-				"currency": "USD"
-			},
-			"description": "This is the payment transaction description."
-		}]
-	};
+	// var cardData = {
+	// 	"intent": "sale",
+	// 	"payer": {
+	// 		"payment_method": "credit_card",
+	// 		"funding_instruments": [{
+	// 			"credit_card_token": {
+	// 				"credit_card_id": "CARD-97H24964AF825961YL56WD4Q",
+	// 				"external_customer_id": "b71710de-15ec-4ef7-9c70-850b95be785b"
+	// 			}
+	// 		}]
+	// 	},
+	// 	"transactions": [{
+	// 		"amount": {
+	// 			"total": "7.50",
+	// 			"currency": "USD"
+	// 		},
+	// 		"description": "This is the payment transaction description."
+	// 	}]
+	// };
 
 	var dict = {
 		"intent": "sale",
@@ -121,12 +121,14 @@ exports.autoRenewalPlan = function (req, res) {
 			"description": "This is the payment transaction description."
 		}]
 	};
-	console.log(JSON.stringify(cardData));
-	console.log('qwyjteuqwyteuqywte');
-	console.log(JSON.stringify(dict));
+
 	paypal.payment.create(dict, function(error, payment){
 		if(error){
-			console.log(error);
+			res.send({
+		        data: null,
+		        'error': error,
+		        status: 0
+	     	});
 		} else {
 			//console.log(payment);
 			console.log(JSON.stringify(payment));

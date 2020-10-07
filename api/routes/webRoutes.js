@@ -228,7 +228,11 @@ var userData = require('../controllers/subscriptionCtrl');
 var userData = require('../controllers/subscriptionCtrl');
    app.route('/subscriptionGet')
      .post(userData.subscriptionGet);
-     
+
+var userData = require('../controllers/subscriptionCtrl');
+   app.route('/getUserSubscriptions')
+     .post(userData.getUserSubscriptions);
+    
 var userData = require('../controllers/subscriptionCtrl');
    app.route('/deleteSubscriptions')
      .post(userData.deleteSubscriptions);
