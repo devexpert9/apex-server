@@ -68,11 +68,12 @@ exports.autoRenewalPlan = function (req, res) {
 	//console.log(cardData);
 	paypal.payment.create(cardData, function(error, payment){
 		if(error){
-		console.log(error);
-	} else {
-		//console.log(payment);
-		console.log(JSON.stringify(payment));
-		res.json({"status": true, "messagePaymentSUccess": "successfully done payment"});
-	}
+			console.log(error);
+		} else {
+			//console.log(payment);
+			console.log(JSON.stringify(payment));
+			res.json({"status": true, "messagePaymentSUccess": "successfully done payment"});
+		}
+	});
 };
 
