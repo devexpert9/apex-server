@@ -38,7 +38,7 @@ exports.storeCreditCardVault = function (req, res) {
 			"cvv2": req.body.cvv,
 			"first_name": req.body.firstname,
 			"last_name": req.body.lastname,
-			"external_customer_id": req.body.external_customer_id
+			"external_customer_id": uuid.v4()
 		};
 
 	paypal.creditCard.create(card_data, function(error, credit_card){
@@ -50,7 +50,7 @@ exports.storeCreditCardVault = function (req, res) {
 		    });
 	  	} else {
 	  		var new_pack = new cards({
-			    userId:   req.body.userId,
+			    userId:   req.body.external_customer_id,
 			    card_data:   credit_card,
 			    created_at: new Date()
 			});
@@ -103,9 +103,9 @@ exports.autoRenewalPlan = function (req, res) {
 	};
 
 	var dict = {
-		"intent": req.body.paymentInfo.intent,
+		"intent": "sale",
 		"payer": {
-			"payment_method": req.body.paymentInfo.payer.payment_method,
+			"payment_method": "credit_card",
 			"funding_instruments": [ {
 				"credit_card_token": {
 					"credit_card_id": req.body.paymentInfo.payer.funding_instruments[0].credit_card_token.credit_card_id,
