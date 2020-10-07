@@ -221,8 +221,8 @@ var userData = require('../controllers/inquiryCtrl');
      .post(userData.contactRequestWeb);
      
 var userData = require('../controllers/subscriptionCtrl');
-   app.route('/subscriptionRequestWeb')
-     .post(userData.subscriptionRequestWeb);
+   app.route('/getAllSubscriptions')
+     .post(userData.getAllSubscriptions);
 
      
 var userData = require('../controllers/subscriptionCtrl');

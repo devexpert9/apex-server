@@ -87,7 +87,7 @@ exports.subscriptionRequestWeb = function(req, res)
 
 exports.getUserSubscriptions = function(req, res) 
 {
-  subscription.find({userId: req.body.user_id}, function(err, doc)
+  subscription.find({'userId': req.body.user_id}, function(err, doc)
   {
     if(doc)
     {
@@ -108,6 +108,28 @@ exports.getUserSubscriptions = function(req, res)
   });
 };
 
+exports.getAllSubscriptions = function(req, res) 
+{
+  subscription.find({}, function(err, doc)
+  {
+    if(doc)
+    {
+      res.send({
+        data: doc,
+        status: 1,
+        error:''
+      });
+    }
+    else
+    {
+      res.send({
+        data: null,
+        status: 0,
+        error:'nothing found'
+      });
+    }
+  });
+};
 
 //----------------------------------------------------------- 
 
