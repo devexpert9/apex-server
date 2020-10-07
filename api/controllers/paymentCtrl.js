@@ -101,10 +101,30 @@ exports.autoRenewalPlan = function (req, res) {
 			"description": "This is the payment transaction description."
 		}]
 	};
+
+	var dict = {
+		"intent": req.body.paymentInfo.intent,
+		"payer": {
+			"payment_method": req.body.paymentInfo.payer.payment_method,
+			"funding_instruments": [{
+				"credit_card_token": {
+					"credit_card_id": req.body.paymentInfo.payer.funding_instruments[0].credit_card_id,
+					"external_customer_id": req.body.paymentInfo.payer.funding_instruments[0].external_customer_id
+				}
+			}]
+		},
+		"transactions": [{
+			"amount": {
+				"total": req.body.paymentInfo.transactions[0].amount.total,
+				"currency": req.body.paymentInfo.transactions[0].amount.currency
+			},
+			"description": "This is the payment transaction description."
+		}]
+	};
 	console.log(JSON.stringify(cardData));
 	console.log('qwyjteuqwyteuqywte');
-	console.log(JSON.stringify(req.body.paymentInfo));
-	paypal.payment.create(req.body.paymentInfo, function(error, payment){
+	console.log(JSON.stringify(dict));
+	paypal.payment.create(dict, function(error, payment){
 		if(error){
 			console.log(error);
 		} else {
