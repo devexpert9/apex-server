@@ -3,7 +3,8 @@ var paypal = require('paypal-rest-sdk');
 uuid = require('node-uuid');
 var mongoose  = require('mongoose'),
 multer        = require('multer'),
-cards         = mongoose.model('cards');
+cards         = mongoose.model('cards'),
+subscription         = mongoose.model('subscription');
 var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
 var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';
 
@@ -30,7 +31,7 @@ exports.storeCreditCardVault = function (req, res) {
 	// 	};
 
 	var card_data = {
-			"type": "visa",
+			"type": req.body.type,
 			"number": req.body.card_number,
 			"expire_month": req.body.exp_month,
 			"expire_year": req.body.exp_year,
@@ -101,13 +102,35 @@ exports.autoRenewalPlan = function (req, res) {
 		}]
 	};
 	//console.log(cardData);
-	paypal.payment.create(cardData, function(error, payment){
+	paypal.payment.create(req.body.paymentInfo, function(error, payment){
 		if(error){
 			console.log(error);
 		} else {
 			//console.log(payment);
 			console.log(JSON.stringify(payment));
-			res.json({"status": true, "messagePaymentSUccess": "successfully done payment"});
+			var new_pack = new subscription({
+			    userId:   req.body.userId,
+			    payment_data:   payment,
+			    package_data: req.body.package,
+			    created_at: new Date()
+			});
+
+		  	new_pack.save(function(err, doc){
+			    if(doc == null){
+			      res.send({
+			        data: null,
+			        error: 'Something went wrong.Please try later.',
+			        status: 0
+			      });
+			    }else{
+			      res.send({
+			        data: doc,
+			        status: 1,
+			        error: 'Testimonial added successfully!'
+			      });
+			    }
+			});
+			// res.json({"status": true, "messagePaymentSUccess": "successfully done payment"});
 		}
 	});
 };

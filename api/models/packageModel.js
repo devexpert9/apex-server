@@ -37,5 +37,22 @@ var cardSchema = new Schema({
     }
 });
 
+var subscriptionSchema = new Schema({
+    userId: {
+      type: String
+    },
+    payment_data: {
+      type: Object
+    },
+    package_data: {
+      type: Object
+    },
+    created_at: {
+      type: Date
+    }
+});
+
+
+module.exports = mongoose.model('subscription', subscriptionSchema);
 module.exports = mongoose.model('package', packageSchema);
 module.exports = mongoose.model('cards', cardSchema);
