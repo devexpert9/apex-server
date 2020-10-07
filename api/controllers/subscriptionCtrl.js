@@ -87,8 +87,7 @@ exports.subscriptionRequestWeb = function(req, res)
 
 exports.getUserSubscriptions = function(req, res) 
 {
-  subscription.find({'userId': req.body.user_id}, function(err, doc)
-  {
+  subscription.find({'userId': req.body.user_id}, function(err, doc){
     console.log(doc);
     console.log(req.body.user_id)
     res.send({
@@ -99,8 +98,7 @@ exports.getUserSubscriptions = function(req, res)
   });
 };
 
-exports.getAllSubscriptions = function(req, res) 
-{
+exports.getAllSubscriptions = function(req, res) {
   subscription.find({}, function(err, doc)
   {
     if(doc)
