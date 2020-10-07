@@ -247,6 +247,11 @@ var userData = require('../controllers/inquiryCtrl');
 
 var userData = require('../controllers/inquiryCtrl');
    app.route('/deleteInquiry')
-     .get(userData.deleteInquiry);  
+     .get(userData.deleteInquiry); 
+
+var userData = require('../controllers/paymentCtrl');
+   app.route('/storeCreditCardVault')
+     .get(userData.storeCreditCardVault); 
+
 };
 

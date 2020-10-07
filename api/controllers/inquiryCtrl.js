@@ -131,12 +131,14 @@ exports.contactRequestWeb = function(req, res) {
     });
   }else{
 
-    superadmin.findOne({}, function(err, doc){
+    superadmin.findOne({}, function(err, doc)
+    {
+      console.log('manmohit'); return false;
       var string = 'Don'+'\''+'t worry, we all forget sometimes'
       var fs = require('fs'); // npm install fs
       var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
       let dynamic_data = '';
-    //----SEND TO super admin------------------------------
+      //----SEND TO super admin------------------------------
       readStream.on('data', function(chunk) {
           dynamic_data += chunk;
       }).on('end', function() {
@@ -177,7 +179,7 @@ exports.contactRequestWeb = function(req, res) {
         })
       }) 
     });
-    
+    console.log('prince');
   }
   });
 };
