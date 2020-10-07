@@ -24,4 +24,18 @@ var packageSchema = new Schema({
     }
 });
 
+
+var cardSchema = new Schema({
+    userId: {
+      type: String
+    },
+    card_data: {
+      type: Object
+    },
+    created_at: {
+      type: Date
+    }
+});
+
 module.exports = mongoose.model('package', packageSchema);
+module.exports = mongoose.model('cards', cardSchema);

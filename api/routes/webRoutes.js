@@ -251,11 +251,11 @@ var userData = require('../controllers/inquiryCtrl');
 
 var userData = require('../controllers/paymentCtrl');
    app.route('/storeCreditCardVault')
-     .get(userData.storeCreditCardVault); 
+     .post(userData.storeCreditCardVault); 
 
 var userData = require('../controllers/paymentCtrl');
    app.route('/autoRenewalPlan')
-     .get(userData.autoRenewalPlan); 
+     .post(userData.autoRenewalPlan); 
 
 };
 

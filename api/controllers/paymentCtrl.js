@@ -1,6 +1,9 @@
 //npm install paypal-rest-sdk
 var paypal = require('paypal-rest-sdk');
 uuid = require('node-uuid');
+var mongoose  = require('mongoose'),
+multer        = require('multer'),
+cards         = mongoose.model('cards');
 var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
 var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';
 
@@ -13,27 +16,59 @@ paypal.configure({
 	}
 });
 
-exports.storeCreditCardVault= function (req, res) {
+exports.storeCreditCardVault = function (req, res) {
+
+	// var card_data = {
+	// 		"type": "visa",
+	// 		"number": "4417119669820331",
+	// 		"expire_month": "11",
+	// 		"expire_year": "2020",
+	// 		"cvv2": "123",
+	// 		"first_name": "Joe",
+	// 		"last_name": "Shopper",
+	// 		"external_customer_id": uuid.v4()
+	// 	};
 
 	var card_data = {
 			"type": "visa",
-			"number": "4417119669820331",
-			"expire_month": "11",
-			"expire_year": "2020",
-			"cvv2": "123",
-			"first_name": "Joe",
-			"last_name": "Shopper",
-			"external_customer_id": uuid.v4()
+			"number": req.body.card_number,
+			"expire_month": req.body.exp_month,
+			"expire_year": req.body.exp_year,
+			"cvv2": req.body.cvv,
+			"first_name": req.body.firstname,
+			"last_name": req.body.lastname,
+			"external_customer_id": req.body.external_customer_id
 		};
 
 	paypal.creditCard.create(card_data, function(error, credit_card){
 	  	if (error) {
-		    console.log(error);
-		    throw error;
+		    res.json({
+		        msg: 'inquiry table delet',
+		        status: 1,
+		        data: error
+		    });
 	  	} else {
-		    console.log("Create Credit-Card Response");
-		    console.log(credit_card);
-		    console.log(credit_card.id);console.log(credit_card.type);console.log(credit_card.number);
+	  		var new_pack = new cards({
+			    userId:   req.body.userId,
+			    card_data:   credit_card,
+			    created_at: new Date()
+			});
+
+		  	new_pack.save(function(err, doc){
+			    if(doc == null){
+			      res.send({
+			        data: null,
+			        error: 'Something went wrong.Please try later.',
+			        status: 0
+			      });
+			    }else{
+			      res.send({
+			        data: doc,
+			        status: 1,
+			        error: 'Testimonial added successfully!'
+			      });
+			    }
+			});
 	  	}
 	});
 };
