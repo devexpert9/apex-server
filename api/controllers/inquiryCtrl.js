@@ -154,7 +154,7 @@ exports.contactRequestWeb = function(req, res) {
         var content = new helper.Content('text/html', dynamic_data);
 
         var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-        var sg = require('sendgrid')('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');
+        var sg = require('sendgrid')('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');
         var request = sg.emptyRequest({
             method: 'POST',
             path: '/v3/mail/send',
