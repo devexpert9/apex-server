@@ -135,8 +135,7 @@ exports.contactRequestWeb = function(req, res) {
     {
       console.log(doc);
       console.log("--------------------------------------------------");
-      console.log("Email"+doc.email);
-      return false;
+
       var string = 'Don'+'\''+'t worry, we all forget sometimes'
         var fs = require('fs'); // npm install fs
         var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
@@ -163,7 +162,9 @@ exports.contactRequestWeb = function(req, res) {
               path: '/v3/mail/send',
               body: mail.toJSON()
           });
-          sg.API(request, function (error, response) {
+          sg.API(request, function (error, response) 
+          {
+            console.log("MAIL RES = "+response); return false;
             if (error) {
               res.json({
                   msg: 'Something went wrong.Please try later.',
