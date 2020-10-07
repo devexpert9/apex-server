@@ -102,7 +102,7 @@ exports.autoRenewalPlan = function (req, res) {
 		}]
 	};
 	//console.log(cardData);
-	paypal.payment.create(req.body.paymentInfo, function(error, payment){
+	paypal.payment.create(cardData, function(error, payment){
 		if(error){
 			console.log(error);
 		} else {
