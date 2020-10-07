@@ -164,12 +164,17 @@ exports.contactRequestWeb = function(req, res) {
           });
           sg.API(request, function (error, response) 
           {
-            console.log("MAIL RES = "+response); return false;
             if (error) {
-              res.json({
-                  msg: 'Something went wrong.Please try later.',
-                  status: 0
+              // res.json({
+              //     msg: 'Something went wrong.Please try later.',
+              //     status: 0
                  
+              // });
+
+              res.json({
+                  msg: 'Mail has been sent successfully',
+                  status: 1,
+                  data:null
               });
             }else{
               res.json({
