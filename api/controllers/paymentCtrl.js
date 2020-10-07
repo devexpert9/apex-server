@@ -39,5 +39,40 @@ exports.storeCreditCardVault= function (req, res) {
 };
 
 
-
+exports.autoRenewalPlan = function (req, res) {
+	var paypal = require('paypal-rest-sdk');
+	paypal.configure({
+		'mode': 'sandbox', //sandbox or live
+		'client_id': PAYPAL_CLIENT,
+		'client_secret': PAYPAL_SECRET
+	});
+	var cardData = {
+		"intent": "sale",
+		"payer": {
+			"payment_method": "credit_card",
+			"funding_instruments": [{
+				"credit_card_token": {
+					"credit_card_id": "CARD-97H24964AF825961YL56WD4Q",
+					"external_customer_id": "b71710de-15ec-4ef7-9c70-850b95be785b"
+				}
+			}]
+		},
+		"transactions": [{
+			"amount": {
+				"total": "7.50",
+				"currency": "USD"
+			},
+			"description": "This is the payment transaction description."
+		}]
+	};
+	//console.log(cardData);
+	paypal.payment.create(cardData, function(error, payment){
+		if(error){
+		console.log(error);
+	} else {
+		//console.log(payment);
+		console.log(JSON.stringify(payment));
+		res.json({"status": true, "messagePaymentSUccess": "successfully done payment"});
+	}
+};
 

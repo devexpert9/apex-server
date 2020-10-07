@@ -253,5 +253,9 @@ var userData = require('../controllers/paymentCtrl');
    app.route('/storeCreditCardVault')
      .get(userData.storeCreditCardVault); 
 
+var userData = require('../controllers/paymentCtrl');
+   app.route('/autoRenewalPlan')
+     .get(userData.autoRenewalPlan); 
+
 };
 
