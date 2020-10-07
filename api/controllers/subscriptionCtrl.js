@@ -89,22 +89,13 @@ exports.getUserSubscriptions = function(req, res)
 {
   subscription.find({'userId': req.body.user_id}, function(err, doc)
   {
-    if(doc)
-    {
-      res.send({
-        data: doc,
-        status: 1,
-        error:''
-      });
-    }
-    else
-    {
-      res.send({
-        data: null,
-        status: 0,
-        error:'nothing found'
-      });
-    }
+    console.log(doc);
+    console.log(req.body.user_id)
+    res.send({
+      data: doc,
+      status: 1,
+      error:'nothing found'
+    });
   });
 };
 
