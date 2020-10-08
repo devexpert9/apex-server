@@ -178,36 +178,4 @@ exports.getUserCards = function (req, res) {
       });
     }
   });
-
-  paypal.creditCard.create(card_data, function(error, credit_card){
-      if (error) {
-        res.json({
-            msg: 'inquiry table delet',
-            status: 0,
-            data: error
-        });
-      } else {
-        var new_pack = new cards({
-          userId:   req.body.external_customer_id,
-          card_data:   credit_card,
-          created_at: new Date()
-      });
-
-        new_pack.save(function(err, doc){
-          if(doc == null){
-            res.send({
-              data: null,
-              error: 'Something went wrong.Please try later.',
-              status: 0
-            });
-          }else{
-            res.send({
-              data: doc,
-              status: 1,
-              error: 'Testimonial added successfully!'
-            });
-          }
-      });
-      }
-  });
 };
