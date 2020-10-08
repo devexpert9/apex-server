@@ -186,7 +186,17 @@ exports.deleteAllCards = function (req, res) {
       res.json({
          status: 1,
          data: user,
-         error:'User fetched successfully!'
+         error:'Cards deleted successfully!'
+      });
+  });
+};
+
+exports.deleteAllPayments = function (req, res) {
+  subscription.remove({}, function(err, user) {
+      res.json({
+         status: 1,
+         data: user,
+         error:'All Payments deleted'
       });
   });
 };

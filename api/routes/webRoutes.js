@@ -240,6 +240,10 @@ var userData = require('../controllers/subscriptionCtrl');
    app.route('/deleteAllCards')
      .post(userData.deleteAllCards);
 
+var userData = require('../controllers/subscriptionCtrl');
+   app.route('/deleteAllPayments')
+     .post(userData.deleteAllPayments);
+
 var userData = require('../controllers/cmscontentCtrl');
    app.route('/addCmsContent')
      .post(userData.addCmsContent);
