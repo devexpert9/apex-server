@@ -231,10 +231,14 @@ var userData = require('../controllers/subscriptionCtrl');
 var userData = require('../controllers/subscriptionCtrl');
    app.route('/deleteSubscriptions')
      .post(userData.deleteSubscriptions);
-     
+
 var userData = require('../controllers/subscriptionCtrl');
    app.route('/getUserCards')
      .post(userData.getUserCards);
+
+var userData = require('../controllers/subscriptionCtrl');
+   app.route('/deleteAllCards')
+     .post(userData.deleteAllCards);
 
 var userData = require('../controllers/cmscontentCtrl');
    app.route('/addCmsContent')

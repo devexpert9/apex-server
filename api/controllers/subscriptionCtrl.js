@@ -179,3 +179,14 @@ exports.getUserCards = function (req, res) {
     }
   });
 };
+
+// ---DELETE ALL CARDS -----------------------------
+exports.deleteAllCards = function (req, res) {
+  cards.remove({}, function(err, user) {
+      res.json({
+         status: 1,
+         data: user,
+         error:'User fetched successfully!'
+      });
+  });
+};

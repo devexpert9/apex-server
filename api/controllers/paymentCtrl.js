@@ -48,7 +48,9 @@ exports.storeCreditCardVault = function (req, res) {
 		        status: 0,
 		        data: error
 		    });
-	  	} else {
+	  	} 
+	  	else 
+	  	{
 	  		var new_pack = new cards({
 			    userId:   req.body.external_customer_id,
 			    card_data:   credit_card,
