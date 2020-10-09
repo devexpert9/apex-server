@@ -104,7 +104,7 @@ exports.getSectionById = function(req, res) {
 
 exports.updateSectionStatus = function(req, res)
 {
-  users.update({_id: req.body._id},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
+  section.update({_id: req.body._id},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
   {
     if(user == null)
     {
