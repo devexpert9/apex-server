@@ -295,10 +295,12 @@ exports.update_user_expiry = function(req, res)
       var d = new Date(userExpiry);
       let updatedExpiry = d.setMonth(d.getMonth() + addMnths);
 
+      let newDate = new Date(updatedExpiry);
+
       console.log(userExpiry);
       console.log(timePeriod);
       console.log(addMnths);
-      console.log(updatedExpiry);
+      console.log(newDate);
       return false;
 
       users.update({_id: req.body._id},{ $set: {'expiry_date': updatedExpiry} }, {new: true}, function(err, user)
