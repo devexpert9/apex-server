@@ -274,20 +274,22 @@ exports.update_user_expiry = function(req, res)
       let userExpiry = user.expiry_date;
       let timePeriod = req.body.package;
 
+      let addMnths = 0;
+
       if(timePeriod == 'indefinate'){
-        let addMnths = "360";
+        addMnths = 360;
       }
       else if(timePeriod == '1'){
-        let addMnths = "360";
+        addMnths = 360;
       }
       else if(timePeriod == '1-1'){
-        let addMnths = "1";
+        addMnths = 1;
       }
       else if(timePeriod == '6'){
-        let addMnths = "6";
+        addMnths = 6;
       }
       else if(timePeriod == '12'){
-        let addMnths = "12";
+        addMnths = 12;
       }
       
       var d = new Date(userExpiry);
