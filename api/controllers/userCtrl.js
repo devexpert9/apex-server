@@ -295,18 +295,16 @@ exports.update_user_expiry = function(req, res)
       var d = new Date(userExpiry);
       let updatedExpiry = d.setMonth(d.getMonth() + addMnths);
 
-      // let newDate = 
       let current_datetime = new Date(updatedExpiry);
-      let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()
-      // console.log(formatted_date)
+      let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" +  current_datetime.getDate();
 
-      console.log(userExpiry);
-      console.log(timePeriod);
-      console.log(addMnths);
-      console.log(formatted_date);
-      return false;
+      // console.log(userExpiry);
+      // console.log(timePeriod);
+      // console.log(addMnths);
+      // console.log(formatted_date);
+      // return false;
 
-      users.update({_id: req.body._id},{ $set: {'expiry_date': updatedExpiry} }, {new: true}, function(err, user)
+      users.update({_id: req.body._id},{ $set: {'expiry_date': formatted_date} }, {new: true}, function(err, user)
       {
         if(user == null)
         {
