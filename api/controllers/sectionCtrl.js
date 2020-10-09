@@ -102,6 +102,30 @@ exports.getSectionById = function(req, res) {
   });
 };
 
+exports.updateSectionStatus = function(req, res)
+{
+  users.update({_id: req.body._id},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
+  {
+    if(user == null)
+    {
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }
+    else
+    {
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Section status updated successfully!"
+      });
+    }
+  });
+};
+
 // DELETE TESTIMONIAL -----------------------------------
 exports.deleteSection = function(req, res)
 {

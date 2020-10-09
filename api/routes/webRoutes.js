@@ -159,6 +159,10 @@ var pack = require('../controllers/sectionCtrl');
 var pack = require('../controllers/sectionCtrl');
    app.route('/getSectionById')
     .post(pack.getSectionById);
+    
+var pack = require('../controllers/sectionCtrl');
+   app.route('/updateSectionStatus')
+    .post(pack.updateSectionStatus);
 
 //--- GLOSSARY -------------------------------------
 var pack = require('../controllers/glossaryCtrl');
