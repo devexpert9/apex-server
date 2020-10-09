@@ -256,6 +256,30 @@ exports.addUser = function(req, res)
   });
 };
 
+exports.update_user_expiry = function(req, res)
+{ 
+  users.update({_id: req.body._id},{ $set: {'expiry_date': req.body.expiry_date} }, {new: true}, function(err, user)
+    {
+      if(user == null)
+      {
+        res.send({
+          error: err,
+          status: 0,
+          msg:"Try Again"
+        });
+      }
+      else
+      {
+        res.json({
+          error: err,
+          status: 1,
+          data: user,
+          msg:"Expiry date updated successfully!"
+        });
+      }
+    });
+};
+
 exports.update_user = function(req, res)
 {
   users.findOne({email: req.body.email, '_id': { $ne: req.body._id}}, function(err, user)

@@ -48,6 +48,10 @@ var userData = require('../controllers/userCtrl');
      .post(userData.update_user);
      
 var userData = require('../controllers/userCtrl');
+   app.route('/update_user_expiry')
+     .post(userData.update_user_expiry);
+     
+var userData = require('../controllers/userCtrl');
    app.route('/update_userLess')
      .post(userData.update_userLess);
 
