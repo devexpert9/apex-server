@@ -271,7 +271,7 @@ exports.update_user_expiry = function(req, res)
     {
       console.log("*******************************************************************************************************************************************************************************");
       console.log(user);
-      let userExpiry = user.data.expiry_date;
+      let userExpiry = user.expiry_date;
       let timePeriod = req.body.package;
 
       if(timePeriod == 'indefinate'){
