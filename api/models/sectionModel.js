@@ -10,6 +10,9 @@ var sectionSchema = new Schema({
     message : {
       type: String
     },
+    status : {
+      type: String
+    },
     image:{
       type: String
     },

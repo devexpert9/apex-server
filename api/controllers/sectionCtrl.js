@@ -13,6 +13,7 @@ exports.create_section = function(req, res) {
   var new_pack = new section({
     name:       req.body.name,
     message:    req.body.message,
+    status:    req.body.status,
     image:      req.body.image,
     created_at: new Date()
   });
@@ -60,7 +61,7 @@ exports.getAllSections = function(req, res)
 // Update section -----------------------------------
 exports.updateSection = function(req, res)
 {
-  section.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'message':req.body.message, 'image': req.body.image } }, {new: true}, function(err, user)
+  section.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'message':req.body.message, 'status':req.body.status, 'image': req.body.image } }, {new: true}, function(err, user)
           {
             if(user == null)
             {
