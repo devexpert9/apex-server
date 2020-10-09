@@ -269,6 +269,8 @@ exports.update_user_expiry = function(req, res)
     }
     else
     {
+      console.log("*******************************************************************************************************************************************************************************");
+      console.log(user);
       let userExpiry = user.data.expiry_date;
       let timePeriod = req.body.package;
 
@@ -296,7 +298,7 @@ exports.update_user_expiry = function(req, res)
       console.log(addMnths);
       console.log(updatedExpiry);
       return false;
-      
+
       users.update({_id: req.body._id},{ $set: {'expiry_date': updatedExpiry} }, {new: true}, function(err, user)
       {
         if(user == null)
