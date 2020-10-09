@@ -258,26 +258,67 @@ exports.addUser = function(req, res)
 
 exports.update_user_expiry = function(req, res)
 { 
-  users.update({_id: req.body._id},{ $set: {'expiry_date': req.body.expiry_date} }, {new: true}, function(err, user)
+  users.findOne({_id:req.body._id}, function(err, user) {
+    if(user == null)
     {
-      if(user == null)
-      {
-        res.send({
-          error: err,
-          status: 0,
-          msg:"Try Again"
-        });
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid username.'
+      });
+    }
+    else
+    {
+      let userExpiry = user.data.expiry_date;
+      let timePeriod = req.body.package;
+
+      if(timePeriod == 'indefinate'){
+        let addMnths = "360";
       }
-      else
-      {
-        res.json({
-          error: err,
-          status: 1,
-          data: user,
-          msg:"Expiry date updated successfully!"
-        });
+      else if(timePeriod == '1'){
+        let addMnths = "360";
       }
-    });
+      else if(timePeriod == '1-1'){
+        let addMnths = "1";
+      }
+      else if(timePeriod == '6'){
+        let addMnths = "6";
+      }
+      else if(timePeriod == '12'){
+        let addMnths = "12";
+      }
+      
+      var d = new Date(userExpiry);
+      let updatedExpiry = d.setMonth(d.getMonth() + addMnths);
+
+      console.log(userExpiry);
+      console.log(timePeriod);
+      console.log(addMnths);
+      console.log(updatedExpiry);
+      return false;
+      
+      users.update({_id: req.body._id},{ $set: {'expiry_date': updatedExpiry} }, {new: true}, function(err, user)
+      {
+        if(user == null)
+        {
+          res.send({
+            error: err,
+            status: 0,
+            msg:"Try Again"
+          });
+        }
+        else
+        {
+          res.json({
+            error: err,
+            status: 1,
+            data: user,
+            msg:"Expiry date updated successfully!"
+          });
+        }
+      });
+    }
+  });
 };
 
 exports.update_user = function(req, res)
