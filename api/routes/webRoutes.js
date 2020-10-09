@@ -46,7 +46,7 @@ var userData = require('../controllers/userCtrl');
 var userData = require('../controllers/userCtrl');
    app.route('/update_user')
      .post(userData.update_user);
-     
+
 var userData = require('../controllers/userCtrl');
    app.route('/update_user_expiry')
      .post(userData.update_user_expiry);
@@ -138,6 +138,27 @@ var pack = require('../controllers/testimonialCtrl');
 var pack = require('../controllers/testimonialCtrl');
    app.route('/getTestimonialById')
     .post(pack.getTestimonialById);
+
+//--- SECTIONS -------------------------------------
+var pack = require('../controllers/sectionCtrl');
+   app.route('/create_section')
+    .post(pack.create_section);
+
+var pack = require('../controllers/sectionCtrl');
+   app.route('/getAllSections')
+    .post(pack.getAllSections);
+
+var pack = require('../controllers/sectionCtrl');
+   app.route('/updateSection')
+    .post(pack.updateSection);
+
+var pack = require('../controllers/sectionCtrl');
+   app.route('/deleteSection')
+    .post(pack.deleteSection);
+    
+var pack = require('../controllers/sectionCtrl');
+   app.route('/getSectionById')
+    .post(pack.getSectionById);
 
 //--- GLOSSARY -------------------------------------
 var pack = require('../controllers/glossaryCtrl');
