@@ -18,7 +18,7 @@ exports.signup_create_package = function(req, res) {
         price:        req.body.price,
         timePeriod:   req.body.timePeriod,
         description:  req.body.description,
-        status:       1,
+        status:       0,
         created_at:   new Date()
       });
       new_pack.save(function(err, doc) 
@@ -100,7 +100,7 @@ exports.signup_updatePackage = function(req, res)
       {
         if(username == null)
         {
-          signuppackages.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'price': req.body.price, 'timePeriod':req.body.timePeriod, 'description': req.body.description, 'status': req.body.status } }, {new: true}, function(err, user)
+          signuppackages.update({_id: req.body._id},{$set:{ 'name': req.body.name, 'price': req.body.price, 'timePeriod':req.body.timePeriod, 'description': req.body.description} }, {new: true}, function(err, user)
           {
             if(user == null)
             {
