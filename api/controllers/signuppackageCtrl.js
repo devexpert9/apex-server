@@ -167,9 +167,9 @@ exports.signup_deletePackage = function(req, res)
 // UPDTAE STATUS -------------------------
 exports.updatePackageStatus = function(req, res)
 {
-  signuppackages.update({},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
+  signuppackages.update({},{$set:{ 'status':0 } }, {new: true}, function(err, user)
   {
-    console.log('Disable All')
+      
   });
   /**/
 };
