@@ -17,6 +17,7 @@ var express = require('express'),
   glossary     = require('./api/models/glossaryModel'),
   agentsubscription     = require('./api/models/agentsubscriptionModel'),
   securityprivacy  = require('./api/models/securityprivacyModel'),
+  signuppackage  = require('./api/models/signuppackageModel'),
   multer       = require('multer'),
   bodyParser   = require('body-parser');
 
