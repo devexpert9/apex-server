@@ -138,6 +138,10 @@ var pack = require('../controllers/signuppackageCtrl');
    app.route('/signup_getPackageById')
     .post(pack.signup_getPackageById);
 
+var pack = require('../controllers/signuppackageCtrl');
+   app.route('/updatePackageStatus')
+    .post(pack.updatePackageStatus);
+
 
 //--- TESTIMONIALS -------------------------------------
 var pack = require('../controllers/testimonialCtrl');
