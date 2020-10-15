@@ -180,6 +180,28 @@ exports.getUserCards = function (req, res) {
   });
 };
 
+exports.DeleteCardByID = function (req, res) {
+  cards.remove({userId: req.body.userId}, function(err, doc)
+  {
+    if(doc)
+    {
+      res.send({
+        data: doc,
+        status: 1,
+        msg:'card deleted successfully'
+      });
+    }
+    else
+    {
+      res.send({
+        data: null,
+        status: 0,
+        error:'nothing found'
+      });
+    }
+  });
+};
+
 // ---DELETE ALL CARDS -----------------------------
 exports.deleteAllCards = function (req, res) {
   cards.remove({}, function(err, user) {

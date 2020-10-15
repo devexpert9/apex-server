@@ -289,6 +289,10 @@ var userData = require('../controllers/subscriptionCtrl');
 var userData = require('../controllers/subscriptionCtrl');
    app.route('/getUserCards')
      .post(userData.getUserCards);
+     
+var userData = require('../controllers/subscriptionCtrl');
+   app.route('/DeleteCardByID')
+     .post(userData.DeleteCardByID);
 
 var userData = require('../controllers/subscriptionCtrl');
    app.route('/deleteAllCards')
