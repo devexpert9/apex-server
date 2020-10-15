@@ -169,26 +169,7 @@ exports.updatePackageStatus = function(req, res)
 {
   signuppackages.update({},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
   {
-      signuppackages.update({_id: req.body._id},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
-      {
-        if(user == null)
-        {
-          res.send({
-            error: err,
-            status: 0,
-            msg:"Try Again"
-          });
-        }
-        else
-        {
-          res.json({
-            error: null,
-            status: 1,
-            data:user,
-            msg:"Signup package status updated successfully!"
-          });
-        }
-      });
+    console.log('Disable All')
   });
   /**/
 };
