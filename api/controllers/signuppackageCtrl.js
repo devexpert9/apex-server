@@ -13,7 +13,7 @@ exports.signup_create_package = function(req, res) {
   signuppackages.findOne({name: req.body.name}, function(err, pack) {
     if(pack == null)
     {
-      var new_pack = new packages({
+      var new_pack = new signuppackages({
         name:         req.body.name,
         price:        req.body.price,
         timePeriod:   req.body.timePeriod,
