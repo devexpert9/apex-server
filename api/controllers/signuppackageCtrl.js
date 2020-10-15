@@ -167,28 +167,28 @@ exports.signup_deletePackage = function(req, res)
 // UPDTAE STATUS -------------------------
 exports.updatePackageStatus = function(req, res)
 {
-  signuppackages.update({},{$set:{ 'status':0 } }, {new: true}, function(err, user)
+  signuppackages.updateMany({},{$set:{ 'status':0 } }, function(err, user)
   {
-      signuppackages.update({_id: req.body._id},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
+    signuppackages.update({_id: req.body._id},{$set:{ 'status':req.body.status } }, {new: true}, function(err, user)
+    {
+      if(user == null)
       {
-        if(user == null)
-        {
-          res.send({
-            error: err,
-            status: 0,
-            msg:"Try Again"
-          });
-        }
-        else
-        {
-          res.json({
-            error: null,
-            status: 1,
-            data:user,
-            msg:"Signup package status updated successfully!"
-          });
-        }
-      });
+        res.send({
+          error: err,
+          status: 0,
+          msg:"Try Again"
+        });
+      }
+      else
+      {
+        res.json({
+          error: null,
+          status: 1,
+          data:user,
+          msg:"Signup package status updated successfully!"
+        });
+      }
+    });
   });
   /**/
 };
