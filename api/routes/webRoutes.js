@@ -118,23 +118,23 @@ var pack = require('../controllers/packageCtrl');
     .post(pack.getPackageById);
 
 //--- SIGN UP PACKAGES -------------------------------------
-var pack = require('../controllers/packageCtrl');
+var pack = require('../controllers/signuppackageCtrl');
    app.route('/signup_create_package')
     .post(pack.signup_create_package);
 
-var pack = require('../controllers/packageCtrl');
+var pack = require('../controllers/signuppackageCtrl');
    app.route('/signup_getAllPackages')
     .post(pack.signup_getAllPackages);
 
-var pack = require('../controllers/packageCtrl');
+var pack = require('../controllers/signuppackageCtrl');
    app.route('/signup_updatePackage')
     .post(pack.signup_updatePackage);
 
-var pack = require('../controllers/packageCtrl');
+var pack = require('../controllers/signuppackageCtrl');
    app.route('/signup_deletePackage')
     .post(pack.signup_deletePackage);
 
-var pack = require('../controllers/packageCtrl');
+var pack = require('../controllers/signuppackageCtrl');
    app.route('/signup_getPackageById')
     .post(pack.signup_getPackageById);
 
