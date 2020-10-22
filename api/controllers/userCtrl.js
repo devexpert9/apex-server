@@ -352,22 +352,6 @@ exports.update_user_expiryDuringSignup = function(req, res)
       let timePeriod = req.body.package;
 
       let addMnths = timePeriod;
-
-      // if(timePeriod == 'indefinate'){
-      //   addMnths = 360;
-      // }
-      // else if(timePeriod == '1'){
-      //   addMnths = 360;
-      // }
-      // else if(timePeriod == '1-1'){
-      //   addMnths = 1;
-      // }
-      // else if(timePeriod == '6'){
-      //   addMnths = 6;
-      // }
-      // else if(timePeriod == '12'){
-      //   addMnths = 12;
-      // }
       
       var d = new Date(userExpiry);
       let updatedExpiry = d.setMonth(d.getMonth() + addMnths);
@@ -384,6 +368,7 @@ exports.update_user_expiryDuringSignup = function(req, res)
       console.log(userExpiry);
       console.log(timePeriod);
       console.log(addMnths);
+      console.log("********* = "+updatedExpiry);
       console.log("********* = "+formatted_date);
       return false; 
 
