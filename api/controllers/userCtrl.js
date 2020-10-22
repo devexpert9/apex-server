@@ -346,8 +346,8 @@ exports.update_user_expiryDuringSignup = function(req, res)
     }
     else
     {
-      console.log("*******************************************************************************************************************************************************************************");
-      console.log(user);
+      // console.log("*******************************************************************************************************************************************************************************");
+      // console.log(user);
       let userExpiry = user.expiry_date;
       let timePeriod = req.body.package;
 
@@ -356,21 +356,18 @@ exports.update_user_expiryDuringSignup = function(req, res)
       var d = new Date(userExpiry);
       let updatedExpiry = d.setMonth(d.getMonth() + addMnths);
 
-      // let current_datetime = new Date(updatedExpiry);
-      // let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" +  current_datetime.getDate();
-
       let dt    = new Date(updatedExpiry);
       let year  = dt.getFullYear();
       let month = (dt.getMonth() + 1).toString().padStart(2, "0");
       let day   = dt.getDate().toString().padStart(2, "0");
 
       let formatted_date = year+'-'+month+'-'+day;
-      console.log(userExpiry);
-      console.log(timePeriod);
-      console.log(addMnths);
-      console.log("********* = "+updatedExpiry);
-      console.log("********* = "+formatted_date);
-      return false; 
+      // console.log(userExpiry);
+      // console.log(timePeriod);
+      // console.log(addMnths);
+      // console.log("********* = "+updatedExpiry);
+      // console.log("********* = "+formatted_date);
+      // return false; 
 
       users.update({_id: req.body._id},{ $set: {'expiry_date': formatted_date} }, {new: true}, function(err, user)
       {
