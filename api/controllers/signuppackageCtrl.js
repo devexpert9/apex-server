@@ -89,6 +89,25 @@ exports.signup_getPackageById = function(req, res) {
   });
 };
 
+// GET PACKAGE BY ID --------------------------------
+exports.signup_getPackageByStatus = function(req, res) {
+  signuppackages.findOne({status:1}, function(err, user) {
+    if(user == null){
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid username.'
+      });
+    }else{
+      res.json({
+         status: 1,
+         data: user,
+         error:'Package fetched successfully!'
+      });
+    }
+  });
+};
+
 // Update Package -----------------------------------
 exports.signup_updatePackage = function(req, res)
 {

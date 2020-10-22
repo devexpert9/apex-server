@@ -139,6 +139,10 @@ var pack = require('../controllers/signuppackageCtrl');
     .post(pack.signup_getPackageById);
 
 var pack = require('../controllers/signuppackageCtrl');
+   app.route('/signup_getPackageByStatus')
+    .post(pack.signup_getPackageByStatus);
+
+var pack = require('../controllers/signuppackageCtrl');
    app.route('/updatePackageStatus')
     .post(pack.updatePackageStatus);
 
