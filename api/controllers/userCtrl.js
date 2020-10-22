@@ -351,7 +351,7 @@ exports.update_user_expiryDuringSignup = function(req, res)
       let userExpiry = user.expiry_date;
       let timePeriod = req.body.package;
 
-      let addMnths = timePeriod;
+      let addMnths = Number(timePeriod);
       
       var d = new Date(userExpiry);
       let updatedExpiry = d.setMonth(d.getMonth() + addMnths);
