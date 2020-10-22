@@ -50,6 +50,11 @@ var userData = require('../controllers/userCtrl');
 var userData = require('../controllers/userCtrl');
    app.route('/update_user_expiry')
      .post(userData.update_user_expiry);
+
+     
+var userData = require('../controllers/userCtrl');
+   app.route('/update_user_expiryDuringSignup')
+     .post(userData.update_user_expiryDuringSignup);
      
 var userData = require('../controllers/userCtrl');
    app.route('/update_userLess')

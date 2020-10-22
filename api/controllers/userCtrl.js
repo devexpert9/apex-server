@@ -333,6 +333,84 @@ exports.update_user_expiry = function(req, res)
   });
 };
 
+exports.update_user_expiryDuringSignup = function(req, res)
+{ 
+  users.findOne({_id:req.body._id}, function(err, user) {
+    if(user == null)
+    {
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid username.'
+      });
+    }
+    else
+    {
+      console.log("*******************************************************************************************************************************************************************************");
+      console.log(user);
+      let userExpiry = user.expiry_date;
+      let timePeriod = req.body.package;
+
+      let addMnths = timePeriod;
+
+      // if(timePeriod == 'indefinate'){
+      //   addMnths = 360;
+      // }
+      // else if(timePeriod == '1'){
+      //   addMnths = 360;
+      // }
+      // else if(timePeriod == '1-1'){
+      //   addMnths = 1;
+      // }
+      // else if(timePeriod == '6'){
+      //   addMnths = 6;
+      // }
+      // else if(timePeriod == '12'){
+      //   addMnths = 12;
+      // }
+      
+      var d = new Date(userExpiry);
+      let updatedExpiry = d.setMonth(d.getMonth() + addMnths);
+
+      // let current_datetime = new Date(updatedExpiry);
+      // let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" +  current_datetime.getDate();
+
+      let dt    = new Date(updatedExpiry);
+      let year  = dt.getFullYear();
+      let month = (dt.getMonth() + 1).toString().padStart(2, "0");
+      let day   = dt.getDate().toString().padStart(2, "0");
+
+      let formatted_date = year+'-'+month+'-'+day;
+      // console.log(userExpiry);
+      // console.log(timePeriod);
+      // console.log(addMnths);
+      console.log("********* = "+formatted_date);
+      // return false;
+
+      users.update({_id: req.body._id},{ $set: {'expiry_date': formatted_date} }, {new: true}, function(err, user)
+      {
+        if(user == null)
+        {
+          res.send({
+            error: err,
+            status: 0,
+            msg:"Try Again"
+          });
+        }
+        else
+        {
+          res.json({
+            error: err,
+            status: 1,
+            data: user,
+            msg:"Expiry date updated successfully!"
+          });
+        }
+      });
+    }
+  });
+};
+
 exports.update_user = function(req, res)
 {
   users.findOne({email: req.body.email, '_id': { $ne: req.body._id}}, function(err, user)
