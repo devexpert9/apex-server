@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
 multer  = require('multer'),
+cards         = mongoose.model('cards'),
 // stores = mongoose.model('store'),
 // newsfeed = mongoose.model('newsfeed'),
 users = mongoose.model('users');
@@ -255,6 +256,119 @@ exports.addUser = function(req, res)
   });
 };
 
+exports.addUserFront = function(req, res)
+{
+  users.findOne({email: req.body.email}, function(err, user)
+  {
+    if(user == null)
+    {
+      users.findOne({username: req.body.username}, function(err, username)
+      {
+        if(username == null)
+        {
+          var new_user = new users({
+            username: req.body.username,
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            contact: req.body.contact,
+            zip: req.body.zip,
+            state: req.body.state,
+            city: req.body.city,
+            country: req.body.country,
+            address: req.body.address,
+            status: 1,
+            image: null,
+            created_on:new Date(),
+            expiry_date: req.body.expiry_date
+          });
+
+          new_user.save(function(err, users)
+          {
+             res.json({
+                        msg: 'Mail has been sent successfully',
+                        status: 1,
+                        data:users
+                    });
+            // SEND EMAIL TO AGENT ----------------------------------
+              var string = 'Apex';
+              var fs = require('fs'); // npm install fs
+              var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/agentRegister.html', 'utf8');
+              let dynamic_data = ''
+              readStream.on('data', function(chunk) {
+                  dynamic_data += chunk;
+              }).on('end', function() {
+                var sg = require('sendgrid')('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');
+                // var helper = sg.mail;
+                var helper = require('sendgrid').mail;
+                var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
+                var toEmail   = new helper.Email(req.body.email);
+                //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
+                var subject = 'Apex Agent Account Login Details';
+
+                // dynamic_data = dynamic_data.replace("#STRING#",  string);
+                dynamic_data = dynamic_data.replace("#NAME#", req.body.name) ;
+                dynamic_data = dynamic_data.replace("#EMAIL#", req.body.email) ;
+                dynamic_data = dynamic_data.replace("#PASSWORD#", req.body.password);
+                // dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
+                var content = new helper.Content('text/html', dynamic_data);
+
+                var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+                // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
+
+                var sg = require('sendgrid')('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');
+                var request = sg.emptyRequest({
+                    method: 'POST',
+                    path: '/v3/mail/send',
+                    body: mail.toJSON()
+                });
+                sg.API(request, function (error, response) {
+                  // if (error) {
+                  //   res.json({
+                  //       msg: 'Something went wrong.Please try later.',
+                  //       status: 0,
+                  //       data: error
+                  //   });
+                  // }else{
+                    // res.json({
+                    //     msg: 'Mail has been sent successfully',
+                    //     status: 1,
+                    //     data:users
+                    // });
+                  // }
+                })
+              });
+
+              cards.update({'userId': req.body.tempUserId },{$set:{ 'userId': users._id } }, {new: true}, function(err, user){
+              });
+            //-------------------------------------------------------
+            /*res.send({
+              data: users,
+              status: 1,
+              error: 'User registered successfully!'
+            });*/
+          });
+        }
+        else{
+          res.send({
+            status: 0,
+            data: null,
+            error: 'Username already exist in our system!'
+          });
+        }
+      });
+
+      
+    }else{
+      res.send({
+        status: 0,
+        data: null,
+        error: 'Email already exist in our system!'
+      });
+    }
+  });
+};
+
 exports.update_user_expiry = function(req, res)
 { 
   users.findOne({_id:req.body._id}, function(err, user) {
@@ -476,16 +590,28 @@ exports.checkEmailExist = function(req, res) {
   users.findOne({email:req.body.email}, function(err, user) {
     if(user == null)
     {
-      res.send({
-        status: 0,
-        data: null,
-        error:'Email Not Exist.'
+      users.findOne({username: req.body.username}, function(err, username)
+      {
+        if(username == null)
+        {
+          res.send({
+            status: 0,
+            data: null,
+            error:'Username already exist in our system.'
+          });
+        }else{
+          res.send({
+            status: 1,
+            data: null,
+            error:'Username already exist in our system.'
+          });
+        }
       });
     }else{
       res.send({
         status: 1,
         data: null,
-        error:'Email Exist.'
+        error:'Email already exist in our system.'
       });
     }
   });
