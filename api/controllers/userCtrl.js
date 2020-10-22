@@ -381,11 +381,11 @@ exports.update_user_expiryDuringSignup = function(req, res)
       let day   = dt.getDate().toString().padStart(2, "0");
 
       let formatted_date = year+'-'+month+'-'+day;
-      // console.log(userExpiry);
-      // console.log(timePeriod);
-      // console.log(addMnths);
+      console.log(userExpiry);
+      console.log(timePeriod);
+      console.log(addMnths);
       console.log("********* = "+formatted_date);
-      // return false;
+      return false; 
 
       users.update({_id: req.body._id},{ $set: {'expiry_date': formatted_date} }, {new: true}, function(err, user)
       {
