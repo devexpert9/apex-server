@@ -15,6 +15,10 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.addUser);
 
 var adduser = require('../controllers/userCtrl');
+   app.route('/addUserFront')
+     .post(adduser.addUserFront);
+
+var adduser = require('../controllers/userCtrl');
    app.route('/updateAgentStatus')
      .post(adduser.updateAgentStatus);
 
@@ -51,7 +55,7 @@ var userData = require('../controllers/userCtrl');
    app.route('/update_user_expiry')
      .post(userData.update_user_expiry);
 
-     
+
 var userData = require('../controllers/userCtrl');
    app.route('/update_user_expiryDuringSignup')
      .post(userData.update_user_expiryDuringSignup);
