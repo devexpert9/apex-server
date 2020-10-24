@@ -159,22 +159,22 @@ var job = new CronJob('0 */10 * * * *', function() {
 
                       users.update({_id: doc[counter]._id},{ $set: {'expiry_date': formatted_date} }, {new: true}, function(err, user)
                       {
-                        counter + =1;
+                        counter += 1;
                         recurringPayment();
                       });
                     });
                   }else{
-                    counter + =1;
+                    counter += 1;
                     recurringPayment();
                   }
                 });
               }else{
-                counter + =1;
+                counter += 1;
                 recurringPayment();
               }
             });
           }else{
-            counter + =1;
+            counter += 1;
             recurringPayment();
           }
         });
