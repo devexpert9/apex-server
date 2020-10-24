@@ -57,6 +57,11 @@ https.createServer(options, app).listen(port, function () {
   console.log('APIs started at '+port)
 });
 
+var CronJob = require('cron').CronJob;
+var job = new CronJob('* * * * * *', function() {
+  console.log('You will see this message every second');
+});
+job.start();
 // app.listen(port);
 module.exports = app;
 // console.log('todo list RESTful API server started on: ' + port);
