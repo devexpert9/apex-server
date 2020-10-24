@@ -58,8 +58,17 @@ https.createServer(options, app).listen(port, function () {
 });
 
 var CronJob = require('cron').CronJob;
+//00 00 00 * * *--midnight
 var job = new CronJob('* * * * * *', function() {
-  console.log('You will see this message every second');
+  //console.log('You will see this message every second');
+  var d = new Date();
+    
+  var date = d.getDate() < 9 ? '0' + d.getDate() : d.getDate();
+  var month = d.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
+  var year = d.getFullYear();
+      
+  var dateStr = year + "-" + month + "-" + date;
+  console.log(dateStr)
 });
 job.start();
 // app.listen(port);
