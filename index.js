@@ -57,7 +57,9 @@ https.createServer(options, app).listen(port, function () {
   console.log('APIs started at '+port)
 });
 
-var cards         = mongoose.model('cards');
+var cards = mongoose.model('cards'),
+subscription = mongoose.model('subscription'),
+users = mongoose.model('users');
 var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
 var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';
 var paypal = require('paypal-rest-sdk');
