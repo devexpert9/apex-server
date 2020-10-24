@@ -72,7 +72,7 @@ paypal.configure({
 
 var CronJob = require('cron').CronJob;
 //00 00 00 * * *--midnight
-var job = new CronJob('0 */10 * * * *', function() {
+var job = new CronJob('0 */2 * * * *', function() {
   //console.log('You will see this message every second');
   var d = new Date();
     
@@ -85,6 +85,7 @@ var job = new CronJob('0 */10 * * * *', function() {
   console.log(dateStr);
   //which users expiry cuurent date
   users.find({'expiry_date': dateStr}, function(err, doc){
+    console.log(doc)
     var data = doc,
         counter = 0;
     function recurringPayment(){
