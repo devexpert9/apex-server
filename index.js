@@ -74,7 +74,7 @@ paypal.configure({
 
 var CronJob = require('cron').CronJob;
 //00 00 00 * * *--midnight
-var job = new CronJob('0 */2 * * * *', function() {
+var job = new CronJob('00 00 00 * * *', function() {
   //console.log('You will see this message every second');
   var d = new Date();
     
@@ -127,7 +127,7 @@ var job = new CronJob('0 */2 * * * *', function() {
                         created_at: new Date()
                     });
 
-                    new_pack.save(function(err, doc){
+                    new_pack.save(function(err, new_doc){
                       //update user expiry
                       let userExpiry = doc[counter].expiry_date;
                       let timePeriod = sub_doc.package_data.timePeriod;
