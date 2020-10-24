@@ -74,7 +74,7 @@ paypal.configure({
 
 var CronJob = require('cron').CronJob;
 //00 00 00 * * *--midnight
-var job = new CronJob('00 00 00 * * *', function() {
+var job = new CronJob('0 */2 * * * *', function() {
   //console.log('You will see this message every second');
   var d = new Date();
     
