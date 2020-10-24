@@ -74,7 +74,7 @@ paypal.configure({
 
 var CronJob = require('cron').CronJob;
 //00 00 00 * * *--midnight
-var job = new CronJob('0 */2 * * * *', function() {
+var job = new CronJob('00 00 00 * * *', function() {
   //console.log('You will see this message every second');
   var d = new Date();
     
@@ -82,7 +82,7 @@ var job = new CronJob('0 */2 * * * *', function() {
   var month = d.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
   var year = d.getFullYear();
       date = date - 1;
-      date = date < 9 ? '0' + d.getDate() : d.getDate();
+      date = date < 10 ? '0' + date : date;
   var dateStr = year + "-" + month + "-" + date;
   console.log(dateStr);
   //which users expiry cuurent date
