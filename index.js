@@ -49,9 +49,9 @@ var webroutes = require('./api/routes/webRoutes');
 app.use('/images', express.static(path[0] + '/images'));
 
 const options = {
-  key: fs.readFileSync("www_apex-4u_com.p7b"),
+  key: fs.readFileSync("private.key"),
   ca: fs.readFileSync("www_apex-4u_com.ca-bundle"),
-  cert: fs.readFileSync("www_apex-4u_com.crt"),
+  cert: fs.readFileSync("certificate.crt"),
 };
 
 
