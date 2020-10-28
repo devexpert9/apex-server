@@ -49,7 +49,8 @@ exports.add_contactRequest = function(req, res) {
                 body: mail.toJSON()
             });
             sg.API(request, function (error, response) {
-              if (error) {
+              /*if (error) {
+                cons
                 res.json({
                     msg: 'Something went wrong.Please try later.',
                     status: 0
@@ -61,7 +62,12 @@ exports.add_contactRequest = function(req, res) {
                     status: 1,
                     data:null
                 });
-              }
+              }*/
+              res.json({
+                    msg: 'Mail has been sent successfully',
+                    status: 1,
+                    data:null
+                });
             })
           })
       //----another to super admin------------------------------
