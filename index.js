@@ -2,7 +2,7 @@ var express = require('express'),
   https = require("https"),
   app          = express(),
   fs = require('fs'),
-  port         = process.env.PORT || 443,
+  port         = process.env.PORT || 8080,
   mongoose     = require('mongoose'),
   users        = require('./api/models/userModel'), 
   admin        = require('./api/models/adminModel'), 
@@ -50,8 +50,7 @@ app.use('/images', express.static(path[0] + '/images'));
 
 const options = {
   key: fs.readFileSync("private.key"),
-  ca: fs.readFileSync("www_apex-4u_com.ca-bundle"),
-  cert: fs.readFileSync("certificate.crt"),
+  cert: fs.readFileSync("certificate.crt")
 };
 
 
