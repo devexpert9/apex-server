@@ -5,11 +5,14 @@ var mongoose  = require('mongoose'),
 multer        = require('multer'),
 cards         = mongoose.model('cards'),
 subscription         = mongoose.model('subscription');
-var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
-var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';
+/*var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
+var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';*/
+var PAYPAL_CLIENT = 'AfYnCuUFzmKXJQm6A_C3z1UoR8Bq6ewoONrdznTaWlIhY3QkUT1kraO47cAv81z9Et77Mv11w-N5xMvu';
+var PAYPAL_SECRET = 'EMaWrXLbB6DHxyIsA4O68DrJ259KcCp-vxgqIPvy1lYeC2-qz8vhRlC_T6neAApyaL4HBhtZUJTR1Vjt';
 
 paypal.configure({
-	'mode': 'sandbox', //sandbox or live
+	//'mode': 'sandbox', //sandbox or live
+	'mode': 'live', //sandbox or live
 	'client_id': PAYPAL_CLIENT, 
 	'client_secret': PAYPAL_SECRET,
 	'headers': {
