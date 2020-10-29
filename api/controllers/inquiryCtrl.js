@@ -22,62 +22,68 @@ exports.add_contactRequest = function(req, res) {
           data: null
         });
       }else{
-          var string = 'Don'+'\''+'t worry, we all forget sometimes'
-          var fs = require('fs'); // npm install fs
-          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
-          let dynamic_data = ''
-          readStream.on('data', function(chunk) {
-              dynamic_data += chunk;
-          }).on('end', function() {
-            var helper = require('sendgrid').mail;
-            var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
-            var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
-            var bccEmail  = new helper.Email('manmohitindiit@gmail.com');
-            var subject = 'Contact Request Submitted';
 
-            dynamic_data = dynamic_data.replace("#NAME#", req.body.data.name) ;
-            dynamic_data = dynamic_data.replace("#EMAIL#", req.body.data.email) ;
-            dynamic_data = dynamic_data.replace("#SUBJECT#", req.body.data.subject);
-            dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
-            var content = new helper.Content('text/html', dynamic_data);
+        var string = 'Don'+'\''+'t worry, we all forget sometimes'
+        var fs = require('fs'); // npm install fs
+        var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
+        let dynamic_data = ''
+        readStream.on('data', function(chunk) {
+          dynamic_data += chunk;
+        }).on('end', function() {
+          var helper = require('sendgrid').mail;
+          var fromEmail = new helper.Email('john.sanders@apex-4u.com','APEX Insurance Services');
+          var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
+          // var toEmail  = new helper.Email(doc.email);
+          var subject = 'Contact Request Submitted';
 
-            var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-            // var sg = require('sendgrid')('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');
-            var sg = require('sendgrid')('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');
-            var request = sg.emptyRequest({
-                method: 'POST',
-                path: '/v3/mail/send',
-                body: mail.toJSON()
-            });
-            sg.API(request, function (error, response) {
-              if (error) {
-                // cons
-                res.json({
-                    msg: 'Something went wrong.Please try later.',
-                    status: 0,
-                   'error': error
-                });
-              }else{
-                res.json({
-                    msg: 'Mail has been sent successfully',
-                    status: 1,
-                    data:null
-                });
-              }
-              
-            })
+          dynamic_data = dynamic_data.replace("#NAME#", req.body.data.name) ;
+          dynamic_data = dynamic_data.replace("#EMAIL#", req.body.data.email) ;
+          dynamic_data = dynamic_data.replace("#SUBJECT#", req.body.data.subject);
+          dynamic_data = dynamic_data.replace("#MESSAGE#", req.body.data.message);
+          var content = new helper.Content('text/html', dynamic_data);
+
+          var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+          //var sg = require('sendgrid')('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');
+          var sg = require('sendgrid')('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');
+          var request = sg.emptyRequest({
+              method: 'POST',
+              path: '/v3/mail/send',
+              body: mail.toJSON()
+          });
+          sg.API(request, function (error, response) 
+          {
+            if (error) {
+              res.json({
+                  msg: 'Something went wrong.Please try later.',
+                  status: 0,
+                  'error': error
+              });
+
+              // res.json({
+              //     msg: 'Mail has been sent successfully',
+              //     status: 1,
+              //     data:null
+              // });
+            }else{
+              res.json({
+                  msg: 'Mail has been sent successfully',
+                  status: 1,
+                  data:null
+              });
+            }
           })
+        }) 
       //----another to super admin------------------------------
       superadmin.findOne({}, function(err, doc){
         var string = 'Don'+'\''+'t worry, we all forget sometimes'
-          var fs = require('fs'); // npm install fs
-          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
+        var fs = require('fs'); // npm install fs
+        var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/forgotpassword.html', 'utf8');
           let dynamic_data = ''
           readStream.on('data', function(chunk) {
             dynamic_data += chunk;
           }).on('end', function() {
             var helper = require('sendgrid').mail;
-            var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
+            var fromEmail = new helper.Email('john.sanders@apex-4u.com','APEX Insurance Services');
             // var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
             var toEmail  = new helper.Email(doc.email);
             var subject = 'Contact Request Submitted';
@@ -96,20 +102,13 @@ exports.add_contactRequest = function(req, res) {
                 path: '/v3/mail/send',
                 body: mail.toJSON()
             });
-            sg.API(request, function (error, response) {
-              // if (error) {
-              //   res.json({
-              //       msg: 'Something went wrong.Please try later.',
-              //       status: 0
-                   
-              //   });
-              // }else{
-              //   res.json({
-              //       msg: 'Mail has been sent successfully',
-              //       status: 1,
-              //       data:null
-              //   });
-              // }
+            sg.API(request, function (error, response) 
+            {
+              if (error) {
+                console.log(error);
+              }else{
+                console.log(response);
+              }
             })
           }) 
       });
