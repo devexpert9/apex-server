@@ -51,11 +51,11 @@ exports.add_contactRequest = function(req, res) {
             });
             sg.API(request, function (error, response) {
               if (error) {
-                cons
+                // cons
                 res.json({
                     msg: 'Something went wrong.Please try later.',
-                    status: 0
-                   
+                    status: 0,
+                   'error': error
                 });
               }else{
                 res.json({
