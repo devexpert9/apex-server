@@ -22,6 +22,8 @@ exports.add_contactRequest = function(req, res) {
           data: null
         });
       }else{
+      users.findOne({'_id': req.body.domain}, function(err, user_doc){
+
 
         var string = 'Don'+'\''+'t worry, we all forget sometimes'
         var fs = require('fs'); // npm install fs
@@ -32,7 +34,7 @@ exports.add_contactRequest = function(req, res) {
         }).on('end', function() {
           var helper = require('sendgrid').mail;
           var fromEmail = new helper.Email('john.sanders@apex-4u.com','APEX Insurance Services');
-          var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
+          var toEmail   = new helper.Email(user_doc.email);
           // var toEmail  = new helper.Email(doc.email);
           var subject = 'Contact Request Submitted';
 
@@ -112,7 +114,7 @@ exports.add_contactRequest = function(req, res) {
             })
           }) 
       });
-          
+       })    
     }
   });
 };
