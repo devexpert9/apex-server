@@ -42,7 +42,8 @@ exports.add_contactRequest = function(req, res) {
             var content = new helper.Content('text/html', dynamic_data);
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-            var sg = require('sendgrid')('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');
+            // var sg = require('sendgrid')('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');
+            var sg = require('sendgrid')('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');
             var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
@@ -92,7 +93,8 @@ exports.add_contactRequest = function(req, res) {
             var content = new helper.Content('text/html', dynamic_data);
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-            var sg = require('sendgrid')('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');
+            //var sg = require('sendgrid')('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');
+            var sg = require('sendgrid')('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');
             var request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
@@ -162,7 +164,8 @@ exports.contactRequestWeb = function(req, res) {
           var content = new helper.Content('text/html', dynamic_data);
 
           var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-          var sg = require('sendgrid')('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');
+          //var sg = require('sendgrid')('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');
+          var sg = require('sendgrid')('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');
           var request = sg.emptyRequest({
               method: 'POST',
               path: '/v3/mail/send',
