@@ -55,7 +55,7 @@ exports.forgotPasswordAdmin = function(req, res) {
         dynamic_data += chunk;
       }).on('end', function() {
       var helper = require('sendgrid').mail;
-      var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
+      var fromEmail = new helper.Email('john.sanders@apex-4u.com','APEX Insurance Services');
       // var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
       var toEmail  = new helper.Email(req.body.email);
       var subject = 'Password Retreive Request';
@@ -195,7 +195,7 @@ exports.addUser = function(req, res)
 
                 // var helper = sg.mail;
                 var helper = require('sendgrid').mail;
-                var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
+                var fromEmail = new helper.Email('john.sanders@apex-4u.com','APEX Insurance Services');
                 var toEmail   = new helper.Email(req.body.email);
                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
                 var subject = 'Apex Agent Account Login Details';
@@ -306,7 +306,7 @@ exports.addUserFront = function(req, res)
                 var sg = require('sendgrid')('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');
                 // var helper = sg.mail;
                 var helper = require('sendgrid').mail;
-                var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
+                var fromEmail = new helper.Email('john.sanders@apex-4u.com','APEX Insurance Services');
                 var toEmail   = new helper.Email(req.body.email);
                 //var toEmail = new helper.Email('gurmukhindiit@gmail.com');
                 var subject = 'Apex Agent Account Login Details';
