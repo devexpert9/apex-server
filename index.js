@@ -83,11 +83,14 @@ var CronJob = require('cron').CronJob;
 var job = new CronJob('00 00 00 * * *', function() {
   //console.log('You will see this message every second');
   var d = new Date();
-    
+  var yesterday = new Date(d);
+  yesterday.setDate(yesterday.getDate() - 1)
+  d = yesterday;
   var date = d.getDate();
   var month = d.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
   var year = d.getFullYear();
-      date = date - 1;
+      // date = date - 1;
+
       date = date < 10 ? '0' + date : date;
   var dateStr = year + "-" + month + "-" + date;
   console.log(dateStr);
