@@ -67,7 +67,8 @@ exports.forgotPasswordAdmin = function(req, res) {
       var content = new helper.Content('text/html', dynamic_data);
 
       var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-      var sg = require('sendgrid')('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');
+      // var sg = require('sendgrid')('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');
+      var sg = require('sendgrid')('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');
       var request = sg.emptyRequest({
           method: 'POST',
           path: '/v3/mail/send',
@@ -188,7 +189,10 @@ exports.addUser = function(req, res)
               readStream.on('data', function(chunk) {
                   dynamic_data += chunk;
               }).on('end', function() {
-                var sg = require('sendgrid')('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');
+                // var sg = require('sendgrid')('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');
+                
+                var sg = require('sendgrid')('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');
+
                 // var helper = sg.mail;
                 var helper = require('sendgrid').mail;
                 var fromEmail = new helper.Email('noreply@apex.com','APEX Insurance Services');
@@ -206,7 +210,8 @@ exports.addUser = function(req, res)
                 var mail = new helper.Mail(fromEmail, subject, toEmail, content);
                 // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
 
-                var sg = require('sendgrid')('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');
+                var sg = require('sendgrid')('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');
+
                 var request = sg.emptyRequest({
                     method: 'POST',
                     path: '/v3/mail/send',
@@ -316,7 +321,10 @@ exports.addUserFront = function(req, res)
                 var mail = new helper.Mail(fromEmail, subject, toEmail, content);
                 // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
 
-                var sg = require('sendgrid')('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');
+                //var sg = require('sendgrid')('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');
+
+                var sg = require('sendgrid')('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');
+
                 var request = sg.emptyRequest({
                     method: 'POST',
                     path: '/v3/mail/send',
@@ -707,7 +715,10 @@ exports.forgot_password = function(req, res) {
                 readStream.on('data', function(chunk) {
                     dynamic_data += chunk;
                 }).on('end', function() {
-                var sg = require('sendgrid')('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');
+                //var sg = require('sendgrid')('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');
+
+                var sg = require('sendgrid')('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');
+
       var helper = sg.mail;
                 var fromEmail = new helper.Email('babitaindiit@gmail.com'/*'priyankasharma4010@gmail.com'*/, 'Stratergy Athlete');
                 var toEmail = new helper.Email(req.body.email);
@@ -722,7 +733,10 @@ exports.forgot_password = function(req, res) {
 
                 var mail = new helper.Mail(fromEmail, subject, toEmail, content);
                 // var sg = require('sendgrid')(constants.SENDGRID_API_ID);
-                var sg = require('sendgrid')('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');
+                //var sg = require('sendgrid')('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');
+
+                var sg = require('sendgrid')('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');
+
                 var request = sg.emptyRequest({
                     method: 'POST',
                     path: '/v3/mail/send',
