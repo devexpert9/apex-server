@@ -9,7 +9,9 @@ dashboardsection      = mongoose.model('dashboardsection');
 var path      = require('path');
 
 //-- Add data---------
-dashboardsection.findOne({user_id:req.body.user_id}, function(err, doc) 
+exports.updateDashboardSection = function(req, res)
+{
+  dashboardsection.findOne({user_id:req.body.user_id}, function(err, doc) 
   {
     if(doc == null)
     {
@@ -59,3 +61,4 @@ dashboardsection.findOne({user_id:req.body.user_id}, function(err, doc)
       });
     }
   });
+};
