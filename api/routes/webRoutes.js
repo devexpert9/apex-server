@@ -227,6 +227,12 @@ var pack = require('../controllers/glossaryCtrl');
    app.route('/import_csv_data')
     .post(pack.import_csv_data);
 
+//--- Dashboard Sections -------------------------------------
+var pack = require('../controllers/dashboardsectionCtrl');
+   app.route('/updateDashboardSection')
+    .post(pack.updateDashboardSection);
+ 
+
 //--- SECURITY -------------------------------------
 var pack = require('../controllers/securityprivacyCtrl');
    app.route('/addSecurityData')
