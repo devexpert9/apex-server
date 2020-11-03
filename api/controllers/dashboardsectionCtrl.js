@@ -11,7 +11,7 @@ var path      = require('path');
 //-- Add data---------
 exports.updateDashboardSection = function(req, res)
 {
-  dashboardsection.findOne({user_id:req.body.user_id}, function(err, doc) 
+  dashboardsection.findOne({user_id:req.body.user_id, section: req.body.section}, function(err, doc) 
   {
     if(doc == null)
     {
@@ -39,7 +39,7 @@ exports.updateDashboardSection = function(req, res)
     }
     else
     {
-      dashboardsection.update({user_id: req.body.user_id},{$set:{ 'title': req.body.title, 'section': req.body.section} }, {new: true}, function(err, user)
+      dashboardsection.update({user_id: req.body.user_id, section: req.body.section},{$set:{ 'title': req.body.title} }, {new: true}, function(err, user)
       {
         if(user == null)
         {
@@ -65,7 +65,7 @@ exports.updateDashboardSection = function(req, res)
 
 exports.getDashboardSectionData = function(req, res)
 {
-  dashboardsection.findOne({user_id:req.body.user_id}, function(err, doc) 
+  dashboardsection.findOne({user_id:req.body.user_id, section: req.body.section}, function(err, doc) 
   {
       if(doc == null)
       {
