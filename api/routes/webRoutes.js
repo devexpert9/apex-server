@@ -231,6 +231,10 @@ var pack = require('../controllers/glossaryCtrl');
 var pack = require('../controllers/dashboardsectionCtrl');
    app.route('/updateDashboardSection')
     .post(pack.updateDashboardSection);
+
+var pack = require('../controllers/dashboardsectionCtrl');
+   app.route('/getDashboardSectionData')
+    .post(pack.getDashboardSectionData);
  
 
 //--- SECURITY -------------------------------------

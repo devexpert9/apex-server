@@ -62,3 +62,24 @@ exports.updateDashboardSection = function(req, res)
     }
   });
 };
+
+exports.getDashboardSectionData = function(req, res)
+{
+  dashboardsection.findOne({user_id:req.body.user_id}, function(err, doc) 
+  {
+      if(doc == null)
+      {
+        res.send({
+          data: null,
+          error: 'Something went wrong.Please try later.',
+          status: 0
+        });
+      }else{
+        res.send({
+          data: doc,
+          status: 1,
+          error: 'Data fetch successfully!'
+        });
+      }
+  });
+};
