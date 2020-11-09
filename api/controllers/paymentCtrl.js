@@ -87,8 +87,8 @@ exports.storeCreditCardVault = function (req, res) {
 						"expire_month": req.body.exp_month,
 						"expire_year": req.body.exp_year,
 						"cvv2": req.body.cvv,
-						"first_name": req.body.uzername,
-						"last_name": req.body.uzername,
+						"first_name": uzername,
+						"last_name": uzername,
 						"external_customer_id": uuid.v4()
 					};
 
@@ -138,8 +138,8 @@ exports.storeCreditCardVault = function (req, res) {
 					"expire_month": req.body.exp_month,
 					"expire_year": req.body.exp_year,
 					"cvv2": req.body.cvv,
-					"first_name": req.body.uzername,
-					"last_name": req.body.uzername,
+					"first_name": uzername,
+					"last_name": uzername,
 					"external_customer_id": uuid.v4()
 				};
 
