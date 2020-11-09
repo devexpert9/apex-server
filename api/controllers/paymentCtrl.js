@@ -75,7 +75,7 @@ exports.storeCreditCardVault = function (req, res) {
   	{
   		users.findOne({_id: req.body.external_customer_id}, function(err, userdata)
   		{
-  			console.log(userdata);
+  			console.log(userdata.name);
   		});
   		return false;
 	    if(doc) //-- If user have any card then delete that card------
