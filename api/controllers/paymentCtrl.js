@@ -86,7 +86,7 @@ exports.storeCreditCardVault = function (req, res) {
 				paypal.creditCard.create(card_data, function(error, credit_card){
 				  	if (error) {
 					    res.json({
-					        msg: 'inquiry table delet',
+					        msg: 'inquiry table delete..',
 					        status: 0,
 					        data: error
 					    });
@@ -135,7 +135,7 @@ exports.storeCreditCardVault = function (req, res) {
 			paypal.creditCard.create(card_data, function(error, credit_card){
 			  	if (error) {
 				    res.json({
-				        msg: 'inquiry table delet',
+				        msg: 'inquiry table delete!',
 				        status: 0,
 				        data: error
 				    });
