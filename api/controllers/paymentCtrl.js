@@ -10,14 +10,18 @@ var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-
 var PAYPAL_CLIENT = 'AX1vKIdPLlIsj729f3-__Ld9Kp4K1WOOK5ecOLF9zsRog3eBji6V8zNtrp2X1SjymFOWpdmwGotoPpLl';
 var PAYPAL_SECRET = 'EPrwIilL9Je1QwW_Bd7rvsdI4aE1TtCjseuendhQV5Cmre6I-BC7w7xNmTKH59y4hIQZDKXda-UQifbl';
 
-paypal.configure({
-	//'mode': 'sandbox', //sandbox or live
-	'mode': 'live', //sandbox or live
+/*paypal.configure({
+	'mode': 'sandbox',
 	'client_id': PAYPAL_CLIENT, 
 	'client_secret': PAYPAL_SECRET,
 	'headers': {
 		'custom': 'header'
 	}
+});*/
+paypal.configure({
+	'mode': 'live',
+	'client_id': PAYPAL_CLIENT, 
+	'client_secret': PAYPAL_SECRET
 });
 
 exports.storeCreditCardVault = function (req, res) {
