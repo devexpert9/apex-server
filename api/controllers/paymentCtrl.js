@@ -4,6 +4,7 @@ uuid = require('node-uuid');
 var mongoose  = require('mongoose'),
 multer        = require('multer'),
 cards         = mongoose.model('cards'),
+users = mongoose.model('users'),
 subscription         = mongoose.model('subscription');
 /*var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
 var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';*/
@@ -72,6 +73,11 @@ exports.storeCreditCardVault = function (req, res) {
     console.log(card_type)
 	cards.find({userId: req.body.external_customer_id}, function(err, doc)
   	{
+  		users.findOne({_id: req.body.external_customer_id}, function(err, userdata)
+  		{
+  			console.log(userdata);
+  		});
+  		return false;
 	    if(doc) //-- If user have any card then delete that card------
 	    {
       		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
