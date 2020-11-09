@@ -12,7 +12,7 @@ var PAYPAL_SECRET = 'EPrwIilL9Je1QwW_Bd7rvsdI4aE1TtCjseuendhQV5Cmre6I-BC7w7xNmTK
 
 paypal.configure({
 	//'mode': 'sandbox', //sandbox or live
-	'mode': 'live', //sandbox or live
+	'mode': 'development', //sandbox or live
 	'client_id': PAYPAL_CLIENT, 
 	'client_secret': PAYPAL_SECRET,
 	'headers': {
