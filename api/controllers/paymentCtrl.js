@@ -7,8 +7,8 @@ cards         = mongoose.model('cards'),
 subscription         = mongoose.model('subscription');
 /*var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
 var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';*/
-var PAYPAL_CLIENT = 'Af4eKANKcGPPkQc8cPuoCTKuFjnEMiqIT-TZQk5qA4Uy27KE_I5wbdOPPbmB2wDJ4wtfQo8jKUnXBA5W';
-var PAYPAL_SECRET = 'EKGKSqYz5L5Y-iv8CDXp9K_Oxx1sfXcstUw_YP-l_etNKdU8Fh5BF9krX_qIXyiOdpgxsSrdIA0FUbx9';
+var PAYPAL_CLIENT = 'AX1vKIdPLlIsj729f3-__Ld9Kp4K1WOOK5ecOLF9zsRog3eBji6V8zNtrp2X1SjymFOWpdmwGotoPpLl';
+var PAYPAL_SECRET = 'EPrwIilL9Je1QwW_Bd7rvsdI4aE1TtCjseuendhQV5Cmre6I-BC7w7xNmTKH59y4hIQZDKXda-UQifbl';
 
 paypal.configure({
 	//'mode': 'sandbox', //sandbox or live
