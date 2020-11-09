@@ -75,30 +75,78 @@ exports.storeCreditCardVault = function (req, res) {
   	{
   		users.findOne({_id: req.body.external_customer_id}, function(err, userdata)
   		{
-  			console.log(userdata.name);
-  		});
-  		return false;
-	    if(doc) //-- If user have any card then delete that card------
-	    {
-      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
-	      		//--- After delete user card add new one--------------------
+  			let uzername = userdata.name;
+
+  			if(doc) //-- If user have any card then delete that card------
+		    {
+	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
+		      		//--- After delete user card add new one--------------------
+				    var card_data = {
+						"type": card_type,
+						"number": req.body.card_number,
+						"expire_month": req.body.exp_month,
+						"expire_year": req.body.exp_year,
+						"cvv2": req.body.cvv,
+						"first_name": req.body.uzername,
+						"last_name": req.body.uzername,
+						"external_customer_id": uuid.v4()
+					};
+
+					console.log(card_data);
+
+					paypal.creditCard.create(card_data, function(error, credit_card){
+					  	if (error) {
+						    res.json({
+						        msg: 'inquiry table delete..',
+						        status: 0,
+						        data: error
+						    });
+					  	} 
+					  	else 
+					  	{
+					  		var new_pack = new cards({
+							    userId:   req.body.external_customer_id,
+							    card_data:   credit_card,
+							    created_at: new Date()
+							});
+
+						  	new_pack.save(function(err, doc){
+							    if(doc == null){
+							      res.send({
+							        data: null,
+							        error: 'Something went wrong.Please try later.',
+							        status: 0
+							      });
+							    }else{
+							      res.send({
+							        data: doc,
+							        status: 1,
+							        error: 'Testimonial added successfully!'
+							      });
+							    }
+							});
+					  	}
+					});
+			  	});
+		    }
+		    else
+		    {
+		    	//--- After delete user card add new one--------------------
 			    var card_data = {
-					"type": card_type,
+					"type": card_type,//req.body.type,
 					"number": req.body.card_number,
 					"expire_month": req.body.exp_month,
 					"expire_year": req.body.exp_year,
 					"cvv2": req.body.cvv,
-					"first_name": req.body.firstname,
-					"last_name": req.body.lastname,
+					"first_name": req.body.uzername,
+					"last_name": req.body.uzername,
 					"external_customer_id": uuid.v4()
 				};
-
-				console.log(card_data);
 
 				paypal.creditCard.create(card_data, function(error, credit_card){
 				  	if (error) {
 					    res.json({
-					        msg: 'inquiry table delete..',
+					        msg: 'inquiry table delete!',
 					        status: 0,
 					        data: error
 					    });
@@ -128,56 +176,8 @@ exports.storeCreditCardVault = function (req, res) {
 						});
 				  	}
 				});
-		  	});
-	    }
-	    else
-	    {
-	    	//--- After delete user card add new one--------------------
-		    var card_data = {
-				"type": card_type,//req.body.type,
-				"number": req.body.card_number,
-				"expire_month": req.body.exp_month,
-				"expire_year": req.body.exp_year,
-				"cvv2": req.body.cvv,
-				"first_name": req.body.firstname,
-				"last_name": req.body.lastname,
-				"external_customer_id": uuid.v4()
-			};
-
-			paypal.creditCard.create(card_data, function(error, credit_card){
-			  	if (error) {
-				    res.json({
-				        msg: 'inquiry table delete!',
-				        status: 0,
-				        data: error
-				    });
-			  	} 
-			  	else 
-			  	{
-			  		var new_pack = new cards({
-					    userId:   req.body.external_customer_id,
-					    card_data:   credit_card,
-					    created_at: new Date()
-					});
-
-				  	new_pack.save(function(err, doc){
-					    if(doc == null){
-					      res.send({
-					        data: null,
-					        error: 'Something went wrong.Please try later.',
-					        status: 0
-					      });
-					    }else{
-					      res.send({
-					        data: doc,
-					        status: 1,
-					        error: 'Testimonial added successfully!'
-					      });
-					    }
-					});
-			  	}
-			});
-	    }
+		    }
+  		});
   	});
 
 	
