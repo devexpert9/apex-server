@@ -65,6 +65,7 @@ exports.storeCreditCardVault = function (req, res) {
         card_type = "Visa Electron";
     }
 
+    console.log(card_type)
 	cards.find({userId: req.body.external_customer_id}, function(err, doc)
   	{
 	    if(doc) //-- If user have any card then delete that card------
