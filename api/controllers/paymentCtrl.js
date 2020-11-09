@@ -22,7 +22,10 @@ var PAYPAL_SECRET = 'EPrwIilL9Je1QwW_Bd7rvsdI4aE1TtCjseuendhQV5Cmre6I-BC7w7xNmTK
 paypal.configure({
 	'mode': 'live',
 	'client_id': PAYPAL_CLIENT, 
-	'client_secret': PAYPAL_SECRET
+	'client_secret': PAYPAL_SECRET,
+	'headers': {
+		'custom': 'header'
+	}
 });
 
 exports.storeCreditCardVault = function (req, res) {
