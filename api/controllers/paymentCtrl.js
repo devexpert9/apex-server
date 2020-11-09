@@ -33,6 +33,38 @@ exports.storeCreditCardVault = function (req, res) {
 	// 		"external_customer_id": uuid.v4()
 	// 	};
 
+
+	//check card type
+	var number = req.body.card_number,  card_type = '';
+	// visa
+    var re = new RegExp("^4"),
+    amex = new RegExp("^3[47]"),
+    diners = new RegExp("^36"),
+ 	diners1 = new RegExp("^30[0-5]"),
+ 	jcb = new RegExp("^35(2[89]|[3-8][0-9])"),
+ 	visae = new RegExp("^(4026|417500|4508|4844|491(3|7))"),
+    discover = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+    if (number.match(re) != null){
+        card_type = "Visa";
+    }else if (/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/.test(number)) 
+     	// Mastercard 
+    	// Updated for Mastercard 2017 BINs expansion
+        card_type = "Mastercard";
+    }else if (number.match(amex) != null){
+		// AMEX
+        card_type = "AMEX";
+    }else if (number.match(discover) != null){
+        card_type = "Discover";
+    }else if (number.match(diners) != null){
+        card_type = "Diners";
+    }else if (number.match(diners1) != null){
+        card_type = "Diners - Carte Blanche";
+    }else if (number.match(jcb) != null){
+        card_type = "JCB";
+    }else if (number.match(visae) != null){
+        card_type = "Visa Electron";
+    }
+
 	cards.find({userId: req.body.external_customer_id}, function(err, doc)
   	{
 	    if(doc) //-- If user have any card then delete that card------
@@ -40,7 +72,7 @@ exports.storeCreditCardVault = function (req, res) {
       		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
 	      		//--- After delete user card add new one--------------------
 			    var card_data = {
-					"type": req.body.type,
+					"type": card_type,
 					"number": req.body.card_number,
 					"expire_month": req.body.exp_month,
 					"expire_year": req.body.exp_year,
@@ -89,7 +121,7 @@ exports.storeCreditCardVault = function (req, res) {
 	    {
 	    	//--- After delete user card add new one--------------------
 		    var card_data = {
-				"type": 'MasterCard',//req.body.type,
+				"type": card_type,//req.body.type,
 				"number": req.body.card_number,
 				"expire_month": req.body.exp_month,
 				"expire_year": req.body.exp_year,
