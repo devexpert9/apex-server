@@ -87,6 +87,8 @@ exports.storeCreditCardVault = function (req, res) {
 					"external_customer_id": uuid.v4()
 				};
 
+				console.log(card_data);
+
 				paypal.creditCard.create(card_data, function(error, credit_card){
 				  	if (error) {
 					    res.json({
