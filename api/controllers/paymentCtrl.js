@@ -28,9 +28,9 @@ paypal.configure({
 	'mode': 'live',
 	'client_id': PAYPAL_CLIENT, 
 	'client_secret': PAYPAL_SECRET,
-	'headers': {
-		'custom': 'header'
-	}
+	// 'headers': {
+	// 	'custom': 'header'
+	// }
 });
 
 exports.storeCreditCardVault = function (req, res) {
