@@ -256,20 +256,14 @@ exports.storeCreditCardVault = function (req, res) {
 		    {
 	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
 		      		//--- After delete user card add new one--------------------
-				    var card_data = {
-						"type": card_type,
-						"number": req.body.card_number,
-						"expire_month": req.body.exp_month,
-						"expire_year": req.body.exp_year,
-						"cvv2": req.body.cvv,
-						"first_name": uzername.split(' ')[0],
-						"last_name": uzername.split(' ')[1],
-						"external_customer_id": uuid.v4()
+				    let creditCardParams = {
+					  	customerId: uuid.v4(),
+					  	number: req.body.card_number,
+				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
+					  	cvv: req.body.cvv
 					};
-
-					console.log(card_data);
-
-					paypal.creditCard.create(card_data, function(error, credit_card){
+					console.log('if')
+					gateway.creditCard.create(creditCardParams, (err, credit_card) => {
 					  	if (error) {
 						    res.json({
 						        msg: 'inquiry table delete..',
