@@ -267,19 +267,37 @@ exports.storeCreditCardVault = function (req, res) {
 					}, (err, result) => {
 						console.log(err);
 						console.log(result);
-						
+
 			      		//--- After delete user card add new one--------------------
 					    let creditCardParams = {
 						  	customerId: result.customer.id,
 						  	number: req.body.card_number,
 					 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
-						  	cvv: req.body.cvv
+						  	cvv: req.body.cvv,
+						  	cardholderName: uzername
 						};
 						console.log('if')
 						gateway.creditCard.create(creditCardParams, (error, credit_card) => {
 						  	// if (error) {
 						  		console.log(error);
 						  		console.log(credit_card);
+
+						  		gateway.transaction.sale({
+								  amount: "10.00",
+								  paymentMethodNonce: 'nonceFromTheClient',
+								  // deviceData: deviceDataFromTheClient,
+								  options: {
+								    submitForSettlement: true
+								  }
+								}, (err, result) => {
+									console.log(err);
+									console.log(result);
+								  // if (result.success) {
+								  //   // See result.transaction for details
+								  // } else {
+								  //   // Handle errors
+								  // }
+								});
 							    res.json({
 							        msg: 'inquiry table delete..',
 							        status: 0,
