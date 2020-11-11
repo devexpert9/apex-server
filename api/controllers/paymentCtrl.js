@@ -255,92 +255,122 @@ exports.storeCreditCardVault = function (req, res) {
   			if(doc) //-- If user have any card then delete that card------
 		    {
 	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
-		      		//--- After delete user card add new one--------------------
-				    let creditCardParams = {
-					  	customerId: uuid.v4(),
-					  	number: req.body.card_number,
-				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
-					  	cvv: req.body.cvv
-					};
-					console.log('if')
-					gateway.creditCard.create(creditCardParams, (error, credit_card) => {
-					  	if (error) {
-						    res.json({
-						        msg: 'inquiry table delete..',
-						        status: 0,
-						        data: error
-						    });
-					  	} 
-					  	else 
-					  	{
-					  		var new_pack = new cards({
-							    userId:   req.body.external_customer_id,
-							    card_data:   credit_card,
-							    created_at: new Date()
-							});
 
-						  	new_pack.save(function(err, doc){
-							    if(doc == null){
-							      res.send({
-							        data: null,
-							        error: 'Something went wrong.Please try later.',
-							        status: 0
-							      });
-							    }else{
-							      res.send({
-							        data: doc,
-							        status: 1,
-							        error: 'Testimonial added successfully!'
-							      });
-							    }
-							});
-					  	}
+	      			gateway.customer.create({
+					  firstName: uzername.split(' ')[0],
+					  lastName: uzername.split(' ')[1],
+					  company: "Braintree",
+					  email: userdata.email,
+					  phone: "312.555.1234",
+					  fax: "614.555.5678",
+					  website: "www.apex-4u.com"
+					}, (err, result) => {
+						console.log(err);
+						console.log(result);
+						
+			      		//--- After delete user card add new one--------------------
+					    let creditCardParams = {
+						  	customerId: result.customer.id,
+						  	number: req.body.card_number,
+					 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
+						  	cvv: req.body.cvv
+						};
+						console.log('if')
+						gateway.creditCard.create(creditCardParams, (error, credit_card) => {
+						  	// if (error) {
+						  		console.log(error);
+						  		console.log(credit_card);
+							    res.json({
+							        msg: 'inquiry table delete..',
+							        status: 0,
+							        data: error
+							    });
+						  // 	} 
+						  // 	else 
+						  // 	{
+						  // 		var new_pack = new cards({
+								//     userId:   req.body.external_customer_id,
+								//     card_data:   credit_card,
+								//     created_at: new Date()
+								// });
+
+							 //  	new_pack.save(function(err, doc){
+								//     if(doc == null){
+								//       res.send({
+								//         data: null,
+								//         error: 'Something went wrong.Please try later.',
+								//         status: 0
+								//       });
+								//     }else{
+								//       res.send({
+								//         data: doc,
+								//         status: 1,
+								//         error: 'Testimonial added successfully!'
+								//       });
+								//     }
+								// });
+						  // 	}
+						});
 					});
 			  	});
 		    }
 		    else
 		    {
-		    	console.log('else case')
-		    	let creditCardParams = {
-				  	customerId: uuid.v4(),
-				  	number: req.body.card_number,
-			 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
-				  	cvv: req.body.cvv
-				};
+		    	gateway.customer.create({
+				  firstName: uzername.split(' ')[0],
+				  lastName: uzername.split(' ')[1],
+				  company: "Braintree",
+				  email: userdata.email,
+				  phone: "312.555.1234",
+				  fax: "614.555.5678",
+				  website: "www.apex-4u.com"
+				}, (err, result) => {
 
-				gateway.creditCard.create(creditCardParams, (err, credit_card) => {
-					if (error) {
-					    res.json({
-					        msg: 'inquiry table delete!',
-					        status: 0,
-					        data: error
-					    });
-				  	} 
-				  	else 
-				  	{
-				  		var new_pack = new cards({
-						    userId:   req.body.external_customer_id,
-						    card_data:   credit_card,
-						    created_at: new Date()
-						});
+					console.log(result);
+					console.log(err);
+			    	console.log('else case')
+			    	let creditCardParams = {
+					  	customerId: result.customer.id,
+					  	number: req.body.card_number,
+				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
+					  	cvv: req.body.cvv
+					};
 
-					  	new_pack.save(function(err, doc){
-						    if(doc == null){
-						      res.send({
-						        data: null,
-						        error: 'Something went wrong.Please try later.',
-						        status: 0
-						      });
-						    }else{
-						      res.send({
-						        data: doc,
-						        status: 1,
-						        error: 'Testimonial added successfully!'
-						      });
-						    }
-						});
-				  	}
+					gateway.creditCard.create(creditCardParams, (err, credit_card) => {
+						console.log(credit_card);
+						// if (error) {
+						    res.json({
+						        msg: 'inquiry table delete!',
+						        status: 0,
+						        data: error
+						    });
+					  // 	} 
+					  // 	else 
+					  // 	{
+					  // 		var new_pack = new cards({
+							//     userId:   req.body.external_customer_id,
+							//     card_data:   credit_card,
+							//     created_at: new Date()
+							// });
 
+						 //  	new_pack.save(function(err, doc){
+							//     if(doc == null){
+							//       res.send({
+							//         data: null,
+							//         error: 'Something went wrong.Please try later.',
+							//         status: 0
+							//       });
+							//     }else{
+							//       res.send({
+							//         data: doc,
+							//         status: 1,
+							//         error: 'Testimonial added successfully!'
+							//       });
+							//     }
+							// });
+					  // 	}
+
+					});
 				});
 		    	
 		    }
