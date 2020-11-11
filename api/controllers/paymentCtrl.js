@@ -245,7 +245,7 @@ exports.storeCreditCardVault = function (req, res) {
         card_type = "Visa Electron";
     }
 
-    console.log(card_type)
+    console.log('card_type')
 	cards.find({userId: req.body.external_customer_id}, function(err, doc)
   	{
   		users.findOne({_id: req.body.external_customer_id}, function(err, userdata)
@@ -306,7 +306,7 @@ exports.storeCreditCardVault = function (req, res) {
 		    }
 		    else
 		    {
-
+		    	console.log('else case')
 		    	let creditCardParams = {
 				  	customerId: uuid.v4(),
 				  	number: req.body.card_number,
