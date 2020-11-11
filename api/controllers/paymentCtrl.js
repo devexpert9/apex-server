@@ -41,61 +41,8 @@ var gateway = new braintree.BraintreeGateway({
   privateKey: 'b253322e398cd662749860fa0c819153'
 });
 
-exports.storeCreditCardVault = function (req, res) {
+exports.storeCreditCardVaultOld = function (req, res) {
 
-	var create_payment_json = {
-	    "intent":"authorize",
-	    "payer":{
-	      "payment_method":"credit_card",
-	      "funding_instruments":[
-	        {
-	          "credit_card":{
-	            "number":"4147202414645588",
-	            "type":"visa",
-	            "expire_month":02,
-	            "expire_year":2024,
-	            "cvv2":265,
-	            "first_name":"Betsy",
-	            "last_name":"Buyer",
-	            "billing_address":{
-	              "line1":"111 First Street",
-	              "city":"Saratoga",
-	              "state":"CA",
-	              "postal_code":"95070",
-	              "country_code":"US"
-	            }
-	          }
-	        }
-	      ]
-	    },
-	    "transactions":[
-	      {
-	        "amount":{
-	          "total":"1.00",
-	          "currency":"USD",
-	          "details":{
-	            "subtotal":"1.00",
-	            "tax":"0.03",
-	            "shipping":"0.03"
-	          }
-	        }
-	      }
-	    ]
-	};
-
-	var payment_id;
-
-	paypal.payment.create(create_payment_json, function (error, payment) {
-	    if (error) {
-	        throw error;
-	    } else {
-	        console.log("Create Payment Response");
-	        console.log(JSON.stringify(payment, null, 4));
-	        console.assert(payment.transactions.related_resources);
-	    }
-	});
-
-	return;
 	// var card_data = {
 	// 		"type": "visa",
 	// 		"number": "4417119669820331",
@@ -253,7 +200,7 @@ exports.storeCreditCardVault = function (req, res) {
 };
 
 
-exports.storeCreditCardVaultBrainTree = function (req, res) {
+exports.storeCreditCardVault = function (req, res) {
 
 	// var card_data = {
 	// 		"type": "visa",
