@@ -50,11 +50,11 @@ exports.storeCreditCardVault = function (req, res) {
 	      "funding_instruments":[
 	        {
 	          "credit_card":{
-	            "number":"5493022963692972",
-	            "type":"mastercard",
-	            "expire_month":12,
-	            "expire_year":2018,
-	            "cvv2":874,
+	            "number":"4147202414645588",
+	            "type":"visa",
+	            "expire_month":02,
+	            "expire_year":2024,
+	            "cvv2":265,
 	            "first_name":"Betsy",
 	            "last_name":"Buyer",
 	            "billing_address":{
