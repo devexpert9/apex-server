@@ -263,7 +263,7 @@ exports.storeCreditCardVault = function (req, res) {
 					  	cvv: req.body.cvv
 					};
 					console.log('if')
-					gateway.creditCard.create(creditCardParams, (err, credit_card) => {
+					gateway.creditCard.create(creditCardParams, (error, credit_card) => {
 					  	if (error) {
 						    res.json({
 						        msg: 'inquiry table delete..',
