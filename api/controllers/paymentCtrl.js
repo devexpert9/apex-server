@@ -83,7 +83,7 @@ exports.storeCreditCardVault = function (req, res) {
 
 						  		gateway.transaction.sale({
 								  amount: "10.00",
-								  paymentMethodNonce: 'nonce-from-the-client',
+								  paymentMethodNonce: nonceFromTheClient,
 								  // deviceData: deviceDataFromTheClient,
 								  options: {
 								    submitForSettlement: true
