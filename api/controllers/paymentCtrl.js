@@ -280,23 +280,24 @@ exports.storeCreditCardVault = function (req, res) {
 						  	// if (error) {
 						  		console.log(error);
 						  		console.log(credit_card);
+						  		gateway.paymentMethodNonce.create(credit_card.token, function(err, response)
+						  		{
+  									const nonce = response.paymentMethodNonce.nonce;
 
-						  		gateway.transaction.sale({
-								  amount: "99.00",
-								  paymentMethodNonce: 'nonce-from-the-client',
-								  // deviceData: deviceDataFromTheClient,
-								  options: {
-								    submitForSettlement: true
-								  }
-								}, (err, result) => {
-									console.log(err);
-									console.log(result);
-								  // if (result.success) {
-								  //   // See result.transaction for details
-								  // } else {
-								  //   // Handle errors
-								  // }
+  									gateway.transaction.sale({
+									  amount: "99.00",
+									  paymentMethodNonce: nonce,
+									  // deviceData: deviceDataFromTheClient,
+									  options: {
+									    submitForSettlement: true
+									  }
+									}, (err, result) => {
+										console.log(err);
+										console.log(result);
+									});
 								});
+
+						  		
 							    res.json({
 							        msg: 'inquiry table delete..',
 							        status: 0,
