@@ -717,16 +717,12 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    		name: uzername
 		    	};
 
-		    	const customer = stripe.customers.create({
-		    		"id": "cus_IUxjQB1kJNRabN",
-  "object": "customer",
-				  "description": 'My First Test Customer (created for API docs)',
-				});
+		    	const customerInfo = stripe.customers.create();
 
-				console.log(customer);
+				console.log(customerInfo);
 
 		    	const card =  stripe.customers.createSource(
-					  	customer.id,
+					  	customerInfo.id,
 					  	{source: 'tok_visa'}
 					);
 
