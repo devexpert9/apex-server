@@ -717,6 +717,35 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    		name: uzername
 		    	};
 
+		    	stripe.createToken(card).then(res => {
+				    if (res.error){ 
+				    	errorEl.textContent = res.error.message;
+				    }else {
+				    	stripeTokenHandler(res.token)
+				    };
+				})
+
+				function stripeTokenHandler(token){
+					stripe.customers.create({
+				        name: uzername,
+				        email: userdata.email,
+				        source: token
+				    }).then(customer =>{
+				        // stripe.charges.create({
+				        //   amount: req.body.amount * 100,
+				        //   currency: "usd",
+				        //   customer: customer.id
+				        // })
+
+				        const card =  stripe.customers.createSource(
+						  	customer.id,
+						  	{source: dict}
+						);
+				    });
+				};
+
+				return;
+
 		    	const customerInfo = stripe.customers.create();
 
 				console.log(customerInfo);
