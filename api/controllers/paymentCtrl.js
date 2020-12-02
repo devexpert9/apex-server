@@ -671,6 +671,12 @@ exports.storeCreditCardStripeVault = function (req, res) {
   		{
   			let uzername = userdata.name;
 
+  			stripe.customers.create({
+			  email: 'customer@example.com',
+			})
+			  .then(customer => console.log(customer.id))
+			  .catch(error => console.error(error));
+  
   			if(doc) //-- If user have any card then delete that card------
 		    {
 		    	let dict = {
