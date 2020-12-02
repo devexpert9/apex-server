@@ -683,7 +683,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    	}
 	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
 
-	      			const card = await stripe.customers.createSource(
+	      			const card =  stripe.customers.createSource(
 					  	'cus_IUwpqEiElAa53R',
 					  	{source: 'tok_visa'}
 					);
@@ -701,62 +701,28 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    }
 		    else
 		    {
-		    	gateway.customer.create({
-				  firstName: uzername.split(' ')[0],
-				  lastName: uzername.split(' ')[1],
-				  company: "Braintree",
-				  email: userdata.email,
-				  phone: "312.555.1234",
-				  fax: "614.555.5678",
-				  website: "www.apex-4u.com"
-				}, (err, result) => {
+		    	
+		    	let dict = {
+		    		object: 'card',
+		    		number: req.body.card_number,
+		    		exp_month: req.body.exp_month,
+		    		exp_year: req.body.exp_year,
+		    		cvv: req.body.cvv,
+		    		name: uzername
+		    	};
 
-					console.log(result);
-					console.log(err);
-			    	console.log('else case')
-			    	let creditCardParams = {
-					  	customerId: result.customer.id,
-					  	number: req.body.card_number,
-				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
-					  	cvv: req.body.cvv
-					};
+		    	const card =  stripe.customers.createSource(
+					  	'cus_IUwpqEiElAa53R',
+					  	{source: 'tok_visa'}
+					);
 
-					gateway.creditCard.create(creditCardParams, (err, credit_card) => {
-						console.log(credit_card);
-						// if (error) {
-						    res.json({
-						        msg: 'inquiry table delete!',
-						        status: 0,
-						        data: error
-						    });
-					  // 	} 
-					  // 	else 
-					  // 	{
-					  // 		var new_pack = new cards({
-							//     userId:   req.body.external_customer_id,
-							//     card_data:   credit_card,
-							//     created_at: new Date()
-							// });
+					console.log(card);
 
-						 //  	new_pack.save(function(err, doc){
-							//     if(doc == null){
-							//       res.send({
-							//         data: null,
-							//         error: 'Something went wrong.Please try later.',
-							//         status: 0
-							//       });
-							//     }else{
-							//       res.send({
-							//         data: doc,
-							//         status: 1,
-							//         error: 'Testimonial added successfully!'
-							//       });
-							//     }
-							// });
-					  // 	}
-
-					});
-				});
+					res.json({
+				        msg: '',
+				        status: 0,
+				        data: card
+				    });
 		    	
 		    }
   		});
