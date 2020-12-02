@@ -673,42 +673,34 @@ exports.storeCreditCardStripeVault = function (req, res) {
 
   			if(doc) //-- If user have any card then delete that card------
 		    {
-		    	let dict = {
+	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
+
+	      		let dict = {
 		    		object: 'card',
 		    		number: req.body.card_number,
 		    		exp_month: req.body.exp_month,
 		    		exp_year: req.body.exp_year,
 		    		cvv: req.body.cvv,
 		    		name: uzername
-		    	}
-	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
+		    	};
 
-	      			let dict = {
-			    		object: 'card',
-			    		number: req.body.card_number,
-			    		exp_month: req.body.exp_month,
-			    		exp_year: req.body.exp_year,
-			    		cvv: req.body.cvv,
-			    		name: uzername
-			    	};
+		    	stripe.customers.create({
+				  email: userdata.email,
+				}).then(cust => {
+					console.log(cust);
 
-			    	stripe.customers.create({
-					  email: userdata.email,
-					}).then(customer:any => {
-						console.log(customer);
-
-						stripe.customers.createSource({
-						  	customer.id,
-						  	{source: dict}
-						}).then(card => {
-							console.log(card);
-							res.json({
-						        msg: '',
-						        status: 0,
-						        data: card
-						    });
-						}).catch(error => {console.error(error)});
+					stripe.customers.createSource({
+					  	cust.id,
+					  	{source: dict}
+					}).then(card => {
+						console.log(card);
+						res.json({
+					        msg: '',
+					        status: 0,
+					        data: card
+					    });
 					}).catch(error => console.error(error));
+				}).catch(error => console.error(error));
 
 
 			  	});
@@ -727,11 +719,11 @@ exports.storeCreditCardStripeVault = function (req, res) {
 
 		    	stripe.customers.create({
 				  email: userdata.email,
-				}).then(customer:any => {
-					console.log(customer);
+				}).then(cust => {
+					console.log(cust);
 
 					stripe.customers.createSource({
-					  	customer.id,
+					  	cust.id,
 					  	{source: dict}
 					}).then(card => {
 						console.log(card);
