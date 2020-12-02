@@ -683,8 +683,14 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    	}
 	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
 
+	      			const customer = stripe.customers.create({
+					  description: 'My First Test Customer (created for API docs)',
+					});
+
+					console.log(customer)
+
 	      			const card =  stripe.customers.createSource(
-					  	'cus_IUwpqEiElAa53R',
+					  	customer.id,
 					  	{source: 'tok_visa'}
 					);
 
@@ -711,8 +717,14 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    		name: uzername
 		    	};
 
+		    	const customer = stripe.customers.create({
+				  description: 'My First Test Customer (created for API docs)',
+				});
+
+				console.log(customer);
+
 		    	const card =  stripe.customers.createSource(
-					  	'cus_IUwpqEiElAa53R',
+					  	customer.id,
 					  	{source: 'tok_visa'}
 					);
 
