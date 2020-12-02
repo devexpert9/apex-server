@@ -7,6 +7,9 @@ cards         = mongoose.model('cards'),
 users = mongoose.model('users'),
 braintree = require('braintree'),
 subscription         = mongoose.model('subscription');
+
+const stripe = require('stripe')('pk_live_51HmVLvLVj0culcOF1epsJbgHkT1FxAwQmRWQR0IWlxNrOyMpWWyCWK1WsQkhbykuXXonx4OJLW0CbZbKMkLuAgDO00FNpaATWG');
+
 /*var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
 var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';*/
 
@@ -35,41 +38,26 @@ paypal.configure({
 });
 
 var gateway = new braintree.BraintreeGateway({
-  environment: braintree.Environment.Sandbox,
-  merchantId: '2m64fb2rx7bznjqc',
-  publicKey: '3r4mhhfs2rwrgb8n',
-  privateKey: 'b253322e398cd662749860fa0c819153'
+	environment: braintree.Environment.Sandbox,
+  	merchantId: '2m64fb2rx7bznjqc',
+  	publicKey: '3r4mhhfs2rwrgb8n',
+  	privateKey: 'b253322e398cd662749860fa0c819153'
 });
 
-exports.storeCreditCardVaultOld = function (req, res) {
-
-	// var card_data = {
-	// 		"type": "visa",
-	// 		"number": "4417119669820331",
-	// 		"expire_month": "11",
-	// 		"expire_year": "2020",
-	// 		"cvv2": "123",
-	// 		"first_name": "Joe",
-	// 		"last_name": "Shopper",
-	// 		"external_customer_id": uuid.v4()
-	// 	};
-
-
-	//check card type
+exports.storeCreditCardVault_Old = function (req, res) {
 	var number = req.body.card_number,  card_type = '';
-	// visa
-    var re = new RegExp("^4"),
-    amex = new RegExp("^3[47]"),
-    diners = new RegExp("^36"),
- 	diners1 = new RegExp("^30[0-5]"),
- 	jcb = new RegExp("^35(2[89]|[3-8][0-9])"),
- 	visae = new RegExp("^(4026|417500|4508|4844|491(3|7))"),
+
+    var re 	 = new RegExp("^4"),
+    amex 	 = new RegExp("^3[47]"),
+    diners 	 = new RegExp("^36"),
+ 	diners1  = new RegExp("^30[0-5]"),
+ 	jcb 	 = new RegExp("^35(2[89]|[3-8][0-9])"),
+ 	visae 	 = new RegExp("^(4026|417500|4508|4844|491(3|7))"),
     discover = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+
     if (number.match(re) != null){
         card_type = "visa";
     }else if (/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/.test(number)){ 
-     	// Mastercard 
-    	// Updated for Mastercard 2017 BINs expansion
         card_type = "Mastercard";
     }else if (number.match(amex) != null){
 		// AMEX
@@ -195,39 +183,21 @@ exports.storeCreditCardVaultOld = function (req, res) {
 		    }
   		});
   	});
-
 };
 
-
-exports.storeCreditCardVault = function (req, res) {
-
-	// var card_data = {
-	// 		"type": "visa",
-	// 		"number": "4417119669820331",
-	// 		"expire_month": "11",
-	// 		"expire_year": "2020",
-	// 		"cvv2": "123",
-	// 		"first_name": "Joe",
-	// 		"last_name": "Shopper",
-	// 		"external_customer_id": uuid.v4()
-	// 	};
-
-
-	//check card type
+exports.storeCreditCardVault_BrainTree = function (req, res) {
 	var number = req.body.card_number,  card_type = '';
-	// visa
-    var re = new RegExp("^4"),
-    amex = new RegExp("^3[47]"),
-    diners = new RegExp("^36"),
- 	diners1 = new RegExp("^30[0-5]"),
- 	jcb = new RegExp("^35(2[89]|[3-8][0-9])"),
- 	visae = new RegExp("^(4026|417500|4508|4844|491(3|7))"),
-    discover = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+
+    var re 		= new RegExp("^4"),
+    amex 		= new RegExp("^3[47]"),
+    diners 		= new RegExp("^36"),
+ 	diners1 	= new RegExp("^30[0-5]"),
+ 	jcb 		= new RegExp("^35(2[89]|[3-8][0-9])"),
+ 	visae 		= new RegExp("^(4026|417500|4508|4844|491(3|7))"),
+    discover 	= new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
     if (number.match(re) != null){
         card_type = "visa";
     }else if (/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/.test(number)){ 
-     	// Mastercard 
-    	// Updated for Mastercard 2017 BINs expansion
         card_type = "Mastercard";
     }else if (number.match(amex) != null){
 		// AMEX
@@ -244,7 +214,7 @@ exports.storeCreditCardVault = function (req, res) {
         card_type = "Visa Electron";
     }
 
-    console.log('card_type')
+    console.log(card_type);
 	cards.find({userId: req.body.external_customer_id}, function(err, doc)
   	{
   		users.findOne({_id: req.body.external_customer_id}, function(err, userdata)
@@ -280,7 +250,8 @@ exports.storeCreditCardVault = function (req, res) {
 						  	// if (error) {
 						  		console.log(error);
 						  		console.log(credit_card);
-						  		gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
+						  		gateway.paymentMethodNonce.create(credit_card.creditCard.]\
+						  			token, function(err, response)
 						  		{
 						  			console.log('****** NONCE *******');
 						  			console.log(response);
@@ -396,8 +367,190 @@ exports.storeCreditCardVault = function (req, res) {
 		    }
   		});
   	});
+};
 
-	
+exports.storeCreditCardVault = function (req, res) {
+	var number = req.body.card_number,  card_type = '';
+
+    var re 		= new RegExp("^4"),
+    amex 		= new RegExp("^3[47]"),
+    diners 		= new RegExp("^36"),
+ 	diners1 	= new RegExp("^30[0-5]"),
+ 	jcb 		= new RegExp("^35(2[89]|[3-8][0-9])"),
+ 	visae 		= new RegExp("^(4026|417500|4508|4844|491(3|7))"),
+    discover 	= new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+    if (number.match(re) != null){
+        card_type = "visa";
+    }else if (/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/.test(number)){ 
+        card_type = "Mastercard";
+    }else if (number.match(amex) != null){
+		// AMEX
+        card_type = "AMEX";
+    }else if (number.match(discover) != null){
+        card_type = "Discover";
+    }else if (number.match(diners) != null){
+        card_type = "Diners";
+    }else if (number.match(diners1) != null){
+        card_type = "Diners - Carte Blanche";
+    }else if (number.match(jcb) != null){
+        card_type = "JCB";
+    }else if (number.match(visae) != null){
+        card_type = "Visa Electron";
+    }
+
+    console.log(card_type);
+	cards.find({userId: req.body.external_customer_id}, function(err, doc)
+  	{
+  		users.findOne({_id: req.body.external_customer_id}, function(err, userdata)
+  		{
+  			let uzername = userdata.name;
+
+  			if(doc) //-- If user have any card then delete that card------
+		    {
+	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
+
+	      			gateway.customer.create({
+					  firstName: uzername.split(' ')[0],
+					  lastName: uzername.split(' ')[1],
+					  company: "Braintree",
+					  email: userdata.email,
+					  phone: "312.555.1234",
+					  fax: "614.555.5678",
+					  website: "www.apex-4u.com"
+					}, (err, result) => {
+						console.log(err);
+						console.log(result);
+
+			      		//--- After delete user card add new one--------------------
+					    let creditCardParams = {
+						  	customerId: result.customer.id,
+						  	number: req.body.card_number,
+					 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
+						  	cvv: req.body.cvv,
+						  	cardholderName: uzername
+						};
+						console.log('if')
+						gateway.creditCard.create(creditCardParams, (error, credit_card) => {
+						  	// if (error) {
+						  		console.log(error);
+						  		console.log(credit_card);
+						  		gateway.paymentMethodNonce.create(credit_card.creditCard.]\
+						  			token, function(err, response)
+						  		{
+						  			console.log('****** NONCE *******');
+						  			console.log(response);
+  									const nonce = response.paymentMethodNonce.nonce;
+
+  									gateway.transaction.sale({
+									  amount: "99.00",
+									  paymentMethodNonce: nonce,
+									  // deviceData: deviceDataFromTheClient,
+									  options: {
+									    submitForSettlement: true
+									  }
+									}, (err, result) => {
+										console.log(err);
+										console.log(result);
+									});
+								});
+
+						  		
+							    res.json({
+							        msg: 'inquiry table delete..',
+							        status: 0,
+							        data: error
+							    });
+						  // 	} 
+						  // 	else 
+						  // 	{
+						  // 		var new_pack = new cards({
+								//     userId:   req.body.external_customer_id,
+								//     card_data:   credit_card,
+								//     created_at: new Date()
+								// });
+
+							 //  	new_pack.save(function(err, doc){
+								//     if(doc == null){
+								//       res.send({
+								//         data: null,
+								//         error: 'Something went wrong.Please try later.',
+								//         status: 0
+								//       });
+								//     }else{
+								//       res.send({
+								//         data: doc,
+								//         status: 1,
+								//         error: 'Testimonial added successfully!'
+								//       });
+								//     }
+								// });
+						  // 	}
+						});
+					});
+			  	});
+		    }
+		    else
+		    {
+		    	gateway.customer.create({
+				  firstName: uzername.split(' ')[0],
+				  lastName: uzername.split(' ')[1],
+				  company: "Braintree",
+				  email: userdata.email,
+				  phone: "312.555.1234",
+				  fax: "614.555.5678",
+				  website: "www.apex-4u.com"
+				}, (err, result) => {
+
+					console.log(result);
+					console.log(err);
+			    	console.log('else case')
+			    	let creditCardParams = {
+					  	customerId: result.customer.id,
+					  	number: req.body.card_number,
+				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
+					  	cvv: req.body.cvv
+					};
+
+					gateway.creditCard.create(creditCardParams, (err, credit_card) => {
+						console.log(credit_card);
+						// if (error) {
+						    res.json({
+						        msg: 'inquiry table delete!',
+						        status: 0,
+						        data: error
+						    });
+					  // 	} 
+					  // 	else 
+					  // 	{
+					  // 		var new_pack = new cards({
+							//     userId:   req.body.external_customer_id,
+							//     card_data:   credit_card,
+							//     created_at: new Date()
+							// });
+
+						 //  	new_pack.save(function(err, doc){
+							//     if(doc == null){
+							//       res.send({
+							//         data: null,
+							//         error: 'Something went wrong.Please try later.',
+							//         status: 0
+							//       });
+							//     }else{
+							//       res.send({
+							//         data: doc,
+							//         status: 1,
+							//         error: 'Testimonial added successfully!'
+							//       });
+							//     }
+							// });
+					  // 	}
+
+					});
+				});
+		    	
+		    }
+  		});
+  	});
 };
 
 exports.autoRenewalPlan = function (req, res) {
@@ -484,3 +637,130 @@ exports.autoRenewalPlan = function (req, res) {
 	});
 };
 
+exports.storeCreditCardStripeVault = function (req, res) {
+	var number = req.body.card_number,  card_type = '';
+
+    var re 		= new RegExp("^4"),
+    amex 		= new RegExp("^3[47]"),
+    diners 		= new RegExp("^36"),
+ 	diners1 	= new RegExp("^30[0-5]"),
+ 	jcb 		= new RegExp("^35(2[89]|[3-8][0-9])"),
+ 	visae 		= new RegExp("^(4026|417500|4508|4844|491(3|7))"),
+    discover 	= new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+    if (number.match(re) != null){
+        card_type = "visa";
+    }else if (/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/.test(number)){ 
+        card_type = "Mastercard";
+    }else if (number.match(amex) != null){
+		// AMEX
+        card_type = "AMEX";
+    }else if (number.match(discover) != null){
+        card_type = "Discover";
+    }else if (number.match(diners) != null){
+        card_type = "Diners";
+    }else if (number.match(diners1) != null){
+        card_type = "Diners - Carte Blanche";
+    }else if (number.match(jcb) != null){
+        card_type = "JCB";
+    }else if (number.match(visae) != null){
+        card_type = "Visa Electron";
+    }
+
+    console.log(card_type);
+	cards.find({userId: req.body.external_customer_id}, function(err, doc)
+  	{
+  		users.findOne({_id: req.body.external_customer_id}, function(err, userdata)
+  		{
+  			let uzername = userdata.name;
+
+  			if(doc) //-- If user have any card then delete that card------
+		    {
+		    	let dict = {
+		    		object: 'card',
+		    		number: req.body.card_number,
+		    		exp_month: req.body.exp_month,
+		    		exp_year: req.body.exp_year,
+		    		cvv: req.body.cvv,
+		    		name: uzername
+		    	}
+	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
+
+	      			const card = await stripe.customers.createSource(
+					  	'cus_IUwpqEiElAa53R',
+					  	{source: 'tok_visa'}
+					);
+
+					console.log(card);
+
+					res.json({
+				        msg: '',
+				        status: 0,
+				        data: card
+				    });
+
+
+			  	});
+		    }
+		    else
+		    {
+		    	gateway.customer.create({
+				  firstName: uzername.split(' ')[0],
+				  lastName: uzername.split(' ')[1],
+				  company: "Braintree",
+				  email: userdata.email,
+				  phone: "312.555.1234",
+				  fax: "614.555.5678",
+				  website: "www.apex-4u.com"
+				}, (err, result) => {
+
+					console.log(result);
+					console.log(err);
+			    	console.log('else case')
+			    	let creditCardParams = {
+					  	customerId: result.customer.id,
+					  	number: req.body.card_number,
+				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
+					  	cvv: req.body.cvv
+					};
+
+					gateway.creditCard.create(creditCardParams, (err, credit_card) => {
+						console.log(credit_card);
+						// if (error) {
+						    res.json({
+						        msg: 'inquiry table delete!',
+						        status: 0,
+						        data: error
+						    });
+					  // 	} 
+					  // 	else 
+					  // 	{
+					  // 		var new_pack = new cards({
+							//     userId:   req.body.external_customer_id,
+							//     card_data:   credit_card,
+							//     created_at: new Date()
+							// });
+
+						 //  	new_pack.save(function(err, doc){
+							//     if(doc == null){
+							//       res.send({
+							//         data: null,
+							//         error: 'Something went wrong.Please try later.',
+							//         status: 0
+							//       });
+							//     }else{
+							//       res.send({
+							//         data: doc,
+							//         status: 1,
+							//         error: 'Testimonial added successfully!'
+							//       });
+							//     }
+							// });
+					  // 	}
+
+					});
+				});
+		    	
+		    }
+  		});
+  	});
+};
