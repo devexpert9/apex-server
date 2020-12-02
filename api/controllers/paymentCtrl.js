@@ -718,7 +718,9 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    	};
 
 		    	const customer = stripe.customers.create({
-				  description: 'My First Test Customer (created for API docs)',
+		    		"id": "cus_IUxjQB1kJNRabN",
+  "object": "customer",
+				  "description": 'My First Test Customer (created for API docs)',
 				});
 
 				console.log(customer);
