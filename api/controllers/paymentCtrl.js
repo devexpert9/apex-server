@@ -694,7 +694,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 
 			    	stripe.customers.create({
 					  email: userdata.email,
-					}).then(customer => {
+					}).then(customer:any => {
 						console.log(customer);
 
 						stripe.customers.createSource({
@@ -707,7 +707,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 						        status: 0,
 						        data: card
 						    });
-						}).catch(error => console.error(error));
+						}).catch(error => {console.error(error)});
 					}).catch(error => console.error(error));
 
 
@@ -727,7 +727,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 
 		    	stripe.customers.create({
 				  email: userdata.email,
-				}).then(customer => {
+				}).then(customer:any => {
 					console.log(customer);
 
 					stripe.customers.createSource({
