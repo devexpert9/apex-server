@@ -680,7 +680,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    		number: req.body.card_number,
 		    		exp_month: req.body.exp_month,
 		    		exp_year: req.body.exp_year,
-		    		cvv: req.body.cvv,
+		    		// cvv: req.body.cvv,
 		    		name: uzername
 		    	};
 
@@ -713,7 +713,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    		number: req.body.card_number,
 		    		exp_month: req.body.exp_month,
 		    		exp_year: req.body.exp_year,
-		    		cvv: req.body.cvv,
+		    		// cvv: req.body.cvv,
 		    		name: uzername
 		    	};
 
