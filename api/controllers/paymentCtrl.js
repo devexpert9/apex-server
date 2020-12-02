@@ -8,7 +8,7 @@ users = mongoose.model('users'),
 braintree = require('braintree'),
 subscription         = mongoose.model('subscription');
 
-const stripe = require('stripe')('pk_live_51HmVLvLVj0culcOF1epsJbgHkT1FxAwQmRWQR0IWlxNrOyMpWWyCWK1WsQkhbykuXXonx4OJLW0CbZbKMkLuAgDO00FNpaATWG');
+const stripe = require('stripe')('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');
 
 /*var PAYPAL_CLIENT = 'AUJwMArV3OrlX73_R8aOCpP3QlI_MeDOsoxwVI2ufXFon_8Va_xRRbSJakVsV4P32x3xR6bB2f4jWdd7';
 var PAYPAL_SECRET = 'ENYFR3iyybskBAfmHf7bWnc8PnHLg2LD2JCAYpq-vlRzWELGpyZDJl_1OW-V6aEwNrEeo7-m1yOuQxrR';*/
