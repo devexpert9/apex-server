@@ -671,105 +671,78 @@ exports.storeCreditCardStripeVault = function (req, res) {
   		{
   			let uzername = userdata.name;
 
-  			stripe.customers.create({
-			  email: 'customer@example.com',
-			})
-			  .then(customer => console.log(customer))
-			  .catch(error => console.error(error));
+  			if(doc) //-- If user have any card then delete that card------
+		    {
+		    	let dict = {
+		    		object: 'card',
+		    		number: req.body.card_number,
+		    		exp_month: req.body.exp_month,
+		    		exp_year: req.body.exp_year,
+		    		cvv: req.body.cvv,
+		    		name: uzername
+		    	}
+	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
 
-  		// 	if(doc) //-- If user have any card then delete that card------
-		  //   {
-		  //   	let dict = {
-		  //   		object: 'card',
-		  //   		number: req.body.card_number,
-		  //   		exp_month: req.body.exp_month,
-		  //   		exp_year: req.body.exp_year,
-		  //   		cvv: req.body.cvv,
-		  //   		name: uzername
-		  //   	}
-	   //    		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
+	      			let dict = {
+			    		object: 'card',
+			    		number: req.body.card_number,
+			    		exp_month: req.body.exp_month,
+			    		exp_year: req.body.exp_year,
+			    		cvv: req.body.cvv,
+			    		name: uzername
+			    	};
 
-	   //    			const customer = stripe.customers.create({
-				// 	  description: 'My First Test Customer (created for API docs)',
-				// 	});
+			    	stripe.customers.create({
+					  email: userdata.email,
+					}).then(customer => {
+						console.log(customer);
 
-				// 	console.log(customer)
-
-	   //    			const card =  stripe.customers.createSource(
-				// 	  	customer.id,
-				// 	  	{source: 'tok_visa'}
-				// 	);
-
-				// 	console.log(card);
-
-				// 	res.json({
-				//         msg: '',
-				//         status: 0,
-				//         data: card
-				//     });
+						stripe.customers.createSource({
+						  	customer.id,
+						  	{source: dict}
+						}).then(card => {
+							console.log(card);
+							res.json({
+						        msg: '',
+						        status: 0,
+						        data: card
+						    });
+						}).catch(error => console.error(error));
+					}).catch(error => console.error(error));
 
 
-			 //  	});
-		  //   }
-		  //   else
-		  //   {
+			  	});
+		    }
+		    else
+		    {
 		    	
-		  //   	let dict = {
-		  //   		object: 'card',
-		  //   		number: req.body.card_number,
-		  //   		exp_month: req.body.exp_month,
-		  //   		exp_year: req.body.exp_year,
-		  //   		cvv: req.body.cvv,
-		  //   		name: uzername
-		  //   	};
+		    	let dict = {
+		    		object: 'card',
+		    		number: req.body.card_number,
+		    		exp_month: req.body.exp_month,
+		    		exp_year: req.body.exp_year,
+		    		cvv: req.body.cvv,
+		    		name: uzername
+		    	};
 
-		  //   	stripe.createToken(card).then(res => {
-				//     if (res.error){ 
-				//     	errorEl.textContent = res.error.message;
-				//     }else {
-				//     	stripeTokenHandler(res.token)
-				//     };
-				// })
+		    	stripe.customers.create({
+				  email: userdata.email,
+				}).then(customer => {
+					console.log(customer);
 
-				// function stripeTokenHandler(token){
-				// 	stripe.customers.create({
-				//         name: uzername,
-				//         email: userdata.email,
-				//         source: token
-				//     }).then(customer =>{
-				//         // stripe.charges.create({
-				//         //   amount: req.body.amount * 100,
-				//         //   currency: "usd",
-				//         //   customer: customer.id
-				//         // })
-
-				//         const card =  stripe.customers.createSource(
-				// 		  	customer.id,
-				// 		  	{source: dict}
-				// 		);
-				//     });
-				// };
-
-				// return;
-
-		  //   	const customerInfo = stripe.customers.create();
-
-				// console.log(customerInfo);
-
-		  //   	const card =  stripe.customers.createSource(
-				// 	  	customerInfo.id,
-				// 	  	{source: 'tok_visa'}
-				// 	);
-
-				// 	console.log(card);
-
-				// 	res.json({
-				//         msg: '',
-				//         status: 0,
-				//         data: card
-				//     });
-		    	
-		  //   }
+					stripe.customers.createSource({
+					  	customer.id,
+					  	{source: dict}
+					}).then(card => {
+						console.log(card);
+						res.json({
+					        msg: '',
+					        status: 0,
+					        data: card
+					    });
+					}).catch(error => console.error(error));
+				}).catch(error => console.error(error));
+		    }
   		});
   	});
 };
