@@ -433,8 +433,7 @@ exports.storeCreditCardVault = function (req, res) {
 						  	// if (error) {
 						  		console.log(error);
 						  		console.log(credit_card);
-						  		gateway.paymentMethodNonce.create(credit_card.creditCard.]\
-						  			token, function(err, response)
+						  		gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
 						  		{
 						  			console.log('****** NONCE *******');
 						  			console.log(response);
