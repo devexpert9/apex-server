@@ -688,11 +688,11 @@ exports.storeCreditCardStripeVault = function (req, res) {
 				  email: userdata.email,
 				}).then(cust => {
 					console.log(cust);
-
-					stripe.customers.createSource({
-					  	cust.id,
+					let customerId = cust.id;
+					stripe.customers.createSource(
+					  	customerId,
 					  	{source: dict}
-					}).then(card => {
+					).then(card => {
 						console.log(card);
 						res.json({
 					        msg: '',
@@ -721,11 +721,11 @@ exports.storeCreditCardStripeVault = function (req, res) {
 				  email: userdata.email,
 				}).then(cust => {
 					console.log(cust);
-
-					stripe.customers.createSource({
-					  	cust.id,
+					let customerId = cust.id;
+					stripe.customers.createSource(
+					  	customerId,
 					  	{source: dict}
-					}).then(card => {
+					).then(card => {
 						console.log(card);
 						res.json({
 					        msg: '',
