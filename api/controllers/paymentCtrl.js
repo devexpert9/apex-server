@@ -673,6 +673,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 
   			if(doc) //-- If user have any card then delete that card------
 		    {
+		    	console.log('------------------');
 	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
 
 	      		let dict = {
@@ -691,7 +692,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 					let customerId = cust.id;
 					stripe.customers.createSource(
 					  	customerId,
-					  	{source: dict}
+					  	{source: 'card'}
 					).then(card => {
 						console.log(card);
 						res.json({
@@ -707,7 +708,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 		    }
 		    else
 		    {
-		    	
+		    	console.log('**********');
 		    	let dict = {
 		    		object: 'card',
 		    		number: req.body.card_number,
@@ -724,7 +725,7 @@ exports.storeCreditCardStripeVault = function (req, res) {
 					let customerId = cust.id;
 					stripe.customers.createSource(
 					  	customerId,
-					  	{source: dict}
+					  	{source: 'card'}
 					).then(card => {
 						console.log(card);
 						res.json({
