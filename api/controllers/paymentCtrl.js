@@ -746,7 +746,24 @@ exports.createPaymentIntent = function (req, res){
   const { items, currency } = req.body;
 
   	// Create or use a preexisting Customer to associate with the payment
-  	const customer = stripe.customers.create();
+  	const customer = stripe.customers.create().then(cust => {
+		console.log(cust);
+		let customerId = cust.id;
+		const paymentIntent = stripe.paymentIntents.create({
+	    	amount: calculateOrderAmount(items),
+	    	currency: currency,
+	    	customer: customerId
+	  	}).then(payment => {
+
+		  	// Send publishable key and PaymentIntent details to client
+		  	res.send({
+		  		'status': 1,
+		    	publicKey: 'pk_test_51HmVLvLVj0culcOFpZR7Gl9jsWZilFr0w8t4PgqyQSpTZL9SUANa3wTLlGqVmf39ZspG3WXSwJlTPH7ZKAdsoorM00uZpPx97Y',
+		    	clientSecret: payment.client_secret,
+		    	id: payment.id
+		  	});
+		}).catch(error => console.error(error));
+	}).catch(error => console.error(error));
 
   	function calculateOrderAmount(items){
 	  	// Replace this constant with a calculation of the order's amount
@@ -755,17 +772,5 @@ exports.createPaymentIntent = function (req, res){
 	  	return 50;
 	};
   	// Create a PaymentIntent with the order amount and currency and the customer id
-  	const paymentIntent = stripe.paymentIntents.create({
-    	amount: calculateOrderAmount(items),
-    	currency: currency,
-    	customer: customer.id
-  	});
-
-  	// Send publishable key and PaymentIntent details to client
-  	res.send({
-  		'status': 1,
-    	publicKey: 'pk_test_51HmVLvLVj0culcOFpZR7Gl9jsWZilFr0w8t4PgqyQSpTZL9SUANa3wTLlGqVmf39ZspG3WXSwJlTPH7ZKAdsoorM00uZpPx97Y',
-    	clientSecret: paymentIntent.client_secret,
-    	id: paymentIntent.id
-  	});
+  	
 };
