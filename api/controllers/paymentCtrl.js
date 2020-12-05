@@ -752,7 +752,7 @@ exports.createPaymentIntent = function (req, res){
 	  	// Replace this constant with a calculation of the order's amount
 	  	// Calculate the order total on the server to prevent
 	  	// people from directly manipulating the amount on the client
-	  	return 0.25;
+	  	return 1;
 	};
   	// Create a PaymentIntent with the order amount and currency and the customer id
   	const paymentIntent = stripe.paymentIntents.create({
@@ -763,6 +763,7 @@ exports.createPaymentIntent = function (req, res){
 
   	// Send publishable key and PaymentIntent details to client
   	res.send({
+  		'status': 1,
     	publicKey: 'pk_test_51HmVLvLVj0culcOFpZR7Gl9jsWZilFr0w8t4PgqyQSpTZL9SUANa3wTLlGqVmf39ZspG3WXSwJlTPH7ZKAdsoorM00uZpPx97Y',
     	clientSecret: paymentIntent.client_secret,
     	id: paymentIntent.id
