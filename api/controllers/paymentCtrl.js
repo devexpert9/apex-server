@@ -739,3 +739,32 @@ exports.storeCreditCardStripeVault = function (req, res) {
   		});
   	});
 };
+
+
+
+exports.createPaymentIntent = function (req, res){
+  const { items, currency } = req.body;
+
+  	// Create or use a preexisting Customer to associate with the payment
+  	const customer = await stripe.customers.create();
+
+  	function calculateOrderAmount(items){
+	  	// Replace this constant with a calculation of the order's amount
+	  	// Calculate the order total on the server to prevent
+	  	// people from directly manipulating the amount on the client
+	  	return 0.25;
+	};
+  	// Create a PaymentIntent with the order amount and currency and the customer id
+  	const paymentIntent = await stripe.paymentIntents.create({
+    	amount: calculateOrderAmount(items),
+    	currency: currency,
+    	customer: customer.id
+  	});
+
+  	// Send publishable key and PaymentIntent details to client
+  	res.send({
+    	publicKey: env.parsed.STRIPE_PUBLISHABLE_KEY,
+    	clientSecret: paymentIntent.client_secret,
+    	id: paymentIntent.id
+  	});
+};

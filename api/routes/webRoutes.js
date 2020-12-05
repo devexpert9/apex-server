@@ -349,5 +349,10 @@ var userData = require('../controllers/paymentCtrl');
    app.route('/autoRenewalPlan')
      .post(userData.autoRenewalPlan); 
 
+var userData = require('../controllers/paymentCtrl');
+   app.route('/createPaymentIntent')
+     .post(userData.createPaymentIntent);
+     
+
 };
 
