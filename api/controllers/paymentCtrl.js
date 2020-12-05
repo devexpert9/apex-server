@@ -752,7 +752,7 @@ exports.createPaymentIntent = function (req, res){
 	  	// Replace this constant with a calculation of the order's amount
 	  	// Calculate the order total on the server to prevent
 	  	// people from directly manipulating the amount on the client
-	  	return 1;
+	  	return 5;
 	};
   	// Create a PaymentIntent with the order amount and currency and the customer id
   	const paymentIntent = stripe.paymentIntents.create({
