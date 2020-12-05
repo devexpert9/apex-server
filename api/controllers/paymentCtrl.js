@@ -746,7 +746,7 @@ exports.createPaymentIntent = function (req, res){
   const { items, currency } = req.body;
 
   	// Create or use a preexisting Customer to associate with the payment
-  	const customer = await stripe.customers.create();
+  	const customer = stripe.customers.create();
 
   	function calculateOrderAmount(items){
 	  	// Replace this constant with a calculation of the order's amount
@@ -755,7 +755,7 @@ exports.createPaymentIntent = function (req, res){
 	  	return 0.25;
 	};
   	// Create a PaymentIntent with the order amount and currency and the customer id
-  	const paymentIntent = await stripe.paymentIntents.create({
+  	const paymentIntent = stripe.paymentIntents.create({
     	amount: calculateOrderAmount(items),
     	currency: currency,
     	customer: customer.id
