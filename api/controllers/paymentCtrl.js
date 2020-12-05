@@ -763,7 +763,7 @@ exports.createPaymentIntent = function (req, res){
 
   	// Send publishable key and PaymentIntent details to client
   	res.send({
-    	publicKey: env.parsed.STRIPE_PUBLISHABLE_KEY,
+    	publicKey: 'pk_test_51HmVLvLVj0culcOFpZR7Gl9jsWZilFr0w8t4PgqyQSpTZL9SUANa3wTLlGqVmf39ZspG3WXSwJlTPH7ZKAdsoorM00uZpPx97Y',
     	clientSecret: paymentIntent.client_secret,
     	id: paymentIntent.id
   	});
