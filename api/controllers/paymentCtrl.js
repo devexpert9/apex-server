@@ -226,13 +226,13 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 	      		cards.remove({userId: req.body.external_customer_id}, function(err, user) {
 
 	      			gateway.customer.create({
-					  firstName: uzername.split(' ')[0],
-					  lastName: uzername.split(' ')[1],
-					  company: "Braintree",
-					  email: userdata.email,
-					  phone: "312.555.1234",
-					  fax: "614.555.5678",
-					  website: "www.apex-4u.com"
+					  firstName: 	uzername.split(' ')[0],
+					  lastName: 	uzername.split(' ')[1],
+					  company: 		"Braintree",
+					  email: 		userdata.email,
+					  phone: 		"312.555.1234",
+					  fax: 			"614.555.5678",
+					  website: 		"www.apex-4u.com"
 					}, (err, result) => {
 						console.log(err);
 						console.log(result);
@@ -257,7 +257,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
   									const nonce = response.paymentMethodNonce.nonce;
 
   									gateway.transaction.sale({
-									  amount: "99.00",
+									  amount: "1.00",
 									  paymentMethodNonce: nonce,
 									  // deviceData: deviceDataFromTheClient,
 									  options: {
