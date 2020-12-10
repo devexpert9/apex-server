@@ -273,35 +273,31 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 									}, (err, result) => {
 										console.log(err);
 										console.log(result);
-										console.log("Transaction = "+result.transaction.id);
+										console.log("Transaction ID= "+result.transaction.id);
+
+										var new_pack = new cards({
+										    userId: req.body.external_customer_id,
+										    card_data: result.creditCard,
+										    created_at: new Date()
+										});
+
+									  	new_pack.save(function(err, doc){
+										    if(doc == null){
+										      res.send({
+										        data: null,
+										        error: 'Something went wrong.Please try later.',
+										        status: 0
+										      });
+										    }else{
+										      res.send({
+										        data: doc,
+										        status: 1,
+										        error: 'Testimonial added successfully!'
+										      });
+										    }
+										});
 									});
 								});
-
-						  // 	} 
-						  // 	else 
-						  // 	{
-						  // 		var new_pack = new cards({
-								//     userId:   req.body.external_customer_id,
-								//     card_data:   credit_card,
-								//     created_at: new Date()
-								// });
-
-							 //  	new_pack.save(function(err, doc){
-								//     if(doc == null){
-								//       res.send({
-								//         data: null,
-								//         error: 'Something went wrong.Please try later.',
-								//         status: 0
-								//       });
-								//     }else{
-								//       res.send({
-								//         data: doc,
-								//         status: 1,
-								//         error: 'Testimonial added successfully!'
-								//       });
-								//     }
-								// });
-						  // 	}
 						});
 					});
 			  	});
@@ -321,47 +317,60 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 					console.log(result);
 					console.log(err);
 			    	console.log('else case')
-			    	let creditCardParams = {
+
+					let creditCardParams = {
 					  	customerId: result.customer.id,
 					  	number: req.body.card_number,
-				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
-					  	cvv: req.body.cvv
+				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,
+					  	cvv: req.body.cvv,
+					  	cardholderName: uzername
 					};
 
-					gateway.creditCard.create(creditCardParams, (err, credit_card) => {
-						console.log(credit_card);
-						// if (error) {
-						    res.json({
-						        msg: 'inquiry table delete!',
-						        status: 0,
-						        data: error
-						    });
-					  // 	} 
-					  // 	else 
-					  // 	{
-					  // 		var new_pack = new cards({
-							//     userId:   req.body.external_customer_id,
-							//     card_data:   credit_card,
-							//     created_at: new Date()
-							// });
+					gateway.creditCard.create(creditCardParams, (error, credit_card) => {
+					  	// if (error) {
+					  		console.log(error);
+					  		console.log(credit_card);
+					  		gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
+					  		{
+					  			console.log('****** NONCE *******');
+					  			console.log(response);
+									const nonce = response.paymentMethodNonce.nonce;
 
-						 //  	new_pack.save(function(err, doc){
-							//     if(doc == null){
-							//       res.send({
-							//         data: null,
-							//         error: 'Something went wrong.Please try later.',
-							//         status: 0
-							//       });
-							//     }else{
-							//       res.send({
-							//         data: doc,
-							//         status: 1,
-							//         error: 'Testimonial added successfully!'
-							//       });
-							//     }
-							// });
-					  // 	}
+									gateway.transaction.sale({
+								  amount: "1.00",
+								  paymentMethodNonce: nonce,
+								  // deviceData: deviceDataFromTheClient,
+								  options: {
+								    submitForSettlement: true
+								  }
+								}, (err, result) => {
+									console.log(err);
+									console.log(result);
+									console.log("Transaction ID= "+result.transaction.id);
 
+									var new_pack = new cards({
+									    userId: req.body.external_customer_id,
+									    card_data: result.creditCard,
+									    created_at: new Date()
+									});
+
+								  	new_pack.save(function(err, doc){
+									    if(doc == null){
+									      res.send({
+									        data: null,
+									        error: 'Something went wrong.Please try later.',
+									        status: 0
+									      });
+									    }else{
+									      res.send({
+									        data: doc,
+									        status: 1,
+									        message: 'Payemnt done'
+									      });
+									    }
+									});
+								});
+							});
 					});
 				});
 		    	
@@ -560,25 +569,6 @@ exports.autoRenewalPlan = function (req, res) {
 		'client_id': PAYPAL_CLIENT,
 		'client_secret': PAYPAL_SECRET
 	});
-	// var cardData = {
-	// 	"intent": "sale",
-	// 	"payer": {
-	// 		"payment_method": "credit_card",
-	// 		"funding_instruments": [{
-	// 			"credit_card_token": {
-	// 				"credit_card_id": "CARD-97H24964AF825961YL56WD4Q",
-	// 				"external_customer_id": "b71710de-15ec-4ef7-9c70-850b95be785b"
-	// 			}
-	// 		}]
-	// 	},
-	// 	"transactions": [{
-	// 		"amount": {
-	// 			"total": "7.50",
-	// 			"currency": "USD"
-	// 		},
-	// 		"description": "This is the payment transaction description."
-	// 	}]
-	// };
 
 	var dict = {
 		"intent": "sale",
