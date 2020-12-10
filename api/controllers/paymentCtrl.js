@@ -37,11 +37,18 @@ paypal.configure({
 	// }
 });
 
-var gateway = new braintree.BraintreeGateway({
+/*var gateway = new braintree.BraintreeGateway({
 	environment: braintree.Environment.Sandbox,
   	merchantId: '2m64fb2rx7bznjqc',
   	publicKey: '3r4mhhfs2rwrgb8n',
   	privateKey: 'b253322e398cd662749860fa0c819153'
+});*/
+
+var gateway = new braintree.BraintreeGateway({
+	environment: braintree.Environment.Sandbox,
+  	merchantId: '3nq8p7mzxftnnyqd',
+  	publicKey: 'vvrpngfx7pxzxwjx',
+  	privateKey: 'vvrpngfx7pxzxwjx'
 });
 
 exports.storeCreditCardVault_Old = function (req, res) {
