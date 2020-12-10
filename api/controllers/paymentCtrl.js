@@ -45,7 +45,7 @@ paypal.configure({
 });*/
 
 var gateway = new braintree.BraintreeGateway({
-	environment: braintree.Environment.Sandbox,
+	environment: braintree.Environment.Production,
   	merchantId: '3nq8p7mzxftnnyqd',
   	publicKey: 'vvrpngfx7pxzxwjx',
   	privateKey: '6f0ed53afb3559d935bdbf783b03c02d'
