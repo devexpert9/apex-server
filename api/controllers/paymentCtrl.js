@@ -252,7 +252,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 						  	cvv: req.body.cvv,
 						  	cardholderName: uzername
 						};
-						console.log('if')
+						console.log('if');
 						gateway.creditCard.create(creditCardParams, (error, credit_card) => {
 						  	// if (error) {
 						  		console.log(error);
@@ -273,15 +273,10 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 									}, (err, result) => {
 										console.log(err);
 										console.log(result);
+										console.log("Transaction = "+result.transaction.id);
 									});
 								});
 
-						  		
-							    res.json({
-							        msg: 'inquiry table delete..',
-							        status: 0,
-							        data: error
-							    });
 						  // 	} 
 						  // 	else 
 						  // 	{
