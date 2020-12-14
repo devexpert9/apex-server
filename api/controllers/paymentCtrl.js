@@ -293,19 +293,19 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 										      res.send({
 										        data: doc,
 										        status: 1,
-										        error: 'Testimonial added successfully!'
+										        error: 'Card saved successfully!'
 										      });
 										    }
 										});
 									//-- SAVE SUBSCRIPTION--------------
-										var new_pack = new subscription({
+										var subs = new subscription({
 										    userId:req.body.external_customer_id,
 										    payment_data: result.transaction.id,
 										    package_data: req.body.fullPackage,
 										    created_at: new Date()
 										});
 
-									  	new_pack.save(function(err, doc){
+									  	subs.save(function(err, docsub){
 										    if(doc == null){
 										      res.send({
 										        data: null,
@@ -314,7 +314,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 										      });
 										    }else{
 										      res.send({
-										        data: doc,
+										        data: docsub,
 										        status: 1,
 										        error: 'payment done successfully!'
 										      });
