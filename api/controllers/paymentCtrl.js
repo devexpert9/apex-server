@@ -761,7 +761,7 @@ exports.autoRenewalBrainTree = function (req, res) {
 			const nonce = response.paymentMethodNonce.nonce;
 
 			gateway.transaction.sale({
-		  		amount: "1.00",
+		  		amount: req.body.package.price,
 			  	paymentMethodNonce: nonce,
 			  	// deviceData: deviceDataFromTheClient,
 			  	options: {
