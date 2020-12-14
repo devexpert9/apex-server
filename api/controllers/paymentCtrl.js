@@ -484,7 +484,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 						const nonce = response.paymentMethodNonce.nonce;
 
 						gateway.transaction.sale({
-					  amount: req.body.fullPackage,
+					  amount: req.body.fullPackage.price,
 					  paymentMethodNonce: nonce,
 					  options: {
 					    submitForSettlement: true
