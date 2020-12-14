@@ -609,9 +609,8 @@ exports.autoRenewalBrainTree = function (req, res) {
   	{
   		console.log("MY CARD");
   		let cardToken = card_data[0].card_data.creditCard.token;
-  	});
 
-	gateway.paymentMethodNonce.create(cardToken, function(err, response)
+  		gateway.paymentMethodNonce.create(cardToken, function(err, response)
 		{
 			console.log('****** NONCE *******');
 			console.log(response);
@@ -654,6 +653,8 @@ exports.autoRenewalBrainTree = function (req, res) {
 				});
 			//-----------------------------------
 		});
+  	});
+
 	});
 };
 
