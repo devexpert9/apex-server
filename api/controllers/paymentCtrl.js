@@ -603,10 +603,15 @@ exports.storeCreditCardVault = function (req, res) {
 
 exports.autoRenewalBrainTree = function (req, res) {
 
-	cards.find({userId: req.body.user_id}, function(err, card)
+	cards.find({userId: req.body.user_id}, function(err, card_data)
   	{
   		console.log("MY CARD");
-  		console.log(card);
+  		console.log(card_data);
+  		 res.send({
+										        data: card_data,
+										        status: 1,
+										        error: 'payment done successfully!'
+										      });
   	});
 
 	/*gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
