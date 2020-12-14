@@ -610,7 +610,7 @@ exports.checkEmailExist = function(req, res) {
         }else{
           res.send({
             status: 1,
-            data: null,
+            data: username,
             error:'Username already exist in our system.'
           });
         }
