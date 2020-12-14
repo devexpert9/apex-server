@@ -515,7 +515,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 
 							new_user.save(function(err, users)
 							{
-								console.log(users); return false;
+								console.log(users._id); return false;
 								//-- SAVE CARD---------------------
 								var new_pack = new cards({
 								    userId: users._id,
@@ -525,29 +525,19 @@ exports.storeCreditCardVaultSignup = function (req, res)
 
 							  	new_pack.save(function(err, doc)
 							  	{
-							  		//-- SAVE SUBSCRIPTION------
-									var subs = new subscription({
-									    userId:req.body.external_customer_id,
-									    payment_data: result.transaction,
-									    package_data: req.body.fullPackage,
-									    created_at: new Date()
-									});
-
-								  	subs.save(function(err, docsub){
-									    if(doc == null){
-									      res.send({
-									        data: null,
-									        error: 'Something went wrong.Please try later.',
-									        status: 0
-									      });
-									    }else{
-									      res.send({
-									        data: docsub,
-									        status: 1,
-									        error: 'payment done successfully!'
-									      });
-									    }
-									});
+							  		if(doc == null){
+								      res.send({
+								        data: null,
+								        error: 'Something went wrong.Please try later.',
+								        status: 0
+								      });
+								    }else{
+								      res.send({
+								        data: users,
+								        status: 1,
+								        error: 'payment done successfully!'
+								      });
+								    }
 								//-----------------------------------
 								});
 							})
