@@ -604,8 +604,8 @@ exports.checkEmailExist = function(req, res) {
         {
           res.send({
             status: 0,
-            data: null,
-            error:'Username already exist in our system.'
+            data: username,
+            error:'Username already exist in our system!'
           });
         }else{
           res.send({
