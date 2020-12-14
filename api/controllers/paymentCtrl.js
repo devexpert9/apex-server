@@ -515,8 +515,12 @@ exports.storeCreditCardVaultSignup = function (req, res)
 
 							new_user.save(function(err, users)
 							{
-								//-- SAVE CARD---------------------
-								var new_pack = new cards({
+								res.send({
+							        data: users,
+							        status: 1,
+							        error: 'payment done successfully!'
+						      	});
+								/*var new_pack = new cards({
 								    userId: users.data._id,
 								    card_data: credit_card,
 								    created_at: new Date()
@@ -537,8 +541,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 								        error: 'payment done successfully!'
 								      });
 								    }
-								//-----------------------------------
-								});
+								});*/
 							})
 						}
 						else
