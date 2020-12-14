@@ -637,7 +637,7 @@ exports.autoRenewalBrainTree = function (req, res) {
 				});
 
 			  	subs.save(function(err, docsub){
-				    if(doc == null){
+				    if(docsub == null){
 				      res.send({
 				        data: null,
 				        error: 'Something went wrong.Please try later.',
