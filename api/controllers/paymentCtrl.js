@@ -636,7 +636,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 											      });
 											    }else{
 											      res.send({
-											        data: docz,
+											        data: doc,
 											        status: 1,
 											        error: 'payment done successfully!'
 											      });
