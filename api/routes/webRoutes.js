@@ -348,6 +348,10 @@ var userData = require('../controllers/paymentCtrl');
 var userData = require('../controllers/paymentCtrl');
    app.route('/autoRenewalPlan')
      .post(userData.autoRenewalPlan); 
+     
+var userData = require('../controllers/paymentCtrl');
+   app.route('/autoRenewalBrainTree')
+     .post(userData.autoRenewalBrainTree); 
 
 var userData = require('../controllers/paymentCtrl');
    app.route('/createPaymentIntent')

@@ -287,7 +287,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 									  		//-- SAVE SUBSCRIPTION------
 											var subs = new subscription({
 											    userId:req.body.external_customer_id,
-											    payment_data: result.transaction.id,
+											    payment_data: result.transaction,
 											    package_data: req.body.fullPackage,
 											    created_at: new Date()
 											});
@@ -387,7 +387,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 									//-- SAVE SUBSCRIPTION--------------
 										var new_pack = new subscription({
 										    userId:req.body.external_customer_id,
-										    payment_data: result.transaction.id,
+										    payment_data: result.transaction,
 										    package_data: req.body.fullPackage,
 										    created_at: new Date()
 										});
@@ -599,6 +599,71 @@ exports.storeCreditCardVault = function (req, res) {
 		    }
   		});
   	});
+};
+
+exports.autoRenewalBrainTree = function (req, res) {
+
+	cards.find({userId: req.body.user_id}, function(err, card)
+  	{
+  		console.log("MY CARD");
+  		console.log(card);
+  	});
+
+	/*gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
+		{
+			console.log('****** NONCE *******');
+			console.log(response);
+			const nonce = response.paymentMethodNonce.nonce;
+
+			gateway.transaction.sale({
+		  amount: "1.00",
+		  paymentMethodNonce: nonce,
+		  // deviceData: deviceDataFromTheClient,
+		  options: {
+		    submitForSettlement: true
+		  }
+		}, (err, result) => {
+			console.log(err);
+			console.log(result);
+			console.log("Transaction ID= "+result.transaction.id);
+
+		//-- SAVE CARD---------------------
+			var new_pack = new cards({
+			    userId: req.body.external_customer_id,
+			    card_data: credit_card,
+			    created_at: new Date()
+			});
+
+		  	new_pack.save(function(err, doc)
+		  	{
+		  		//-- SAVE SUBSCRIPTION------
+				var subs = new subscription({
+				    userId:req.body.external_customer_id,
+				    payment_data: result.transaction,
+				    package_data: req.body.fullPackage,
+				    created_at: new Date()
+				});
+
+			  	subs.save(function(err, docsub){
+				    if(doc == null){
+				      res.send({
+				        data: null,
+				        error: 'Something went wrong.Please try later.',
+				        status: 0
+				      });
+				    }else{
+				      res.send({
+				        data: docsub,
+				        status: 1,
+				        error: 'payment done successfully!'
+				      });
+				    }
+				});
+			//-----------------------------------
+			});
+		
+		});
+	});*/
 };
 
 exports.autoRenewalPlan = function (req, res) {
