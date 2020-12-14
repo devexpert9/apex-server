@@ -983,8 +983,6 @@ exports.storeCreditCardStripeVault = function (req, res) {
   	});
 };
 
-
-
 exports.createPaymentIntent = function (req, res){
   const { items, currency } = req.body;
 
