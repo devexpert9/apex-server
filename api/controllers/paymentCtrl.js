@@ -194,8 +194,7 @@ exports.storeCreditCardVault_Old = function (req, res) {
 
 exports.storeCreditCardVault_BrainTree = function (req, res) {
 	var number = req.body.card_number,  card_type = '';
-	console.log("Price To Be");
-	console.log(req.body.fullPackage.price);
+
     var re 		= new RegExp("^4"),
     amex 		= new RegExp("^3[47]"),
     diners 		= new RegExp("^36"),
@@ -431,7 +430,8 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 exports.storeCreditCardVaultSignup = function (req, res) 
 {
 	var number = req.body.card_number,  card_type = '';
-
+	console.log("Price To Be");
+	console.log(req.body.fullPackage.price);
     var re 		= new RegExp("^4"),
     amex 		= new RegExp("^3[47]"),
     diners 		= new RegExp("^36"),
@@ -484,7 +484,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 						const nonce = response.paymentMethodNonce.nonce;
 
 						gateway.transaction.sale({
-					  amount: req.body.fullPackage.price,
+					  amount: req.body.fullPackage,
 					  paymentMethodNonce: nonce,
 					  options: {
 					    submitForSettlement: true
@@ -506,7 +506,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 								state: '',
 								city: '',
 								country: '',
-								address: '',
+								address: ,
 								status: 1,
 								image: null,
 								created_on:new Date(),
