@@ -496,6 +496,9 @@ exports.storeCreditCardVaultSignup = function (req, res)
 						
 						if(result.success == true)
 						{
+							var nowDate = new date();
+							var expDate = nowDate.setDate(nowDate.getDate()+5);
+
 							var new_user = new users({
 								username: req.body.signupUsername,
 								name: req.body.signupName,
@@ -510,7 +513,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 								status: 1,
 								image: null,
 								created_on:new Date(),
-								expiry_date: new Date()
+								expiry_date: expDate
 							});
 
 							new_user.save(function(err, users)
