@@ -496,7 +496,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 						
 						if(result.success == true)
 						{
-							var nowDate = new date();
+							var nowDate = new Date();
 							var expDate = nowDate.setDate(nowDate.getDate()+5);
 
 							var new_user = new users({
