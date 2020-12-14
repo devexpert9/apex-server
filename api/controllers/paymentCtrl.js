@@ -629,28 +629,28 @@ exports.autoRenewalBrainTree = function (req, res) {
 				console.log("Transaction ID= "+result.transaction.id);
 
 		  		//-- SAVE SUBSCRIPTION------
-				var subs = new subscription({
-				    userId:req.body.user_id,
-				    payment_data: result.transaction,
-				    package_data: req.body.package,
-				    created_at: new Date()
-				});
+				// var subs = new subscription({
+				//     userId:req.body.user_id,
+				//     payment_data: result.transaction,
+				//     package_data: req.body.package,
+				//     created_at: new Date()
+				// });
 
-			  	subs.save(function(err, docsub){
-				    if(docsub == null){
+			 //  	subs.save(function(err, docsub){
+				    // if(docsub == null){
 				      res.send({
-				        data: null,
+				        data: result,
 				        error: 'Something went wrong.Please try later.',
 				        status: 0
 				      });
-				    }else{
-				      res.send({
-				        data: docsub,
-				        status: 1,
-				        error: 'payment done successfully!'
-				      });
-				    }
-				});
+				    // }else{
+				    //   res.send({
+				    //     data: docsub,
+				    //     status: 1,
+				    //     error: 'payment done successfully!'
+				    //   });
+				    // }
+				//});
 			//-----------------------------------
 		});
   	});
