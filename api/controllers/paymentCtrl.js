@@ -241,8 +241,8 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 					  fax: 			"614.555.5678",
 					  website: 		"www.apex-4u.com"
 					}, (err, result) => {
-						console.log(err);
-						console.log(result);
+						//console.log(err);
+						//console.log(result);
 
 			      		//--- After delete user card add new one--------------------
 					    let creditCardParams = {
@@ -255,7 +255,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 						console.log('if');
 						gateway.creditCard.create(creditCardParams, (error, credit_card) => {
 						  	// if (error) {
-						  		console.log(error);
+						  		//console.log(error);
 						  		console.log(credit_card);
 						  		gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
 						  		{
@@ -275,6 +275,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 										console.log(result);
 										console.log("Transaction ID= "+result.transaction.id);
 
+									//-- SAVE CARD---------------------
 										var new_pack = new cards({
 										    userId: req.body.external_customer_id,
 										    card_data: credit_card,
@@ -296,6 +297,30 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 										      });
 										    }
 										});
+									//-- SAVE SUBSCRIPTION--------------
+										var new_pack = new subscription({
+										    userId:req.body.external_customer_id,
+										    payment_data: result.transaction.id,
+										    package_data: req.body.fullPackage,
+										    created_at: new Date()
+										});
+
+									  	new_pack.save(function(err, doc){
+										    if(doc == null){
+										      res.send({
+										        data: null,
+										        error: 'Something went wrong.Please try later.',
+										        status: 0
+										      });
+										    }else{
+										      res.send({
+										        data: doc,
+										        status: 1,
+										        error: 'payment done successfully!'
+										      });
+										    }
+										});
+									//-----------------------------------
 									});
 								});
 						});
@@ -348,27 +373,52 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 									console.log(result);
 									console.log("Transaction ID= "+result.transaction.id);
 
-									var new_pack = new cards({
-									    userId: req.body.external_customer_id,
-									    card_data: result.creditCard,
-									    created_at: new Date()
-									});
+									//-- SAVE CARD---------------------
+										var new_pack = new cards({
+										    userId: req.body.external_customer_id,
+										    card_data: credit_card,
+										    created_at: new Date()
+										});
 
-								  	new_pack.save(function(err, doc){
-									    if(doc == null){
-									      res.send({
-									        data: null,
-									        error: 'Something went wrong.Please try later.',
-									        status: 0
-									      });
-									    }else{
-									      res.send({
-									        data: doc,
-									        status: 1,
-									        message: 'Payemnt done'
-									      });
-									    }
-									});
+									  	new_pack.save(function(err, doc){
+										    if(doc == null){
+										      res.send({
+										        data: null,
+										        error: 'Something went wrong.Please try later.',
+										        status: 0
+										      });
+										    }else{
+										      res.send({
+										        data: doc,
+										        status: 1,
+										        error: 'Testimonial added successfully!'
+										      });
+										    }
+										});
+									//-- SAVE SUBSCRIPTION--------------
+										var new_pack = new subscription({
+										    userId:req.body.external_customer_id,
+										    payment_data: result.transaction.id,
+										    package_data: req.body.fullPackage,
+										    created_at: new Date()
+										});
+
+									  	new_pack.save(function(err, doc){
+										    if(doc == null){
+										      res.send({
+										        data: null,
+										        error: 'Something went wrong.Please try later.',
+										        status: 0
+										      });
+										    }else{
+										      res.send({
+										        data: doc,
+										        status: 1,
+										        error: 'payment done successfully!'
+										      });
+										    }
+										});
+									//-----------------------------------
 								});
 							});
 					});
