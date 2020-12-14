@@ -515,7 +515,6 @@ exports.storeCreditCardVaultSignup = function (req, res)
 
 							new_user.save(function(err, users)
 							{
-								console.log(users._id); return false;
 								//-- SAVE CARD---------------------
 								var new_pack = new cards({
 								    userId: users.data._id,
