@@ -602,50 +602,38 @@ exports.storeCreditCardVault = function (req, res) {
 };
 
 exports.autoRenewalBrainTree = function (req, res) {
+	
+	let currentPrice = req.body.package.price;
 
 	cards.find({userId: req.body.user_id}, function(err, card_data)
   	{
   		console.log("MY CARD");
-  		console.log(card_data);
-  		 res.send({
-										        data: card_data,
-										        status: 1,
-										        error: 'payment done successfully!'
-										      });
+  		let cardToken = card_data[0].card_data.creditCard.token;
   	});
 
-	/*gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
+	gateway.paymentMethodNonce.create(cardToken, function(err, response)
 		{
 			console.log('****** NONCE *******');
 			console.log(response);
 			const nonce = response.paymentMethodNonce.nonce;
 
 			gateway.transaction.sale({
-		  amount: "1.00",
-		  paymentMethodNonce: nonce,
-		  // deviceData: deviceDataFromTheClient,
-		  options: {
-		    submitForSettlement: true
-		  }
-		}, (err, result) => {
-			console.log(err);
-			console.log(result);
-			console.log("Transaction ID= "+result.transaction.id);
+		  		amount: "1.00",
+			  	paymentMethodNonce: nonce,
+			  	// deviceData: deviceDataFromTheClient,
+			  	options: {
+			    	submitForSettlement: true
+			  	}
+			}, (err, result) => {
+				console.log(err);
+				console.log(result);
+				console.log("Transaction ID= "+result.transaction.id);
 
-		//-- SAVE CARD---------------------
-			var new_pack = new cards({
-			    userId: req.body.external_customer_id,
-			    card_data: credit_card,
-			    created_at: new Date()
-			});
-
-		  	new_pack.save(function(err, doc)
-		  	{
 		  		//-- SAVE SUBSCRIPTION------
 				var subs = new subscription({
-				    userId:req.body.external_customer_id,
+				    userId:req.body.user_id,
 				    payment_data: result.transaction,
-				    package_data: req.body.fullPackage,
+				    package_data: req.body.package,
 				    created_at: new Date()
 				});
 
@@ -665,10 +653,8 @@ exports.autoRenewalBrainTree = function (req, res) {
 				    }
 				});
 			//-----------------------------------
-			});
-		
 		});
-	});*/
+	});
 };
 
 exports.autoRenewalPlan = function (req, res) {
