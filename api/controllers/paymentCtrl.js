@@ -282,45 +282,34 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 										    created_at: new Date()
 										});
 
-									  	new_pack.save(function(err, doc){
-										    if(doc == null){
-										      res.send({
-										        data: null,
-										        error: 'Something went wrong.Please try later.',
-										        status: 0
-										      });
-										    }else{
-										      res.send({
-										        data: doc,
-										        status: 1,
-										        error: 'Card saved successfully!'
-										      });
-										    }
-										});
-									//-- SAVE SUBSCRIPTION--------------
-										var subs = new subscription({
-										    userId:req.body.external_customer_id,
-										    payment_data: result.transaction.id,
-										    package_data: req.body.fullPackage,
-										    created_at: new Date()
-										});
+									  	new_pack.save(function(err, doc)
+									  	{
+									  		//-- SAVE SUBSCRIPTION------
+											var subs = new subscription({
+											    userId:req.body.external_customer_id,
+											    payment_data: result.transaction.id,
+											    package_data: req.body.fullPackage,
+											    created_at: new Date()
+											});
 
-									  	subs.save(function(err, docsub){
-										    if(doc == null){
-										      res.send({
-										        data: null,
-										        error: 'Something went wrong.Please try later.',
-										        status: 0
-										      });
-										    }else{
-										      res.send({
-										        data: docsub,
-										        status: 1,
-										        error: 'payment done successfully!'
-										      });
-										    }
+										  	subs.save(function(err, docsub){
+											    if(doc == null){
+											      res.send({
+											        data: null,
+											        error: 'Something went wrong.Please try later.',
+											        status: 0
+											      });
+											    }else{
+											      res.send({
+											        data: docsub,
+											        status: 1,
+											        error: 'payment done successfully!'
+											      });
+											    }
+											});
+										//-----------------------------------
 										});
-									//-----------------------------------
+									
 									});
 								});
 						});
