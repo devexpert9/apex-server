@@ -506,49 +506,50 @@ exports.storeCreditCardVaultSignup = function (req, res)
 								state: '',
 								city: '',
 								country: '',
-								address: '',
+								address: ,
 								status: 1,
 								image: null,
 								created_on:new Date(),
-								expiry_date: req.body.expiry_date
+								expiry_date: new Date()
 							});
 
-								new_user.save(function(err, users)
-								{
-							//-- SAVE CARD---------------------
-							var new_pack = new cards({
-							    userId: req.body.external_customer_id,
-							    card_data: credit_card,
-							    created_at: new Date()
-							});
-
-						  	new_pack.save(function(err, doc)
-						  	{
-						  		//-- SAVE SUBSCRIPTION------
-								var subs = new subscription({
-								    userId:req.body.external_customer_id,
-								    payment_data: result.transaction,
-								    package_data: req.body.fullPackage,
+							new_user.save(function(err, users)
+							{
+								//-- SAVE CARD---------------------
+								var new_pack = new cards({
+								    userId: req.body.external_customer_id,
+								    card_data: credit_card,
 								    created_at: new Date()
 								});
 
-							  	subs.save(function(err, docsub){
-								    if(doc == null){
-								      res.send({
-								        data: null,
-								        error: 'Something went wrong.Please try later.',
-								        status: 0
-								      });
-								    }else{
-								      res.send({
-								        data: docsub,
-								        status: 1,
-								        error: 'payment done successfully!'
-								      });
-								    }
+							  	new_pack.save(function(err, doc)
+							  	{
+							  		//-- SAVE SUBSCRIPTION------
+									var subs = new subscription({
+									    userId:req.body.external_customer_id,
+									    payment_data: result.transaction,
+									    package_data: req.body.fullPackage,
+									    created_at: new Date()
+									});
+
+								  	subs.save(function(err, docsub){
+									    if(doc == null){
+									      res.send({
+									        data: null,
+									        error: 'Something went wrong.Please try later.',
+									        status: 0
+									      });
+									    }else{
+									      res.send({
+									        data: docsub,
+									        status: 1,
+									        error: 'payment done successfully!'
+									      });
+									    }
+									});
+								//-----------------------------------
 								});
-							//-----------------------------------
-							});
+							})
 						}
 						else
 						{
