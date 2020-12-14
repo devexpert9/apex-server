@@ -277,7 +277,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 
 										var new_pack = new cards({
 										    userId: req.body.external_customer_id,
-										    card_data: result.creditCard,
+										    card_data: credit_card,
 										    created_at: new Date()
 										});
 
