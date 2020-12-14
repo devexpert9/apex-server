@@ -264,7 +264,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
   									const nonce = response.paymentMethodNonce.nonce;
 
   									gateway.transaction.sale({
-									  amount: "1.00",
+									  amount: req.body.fullPackage.price,
 									  paymentMethodNonce: nonce,
 									  // deviceData: deviceDataFromTheClient,
 									  options: {
@@ -362,7 +362,7 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 									const nonce = response.paymentMethodNonce.nonce;
 
 									gateway.transaction.sale({
-								  amount: "1.00",
+								  amount: req.body.fullPackage.price,
 								  paymentMethodNonce: nonce,
 								  // deviceData: deviceDataFromTheClient,
 								  options: {
@@ -497,7 +497,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 						if(result.success == true)
 						{
 							var nowDate = new Date();
-							var expDate = nowDate.setDate(nowDate.getDate()+5);
+							var expDate = nowDate.setMonth(nowDate.getMonth()+5);
 
 							var new_user = new users({
 								username: req.body.signupUsername,
