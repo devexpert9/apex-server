@@ -506,7 +506,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 								state: '',
 								city: '',
 								country: '',
-								address: ,
+								address: '',
 								status: 1,
 								image: null,
 								created_on:new Date(),
