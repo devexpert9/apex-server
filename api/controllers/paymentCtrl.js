@@ -427,6 +427,243 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
   	});
 };
 
+exports.storeCreditCardVaultSignup = function (req, res) 
+{
+	console.log(req.body.addedUser); return false;
+	var number = req.body.card_number,  card_type = '';
+
+    var re 		= new RegExp("^4"),
+    amex 		= new RegExp("^3[47]"),
+    diners 		= new RegExp("^36"),
+ 	diners1 	= new RegExp("^30[0-5]"),
+ 	jcb 		= new RegExp("^35(2[89]|[3-8][0-9])"),
+ 	visae 		= new RegExp("^(4026|417500|4508|4844|491(3|7))"),
+    discover 	= new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+    if (number.match(re) != null){
+        card_type = "visa";
+    }else if (/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/.test(number)){ 
+        card_type = "Mastercard";
+    }else if (number.match(amex) != null){
+		// AMEX
+        card_type = "AMEX";
+    }else if (number.match(discover) != null){
+        card_type = "Discover";
+    }else if (number.match(diners) != null){
+        card_type = "Diners";
+    }else if (number.match(diners1) != null){
+        card_type = "Diners - Carte Blanche";
+    }else if (number.match(jcb) != null){
+        card_type = "JCB";
+    }else if (number.match(visae) != null){
+        card_type = "Visa Electron";
+    }
+
+    console.log(card_type);
+	cards.find({userId: req.body.external_customer_id}, function(err, doc)
+  	{
+  		users.findOne({_id: req.body.external_customer_id}, function(err, userdata)
+  		{
+  			let uzername = userdata.name;
+
+  			if(doc) //-- If user have any card then delete that card------
+		    {
+	      		//cards.remove({userId: req.body.external_customer_id}, function(err, user) {
+
+	      			gateway.customer.create({
+					  firstName: 	uzername.split(' ')[0],
+					  lastName: 	uzername.split(' ')[1],
+					  company: 		"Braintree",
+					  email: 		userdata.email,
+					  phone: 		"312.555.1234",
+					  fax: 			"614.555.5678",
+					  website: 		"www.apex-4u.com"
+					}, (err, result) => {
+						//console.log(err);
+						//console.log(result);
+
+			      		//--- After delete user card add new one--------------------
+					    let creditCardParams = {
+						  	customerId: result.customer.id,
+						  	number: req.body.card_number,
+					 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,//'06/2022',
+						  	cvv: req.body.cvv,
+						  	cardholderName: uzername
+						};
+						console.log('if');
+						gateway.creditCard.create(creditCardParams, (error, credit_card) => {
+						  	// if (error) {
+						  		//console.log(error);
+						  		console.log(credit_card);
+						  		gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
+						  		{
+						  			console.log('****** NONCE *******');
+						  			console.log(response);
+  									const nonce = response.paymentMethodNonce.nonce;
+
+  									gateway.transaction.sale({
+									  amount: "1.00",
+									  paymentMethodNonce: nonce,
+									  // deviceData: deviceDataFromTheClient,
+									  options: {
+									    submitForSettlement: true
+									  }
+									}, (err, result) => {
+										console.log(err);
+										console.log(result);
+										console.log("Transaction ID= "+result.transaction.id);
+										
+										if(result.success == true)
+										{
+											//-- SAVE CARD---------------------
+											var new_pack = new cards({
+											    userId: req.body.external_customer_id,
+											    card_data: credit_card,
+											    created_at: new Date()
+											});
+
+										  	new_pack.save(function(err, doc)
+										  	{
+										  		//-- SAVE SUBSCRIPTION------
+												var subs = new subscription({
+												    userId:req.body.external_customer_id,
+												    payment_data: result.transaction,
+												    package_data: req.body.fullPackage,
+												    created_at: new Date()
+												});
+
+											  	subs.save(function(err, docsub){
+												    if(doc == null){
+												      res.send({
+												        data: null,
+												        error: 'Something went wrong.Please try later.',
+												        status: 0
+												      });
+												    }else{
+												      res.send({
+												        data: docsub,
+												        status: 1,
+												        error: 'payment done successfully!'
+												      });
+												    }
+												});
+											//-----------------------------------
+											});
+										}
+										else
+										{
+											res.send({
+										        data: null,
+										        status: 0,
+										        error: 'Payment Failed'
+										      });
+										}
+									
+									});
+								});
+						});
+					});
+			  	//});
+		    }
+		    else
+		    {
+		    	gateway.customer.create({
+				  firstName: uzername.split(' ')[0],
+				  lastName: uzername.split(' ')[1],
+				  company: "Braintree",
+				  email: userdata.email,
+				  phone: "312.555.1234",
+				  fax: "614.555.5678",
+				  website: "www.apex-4u.com"
+				}, (err, result) => {
+
+					console.log(result);
+					console.log(err);
+			    	console.log('else case')
+
+					let creditCardParams = {
+					  	customerId: result.customer.id,
+					  	number: req.body.card_number,
+				 	 	expirationDate: req.body.exp_month + '/' + req.body.exp_year,
+					  	cvv: req.body.cvv,
+					  	cardholderName: uzername
+					};
+
+					gateway.creditCard.create(creditCardParams, (error, credit_card) => {
+					  	// if (error) {
+					  		console.log(error);
+					  		console.log(credit_card);
+					  		gateway.paymentMethodNonce.create(credit_card.creditCard.token, function(err, response)
+					  		{
+					  			console.log('****** NONCE *******');
+					  			console.log(response);
+									const nonce = response.paymentMethodNonce.nonce;
+
+									gateway.transaction.sale({
+								  amount: "1.00",
+								  paymentMethodNonce: nonce,
+								  // deviceData: deviceDataFromTheClient,
+								  options: {
+								    submitForSettlement: true
+								  }
+								}, (err, result) => {
+									console.log(err);
+									console.log(result);
+									console.log("Transaction ID= "+result.transaction.id);
+									if(result.success == true)
+									{
+										//-- SAVE CARD---------------------
+										var new_pack = new cards({
+										    userId: req.body.external_customer_id,
+										    card_data: credit_card,
+										    created_at: new Date()
+										});
+
+									  	new_pack.save(function(err, doc){
+										    //-- SAVE SUBSCRIPTION-------
+											var new_pack = new subscription({
+											    userId:req.body.external_customer_id,
+											    payment_data: result.transaction,
+											    package_data: req.body.fullPackage,
+											    created_at: new Date()
+											});
+
+										  	new_pack.save(function(err, docz){
+											    if(docz == null){
+											      res.send({
+											        data: null,
+											        error: 'Something went wrong.Please try later.',
+											        status: 0
+											      });
+											    }else{
+											      res.send({
+											        data: doc,
+											        status: 1,
+											        error: 'payment done successfully!'
+											      });
+											    }
+											});
+										});
+										
+										//-----------------------------------
+									}
+									else
+									{
+										res.send({
+									        data: null,
+									        status: 0,
+									        error: 'Payment Failed'
+									      });
+									}
+								});
+							});
+					});
+				});
+		    	
+		    }
+  		});
+  	});
+};
+
 exports.storeCreditCardVault = function (req, res) {
 	var number = req.body.card_number,  card_type = '';
 

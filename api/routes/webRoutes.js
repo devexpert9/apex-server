@@ -346,9 +346,13 @@ var userData = require('../controllers/paymentCtrl');
      .post(userData.storeCreditCardVault_BrainTree); 
 
 var userData = require('../controllers/paymentCtrl');
+   app.route('/storeCreditCardVaultSignup')
+     .post(userData.storeCreditCardVaultSignup); 
+
+var userData = require('../controllers/paymentCtrl');
    app.route('/autoRenewalPlan')
      .post(userData.autoRenewalPlan); 
-     
+
 var userData = require('../controllers/paymentCtrl');
    app.route('/autoRenewalBrainTree')
      .post(userData.autoRenewalBrainTree); 
