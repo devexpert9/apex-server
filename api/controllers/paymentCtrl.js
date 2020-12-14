@@ -274,41 +274,52 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 										console.log(err);
 										console.log(result);
 										console.log("Transaction ID= "+result.transaction.id);
-
-									//-- SAVE CARD---------------------
-										var new_pack = new cards({
-										    userId: req.body.external_customer_id,
-										    card_data: credit_card,
-										    created_at: new Date()
-										});
-
-									  	new_pack.save(function(err, doc)
-									  	{
-									  		//-- SAVE SUBSCRIPTION------
-											var subs = new subscription({
-											    userId:req.body.external_customer_id,
-											    payment_data: result.transaction,
-											    package_data: req.body.fullPackage,
+										
+										if(result.success == true)
+										{
+											//-- SAVE CARD---------------------
+											var new_pack = new cards({
+											    userId: req.body.external_customer_id,
+											    card_data: credit_card,
 											    created_at: new Date()
 											});
 
-										  	subs.save(function(err, docsub){
-											    if(doc == null){
-											      res.send({
-											        data: null,
-											        error: 'Something went wrong.Please try later.',
-											        status: 0
-											      });
-											    }else{
-											      res.send({
-											        data: docsub,
-											        status: 1,
-											        error: 'payment done successfully!'
-											      });
-											    }
+										  	new_pack.save(function(err, doc)
+										  	{
+										  		//-- SAVE SUBSCRIPTION------
+												var subs = new subscription({
+												    userId:req.body.external_customer_id,
+												    payment_data: result.transaction,
+												    package_data: req.body.fullPackage,
+												    created_at: new Date()
+												});
+
+											  	subs.save(function(err, docsub){
+												    if(doc == null){
+												      res.send({
+												        data: null,
+												        error: 'Something went wrong.Please try later.',
+												        status: 0
+												      });
+												    }else{
+												      res.send({
+												        data: docsub,
+												        status: 1,
+												        error: 'payment done successfully!'
+												      });
+												    }
+												});
+											//-----------------------------------
 											});
-										//-----------------------------------
-										});
+										}
+										else
+										{
+											res.send({
+										        data: null,
+										        status: 0,
+										        error: 'Payment Failed'
+										      });
+										}
 									
 									});
 								});
@@ -361,8 +372,9 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 									console.log(err);
 									console.log(result);
 									console.log("Transaction ID= "+result.transaction.id);
-
-									//-- SAVE CARD---------------------
+									if(result.success == true)
+									{
+										//-- SAVE CARD---------------------
 										var new_pack = new cards({
 										    userId: req.body.external_customer_id,
 										    card_data: credit_card,
@@ -370,44 +382,41 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 										});
 
 									  	new_pack.save(function(err, doc){
-										    if(doc == null){
-										      res.send({
-										        data: null,
-										        error: 'Something went wrong.Please try later.',
-										        status: 0
-										      });
-										    }else{
-										      res.send({
-										        data: doc,
-										        status: 1,
-										        error: 'Testimonial added successfully!'
-										      });
-										    }
-										});
-									//-- SAVE SUBSCRIPTION--------------
-										var new_pack = new subscription({
-										    userId:req.body.external_customer_id,
-										    payment_data: result.transaction,
-										    package_data: req.body.fullPackage,
-										    created_at: new Date()
-										});
+										    //-- SAVE SUBSCRIPTION-------
+											var new_pack = new subscription({
+											    userId:req.body.external_customer_id,
+											    payment_data: result.transaction,
+											    package_data: req.body.fullPackage,
+											    created_at: new Date()
+											});
 
-									  	new_pack.save(function(err, doc){
-										    if(doc == null){
-										      res.send({
-										        data: null,
-										        error: 'Something went wrong.Please try later.',
-										        status: 0
-										      });
-										    }else{
-										      res.send({
-										        data: doc,
-										        status: 1,
-										        error: 'payment done successfully!'
-										      });
-										    }
+										  	new_pack.save(function(err, docz){
+											    if(docz == null){
+											      res.send({
+											        data: null,
+											        error: 'Something went wrong.Please try later.',
+											        status: 0
+											      });
+											    }else{
+											      res.send({
+											        data: doc,
+											        status: 1,
+											        error: 'payment done successfully!'
+											      });
+											    }
+											});
 										});
-									//-----------------------------------
+										
+										//-----------------------------------
+									}
+									else
+									{
+										res.send({
+									        data: null,
+									        status: 0,
+									        error: 'Payment Failed'
+									      });
+									}
 								});
 							});
 					});
@@ -627,30 +636,41 @@ exports.autoRenewalBrainTree = function (req, res) {
 				console.log(err);
 				console.log(result);
 				console.log("Transaction ID= "+result.transaction.id);
+				if(result.success == true)
+				{
+					//-- SAVE SUBSCRIPTION------
+					var subs = new subscription({
+					    userId:req.body.user_id,
+					    payment_data: result.transaction,
+					    package_data: req.body.package,
+					    created_at: new Date()
+					});
 
-		  		//-- SAVE SUBSCRIPTION------
-				// var subs = new subscription({
-				//     userId:req.body.user_id,
-				//     payment_data: result.transaction,
-				//     package_data: req.body.package,
-				//     created_at: new Date()
-				// });
-
-			 //  	subs.save(function(err, docsub){
-				    // if(docsub == null){
-				      res.send({
-				        data: result,
-				        error: 'Something went wrong.Please try later.',
-				        status: 0
-				      });
-				    // }else{
-				    //   res.send({
-				    //     data: docsub,
-				    //     status: 1,
-				    //     error: 'payment done successfully!'
-				    //   });
-				    // }
-				//});
+				  	subs.save(function(err, docsub){
+					    if(docsub == null){
+					      res.send({
+					        data: result,
+					        error: 'Something went wrong.Please try later.',
+					        status: 0
+					      });
+					    }else{
+					      res.send({
+					        data: docsub,
+					        status: 1,
+					        error: 'payment done successfully!'
+					      });
+					    }
+					});
+				}
+				else
+				{
+					res.send({
+				        data: null,
+				        status: 0,
+				        error: 'Payment failed'
+			      	});
+				}
+		  		
 			//-----------------------------------
 		});
   	});
