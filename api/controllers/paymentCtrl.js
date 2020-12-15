@@ -493,6 +493,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 						console.log(err);
 						console.log(result);
 						console.log("Transaction ID= "+result.transaction.id);
+						console.log(req.body.expiry_date);
 						
 						if(result.success == true)
 						{
