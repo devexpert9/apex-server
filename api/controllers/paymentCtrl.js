@@ -516,15 +516,15 @@ exports.storeCreditCardVaultSignup = function (req, res)
 								expiry_date: expDate
 							});
 
-							new_user.save(function(err, users)
+							new_user.save(function(err, usersDatt)
 							{
-								res.send({
-							        data: users,
-							        status: 1,
-							        error: 'payment done successfully!'
-						      	});
-								/*var new_pack = new cards({
-								    userId: users.data._id,
+								// res.send({
+							 //        data: users,
+							 //        status: 1,
+							 //        error: 'payment done successfully!'
+						  //     	});
+								var new_pack = new cards({
+								    userId: usersDatt._id,
 								    card_data: credit_card,
 								    created_at: new Date()
 								});
@@ -539,12 +539,12 @@ exports.storeCreditCardVaultSignup = function (req, res)
 								      });
 								    }else{
 								      res.send({
-								        data: users,
+								        data: usersDatt,
 								        status: 1,
 								        error: 'payment done successfully!'
 								      });
 								    }
-								});*/
+								});
 							})
 						}
 						else
