@@ -500,6 +500,8 @@ exports.storeCreditCardVaultSignup = function (req, res)
 							let todayDate = new Date();
 
 							let expirtDate = new Date(todayDate.setMonth(todayDate.getMonth() + numberOfDays));   
+							
+							console.log("expirtDate"+expirtDate);
 
 							var new_user = new users({
 								username: req.body.signupUsername,
