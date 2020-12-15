@@ -496,13 +496,6 @@ exports.storeCreditCardVaultSignup = function (req, res)
 						
 						if(result.success == true)
 						{
-							let numberOfMonths = req.body.fullPackage.timePeriod;
-							let todayDate = new Date();
-
-							let expirtDate = new Date(todayDate.setMonth(todayDate.getMonth() + numberOfMonths));   
-							
-							console.log("expirtDate"+expirtDate);
-
 							var new_user = new users({
 								username: req.body.signupUsername,
 								name: req.body.signupName,
@@ -517,7 +510,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 								status: 1,
 								image: null,
 								created_on:new Date(),
-								expiry_date: expirtDate
+								expiry_date: req.body.expiry_date
 							});
 
 							new_user.save(function(err, usersDatt)
