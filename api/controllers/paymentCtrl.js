@@ -499,7 +499,7 @@ exports.storeCreditCardVaultSignup = function (req, res)
 							let numberOfMonths = req.body.fullPackage.timePeriod;
 							let todayDate = new Date();
 
-							let expirtDate = new Date(todayDate.setMonth(todayDate.getMonth() + numberOfDays));   
+							let expirtDate = new Date(todayDate.setMonth(todayDate.getMonth() + numberOfMonths));   
 							
 							console.log("expirtDate"+expirtDate);
 
