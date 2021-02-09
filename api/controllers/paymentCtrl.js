@@ -51,7 +51,8 @@ var gateway = new braintree.BraintreeGateway({
   	privateKey: '6f0ed53afb3559d935bdbf783b03c02d'
 });
 
-exports.storeCreditCardVault_Old = function (req, res) {
+exports.storeCreditCardVault_Old = function (req, res) 
+{
 	var number = req.body.card_number,  card_type = '';
 
     var re 	 = new RegExp("^4"),
@@ -294,19 +295,68 @@ exports.storeCreditCardVault_BrainTree = function (req, res) {
 												    created_at: new Date()
 												});
 
-											  	subs.save(function(err, docsub){
-												    if(doc == null){
+											  	subs.save(function(err, docsub)
+											  	{
+												    if(doc == null)
+												    {
 												      res.send({
 												        data: null,
 												        error: 'Something went wrong.Please try later.',
 												        status: 0
 												      });
-												    }else{
-												      res.send({
-												        data: docsub,
-												        status: 1,
-												        error: 'payment done successfully!'
-												      });
+												    }
+												    else
+												    {
+			var string = 'Don'+'\''+'t worry, we all forget sometimes';
+	      var fs = require('fs');
+
+	      var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/paymentDone.html', 'utf8');
+	      let dynamic_data = '';
+	      //----SEND TO super admin------------------------------
+	      readStream.on('data', function(chunk) {
+	        dynamic_data += chunk;
+	      }).on('end', function() {
+	        var helper = require('sendgrid').mail;
+	        var fromEmail = new helper.Email('john.sanders@apex-4u.com','APEX Insurance Services');
+	        // var toEmail   = new helper.Email(req.body.data.currentAgentEmail);
+	        var toEmail  = new helper.Email(req.body.email);
+	        var subject = 'Password Retreive Request';
+
+	        dynamic_data = dynamic_data.replace("#NAME#", user.name) ;
+	        dynamic_data = dynamic_data.replace("#EMAIL#", user.email) ;
+	        dynamic_data = dynamic_data.replace("#PASSWORD#", user.password) ;
+
+	        var content = new helper.Content('text/html', dynamic_data);
+
+	        var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+	        // var sg = require('sendgrid')('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');
+	        var sg = require('sendgrid')('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');
+	        var request = sg.emptyRequest({
+	            method: 'POST',
+	            path: '/v3/mail/send',
+	            body: mail.toJSON()
+	        });
+	        sg.API(request, function (error, response) {
+	          if (error) {
+	            res.json({
+	                msg: 'Something went wrong.Please try later.',
+	                status: 0
+	               
+	            });
+	          }else{
+	            res.json({
+	                msg: 'Mail has been sent successfully',
+	                status: 1,
+	                data:null
+	            });
+	          }
+	        })
+      	}) 
+	      	res.send({
+	        	data: docsub,
+	        	status: 1,
+	        	error: 'payment done successfully!'
+	      	});
 												    }
 												});
 											//-----------------------------------
